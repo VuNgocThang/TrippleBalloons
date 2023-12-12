@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - rewardNo
+  - Bubble
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Bubble
+  - Water
+  - UI
+  - Gift
+  - Points
+  - Shader
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Points
+    uniqueID: 2696649131
+    locked: 0
+  - name: Gift
+    uniqueID: 762435143
+    locked: 0
+  - name: Bubble
+    uniqueID: 4125330313
+    locked: 0
+  - name: Shader
+    uniqueID: 2247761799
+    locked: 0
