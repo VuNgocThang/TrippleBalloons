@@ -39,6 +39,10 @@ public class GameData
 
     public bool isTutWrappedDone;
 
+    public bool isTutBoosterLightningDone;
+    public bool isTutBoosterTimerDone;
+    public bool isTutBoosterHintDone;
+
     public GameData()
     {
         indexLevel = 0;
@@ -83,6 +87,9 @@ public class GameData
         isTutFreezeDone = false;
 
         isTutWrappedDone = false;
+        isTutBoosterLightningDone = false;
+        isTutBoosterTimerDone = false;
+        isTutBoosterHintDone = false;
     }
 }
 
@@ -180,7 +187,6 @@ public class DataUseInGame : MonoBehaviour
         if (PlayerPrefs.HasKey("CountdownTimerHeartInfinity"))
         {
             float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString("LastTimerQuit"))).TotalSeconds;
-
 
             gameData.timeHeartInfinity = PlayerPrefs.GetFloat("CountdownTimerHeartInfinity") - timeSinceLastLoss;
 

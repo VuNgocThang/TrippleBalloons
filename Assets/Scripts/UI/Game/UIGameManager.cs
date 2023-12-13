@@ -20,8 +20,6 @@ public class UIGameManager : MonoBehaviour
     public CanvasGroup txtUseTimerCG;
 
     public TextMeshProUGUI txtUseTimer;
-    public TextMeshProUGUI txtUseLightning;
-
 
     public void InitAnim()
     {
@@ -64,6 +62,10 @@ public class UIGameManager : MonoBehaviour
             indexLevel = DataUseInGame.gameData.indexDailyLV + 1;
         }
         txtLevel.text = indexLevel.ToString();
+
+        InitAnim();
     }
+
+    
 
 }

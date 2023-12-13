@@ -55,18 +55,7 @@ public class ButtonController : MonoBehaviour
         btnShuffle.interactable = false;
         btnFreeze.interactable = false;
 
-        //if (DataUseInGame.gameData.indexLevel >= 2 || DataUseInGame.gameData.isDaily)
-        //{
-        //    lockUndo.SetActive(false);
-        //    btnUndo.interactable = true;
-        //    lockTrippleUndo.SetActive(false);
-        //    btnTrippleUndo.interactable = true;
-        //    lockFreeze.SetActive(false);
-        //    btnFreeze.interactable = true;
-        //    lockShuffle.SetActive(false);
-        //    btnShuffle.interactable = true;
-        //}
-
+        
         if (DataUseInGame.gameData.indexLevel >= 1 || DataUseInGame.gameData.isDaily)
         {
             lockHint.SetActive(false);

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using DG.Tweening;
 
 public class ControllerIsInGame : MonoBehaviour
 {
@@ -8,10 +10,11 @@ public class ControllerIsInGame : MonoBehaviour
     public GameObject topHome;
     public GameObject bottomHome;
 
-    public GameObject uiInGame;
+    public UIGameManager uiInGame;
     public GameObject listPos;
     public LogicUITest logicUI;
-  
+
+
     public void UpdateStateIsInGame()
     {
         if (PlayerPrefs.GetInt("IsInGame") == 1)
@@ -19,26 +22,30 @@ public class ControllerIsInGame : MonoBehaviour
             homePanel.SetActive(false);
             topHome.SetActive(false);
             bottomHome.SetActive(false);
-            uiInGame.SetActive(true);
+            uiInGame.gameObject.SetActive(true);
             listPos.SetActive(true);
-            StartCoroutine(CanClickTrueAgain());
+            StartCoroutine(logicUI.InitTimerSetting());
+
+            if (DataUseInGame.gameData.indexLevel == 0 && !DataUseInGame.gameData.isDaily)
+            {
+                Debug.Log(" ádadkjahjdas");
+                LogicGame.instance.tutorialManager.handClick.gameObject.SetActive(true);
+                LogicGame.instance.tutorialManager.AnimHand();
+            }
+            if (DataUseInGame.gameData.indexLevel >= 6 && !DataUseInGame.gameData.isDaily)
+            {
+                logicUI.SelectBooster();
+            }
         }
         else
         {
             homePanel.SetActive(true);
             topHome.SetActive(true);
             bottomHome.SetActive(true);
-            uiInGame.SetActive(false);
+            uiInGame.gameObject.SetActive(false);
             listPos.SetActive(false);
         }
     }
 
-    IEnumerator CanClickTrueAgain()
-    {
-        LogicGame.instance.canClick = false;
-        yield return new WaitForSeconds(0.2f);
-        StartCoroutine(LogicGame.instance.timer.InitTimerSetting());
-        LogicGame.instance.canClick = true;
-    }
-
+   
 }

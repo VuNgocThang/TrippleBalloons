@@ -13,7 +13,7 @@ public class CameraResize : MonoBehaviour
     public CanvasScaler scaler;
 
 
-    public void InitSizeObject(GameObject obj)
+    public void InitSizeObject()
     {
         float currentRatio = Cam.aspect;
         if (currentRatio <= baseScreenRatio)

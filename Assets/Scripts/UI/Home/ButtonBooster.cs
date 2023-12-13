@@ -8,19 +8,26 @@ public class ButtonBooster : MonoBehaviour
 {
     public string nameBooster;
     public string txt;
+    public int count;
     public bool isSelected;
-    public GameObject selected;
     public Button btn;
     public Button btnPlus;
     public GameObject numBtn;
+    public GameObject selected;
+    public GameObject lockImg;
     public TextMeshProUGUI txtNumBtn;
-    public int count;
+    public bool interactable;
+
+    private void Update()
+    {
+        interactable = btn.interactable;
+    }
 
     public void InitButton()
     {
         if (!PlayerPrefs.HasKey($"{txt}"))
         {
-            count = 0;
+            count = 3;
             btnPlus.gameObject.SetActive(true);
             PlayerPrefs.SetInt($"{txt}", count);
             PlayerPrefs.Save();
@@ -36,6 +43,20 @@ public class ButtonBooster : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public void UpdateStateSelect()
+    {
+        if (isSelected)
+        {
+            PlayerPrefs.SetInt(nameBooster, 1);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            PlayerPrefs.SetInt(nameBooster, 0);
+            PlayerPrefs.Save();
+        }
+    }
+
     private void OnGUI()
     {
         UpdateNumBooster();
@@ -46,7 +67,6 @@ public class ButtonBooster : MonoBehaviour
         if (count > 0)
         {
             numBtn.gameObject.SetActive(true);
-            btn.interactable = true;
             txtNumBtn.text = count.ToString();
         }
         else

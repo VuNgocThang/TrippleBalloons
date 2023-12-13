@@ -22,44 +22,9 @@ public class Timer : MonoBehaviour
 
     public CanvasGroup usingBoosterCG;
 
-    public IEnumerator InitTimerSetting()
-    {
-        if (PlayerPrefs.GetInt("BoosterHint") == 1 && PlayerPrefs.GetInt("NumHint") > 0
-            || PlayerPrefs.GetInt("BoosterTimer") == 1 && PlayerPrefs.GetInt("NumTimer") > 0
-            || PlayerPrefs.GetInt("BoosterLightning") == 1 && PlayerPrefs.GetInt("NumLightning") > 0
-            )
-        {
-            usingBooster.SetActive(true);
-            Init();
-            LogicGame.instance.isUseBooster = true;
-            Debug.Log("asdadadasdasdad");
-            AnimationPopup.instance.FadeWhileMoveUp(usingBoosterCG.gameObject, 2f);
-            usingBoosterCG.DOFade(0f, 2f)
-                .OnComplete(() =>
-                {
-                    usingBooster.SetActive(false);
-                });
-            yield return new WaitForSeconds(2f);
-            LogicGame.instance.UseBooster();
-            yield return new WaitForSeconds(1f);
-            LogicGame.instance.isUseBooster = false;
-            PlayerPrefs.SetInt("BoosterHint", 0);
-            PlayerPrefs.SetInt("BoosterTimer", 0);
-            PlayerPrefs.SetInt("BoosterLightning", 0);
-            PlayerPrefs.Save();
-            stopTimer = false;
-            timeOut = false;
-            isFreeze = false;
-        }
-        else
-        {
-            timeOut = false;
-            isFreeze = false;
-            LogicGame.instance.isUseBooster = false;
-        }
-    }
+   
 
-    void Init()
+    public void Init()
     {
         if (PlayerPrefs.GetInt("BoosterHint") == 1)
         {

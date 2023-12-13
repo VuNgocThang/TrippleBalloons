@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,7 +23,7 @@ public class LogicUITest : MonoBehaviour
     [SerializeField] Button btnPlay;
     [SerializeField] Button btnStart;
     [SerializeField] Button btnCloseSelectBooster;
-    [SerializeField] SelectBoosterManager selectBooster;
+    public SelectBoosterManager selectBooster;
     [SerializeField] CanvasGroup selectBoosterCG;
 
 
@@ -51,6 +52,8 @@ public class LogicUITest : MonoBehaviour
 
     [SerializeField] HomeUI homeUI;
     [SerializeField] ControllerIsInGame controller;
+    [SerializeField] GameObject usingBooster;
+    [SerializeField] CanvasGroup usingBoosterCG;
 
     public List<Sprite> spriteSelects = new List<Sprite>();
     private void Start()
@@ -62,6 +65,7 @@ public class LogicUITest : MonoBehaviour
         btnCloseStarCollector.onClick.AddListener(ClosePanelStarCollector);
 
         btnPlay.onClick.AddListener(SelectBooster);
+        selectBooster.StateBoosterIfReachLevel();
         btnStart.onClick.AddListener(selectBooster.StartGame);
         btnCloseSelectBooster.onClick.AddListener(ClosePanelBooster);
 
@@ -105,12 +109,11 @@ public class LogicUITest : MonoBehaviour
     {
         if (DataUseInGame.gameData.indexLevel > 5 || DataUseInGame.gameData.isDaily)
         {
+            LogicGame.instance.timer.stopTimer = true;
             AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
-            Debug.Log("star Select");
             selectBooster.gameObject.SetActive(true);
             AnimationPopup.instance.DoTween_Button(selectBooster.selectBoosterCG.gameObject, 0, 200, 0.5f);
             selectBooster.selectBoosterCG.DOFade(1f, 0.5f);
-            Debug.Log("star Select End");
         }
         else
         {
@@ -127,6 +130,11 @@ public class LogicUITest : MonoBehaviour
                 LogicGame.instance.Instantiate();
             }
             DOTween.KillAll();
+        }
+
+        if (PlayerPrefs.GetInt("IsInGame") == 1)
+        {
+            btnCloseSelectBooster.gameObject.SetActive(false);
         }
 
     }
@@ -242,6 +250,49 @@ public class LogicUITest : MonoBehaviour
 
         DataUseInGame.gameData.isDaily = true;
         DataUseInGame.instance.SaveData();
+    }
+
+    public IEnumerator InitTimerSetting()
+    {
+        Debug.Log(PlayerPrefs.GetInt("BoosterLightning") + "dada sada");
+        if (PlayerPrefs.GetInt("BoosterHint") == 1 && PlayerPrefs.GetInt("NumHint") > 0
+            || PlayerPrefs.GetInt("BoosterTimer") == 1 && PlayerPrefs.GetInt("NumTimer") > 0
+            || PlayerPrefs.GetInt("BoosterLightning") == 1 && PlayerPrefs.GetInt("NumLightning") > 0
+            )
+        {
+            Debug.Log("asdadasd adadada ddasda dasd adasdadadadada dadadada ");
+            usingBooster.SetActive(true);
+            LogicGame.instance.timer.Init();
+            LogicGame.instance.isUseBooster = true;
+            LogicGame.instance.timer.stopTimer = true;
+            AnimationPopup.instance.FadeWhileMoveUp(LogicGame.instance.timer.usingBoosterCG.gameObject, 2f);
+            usingBoosterCG.DOFade(0f, 2f)
+                .OnComplete(() =>
+                {
+                    usingBooster.SetActive(false);
+                });
+
+            yield return new WaitForSeconds(1f);
+
+            LogicGame.instance.UseBooster();
+
+            yield return new WaitForSeconds(1f);
+
+            LogicGame.instance.isUseBooster = false;
+            PlayerPrefs.SetInt("BoosterHint", 0);
+            PlayerPrefs.SetInt("BoosterTimer", 0);
+            PlayerPrefs.SetInt("BoosterLightning", 0);
+            PlayerPrefs.Save();
+            LogicGame.instance.timer.stopTimer = false;
+            LogicGame.instance.timer.timeOut = false;
+            LogicGame.instance.timer.isFreeze = false;
+        }
+        else
+        {
+            LogicGame.instance.timer.timeOut = false;
+            LogicGame.instance.timer.isFreeze = false;
+            LogicGame.instance.isUseBooster = false;
+        }
     }
 
     private void OnGUI()

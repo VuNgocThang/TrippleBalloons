@@ -25,6 +25,14 @@ public class TutorialManager : MonoBehaviour
         isDoneClick = false;
         isDone = false;
     }
+
+    private void Update()
+    {
+        if (PlayerPrefs.GetInt("IsInGame") == 1 && DataUseInGame.gameData.indexLevel == 5)
+        {
+            ShowTutWrappedBB();
+        }
+    }
     public void ShowTutorial()
     {
         InitTutorial();
@@ -125,8 +133,15 @@ public class TutorialManager : MonoBehaviour
     IEnumerator MoveHand()
     {
         yield return new WaitForSeconds(0.5f);
-        Vector3 pos = LogicGame.instance.listBBShuffle[0].transform.position;
-        handClick.transform.DOMove(Camera.main.WorldToScreenPoint(pos), 0.4f);
+        if (!DataUseInGame.gameData.isTutWrappedDone)
+        {
+            if (LogicGame.instance.listBBShuffle.Count > 0)
+            {
+                Vector3 pos = LogicGame.instance.listBBShuffle[0].transform.position;
+                handClick.transform.DOMove(Camera.main.WorldToScreenPoint(pos), 0.4f);
+            }
+
+        }
     }
 
     public void HideHandWrapped()

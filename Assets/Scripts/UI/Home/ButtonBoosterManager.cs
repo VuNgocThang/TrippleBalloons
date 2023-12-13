@@ -29,7 +29,6 @@ public class ButtonBoosterManager : MonoBehaviour
         {
             buttons[i].InitButton();
             buttons[i].SaveStateBooster(buttons[i].nameBooster, 0);
-            //UpdateNumBooster(buttons[i].count, buttons[i].btnPlus.gameObject, buttons[i].numBtn, buttons[i].txtNumBtn, buttons[i].btn);
         }
     }
 
@@ -38,22 +37,7 @@ public class ButtonBoosterManager : MonoBehaviour
         IncreaseTest();
     }
 
-    void UpdateNumBooster(int num, GameObject plusObj, GameObject numTextObj, TextMeshProUGUI txtNum, Button btn)
-    {
-        if (num > 0)
-        {
-            numTextObj.gameObject.SetActive(true);
-            btn.interactable = true;
-            txtNum.text = num.ToString();
-        }
-        else
-        {
-            plusObj.gameObject.SetActive(true);
-            btn.interactable = false;
-        }
-    }
-
-    void OnClick(ButtonBooster buttonBooster, GameObject selectedObj, bool isSelected)
+    public void OnClick(ButtonBooster buttonBooster, GameObject selectedObj, bool isSelected)
     {
         buttonBooster.btn.onClick.AddListener(() =>
         {
@@ -77,9 +61,15 @@ public class ButtonBoosterManager : MonoBehaviour
                     buttonBooster.SaveStateBooster($"{buttonBooster.nameBooster}", 0);
                 }
             }
-
-
         });
+    }
+
+    public void UpdateStateSelect()
+    {
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            buttons[i].UpdateStateSelect();
+        }
     }
 
     void IncreaseTest()

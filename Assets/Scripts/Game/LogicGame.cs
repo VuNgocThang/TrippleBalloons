@@ -55,6 +55,7 @@ public class LogicGame : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
+        cameraResize.InitSizeObject();
     }
     void Start()
     {
@@ -92,7 +93,7 @@ public class LogicGame : MonoBehaviour
         {
             canClick = false;
         }
-        
+
         if (!PlayerPrefs.HasKey("WinStreak"))
         {
             winStreak = 0;
@@ -111,10 +112,10 @@ public class LogicGame : MonoBehaviour
             GameManager.Instance.canRotate = true;
         }
         lineController.CreateLine(listBBShuffle);
-        cameraResize.InitSizeObject(level.gameObject);
+        //cameraResize.InitSizeObject(level.gameObject);
         currentTotalBB = listBB.Count;
         canShuffle = true;
-        tutorialManager.ShowTutWrappedBB();
+        //tutorialManager.ShowTutWrappedBB();
 
         //số bóng *3 + 30 giây
         timer.timeLeft = currentTotalBB * 3 + 30f;
@@ -309,10 +310,12 @@ public class LogicGame : MonoBehaviour
 
                 listBB.Add(listBBInit[i]);
             }
+
             tutorialManager.ShowTutorial();
-            tutorialManager.handClick.gameObject.SetActive(true);
-            tutorialManager.AnimHand();
+            //tutorialManager.handClick.gameObject.SetActive(true);
+            //tutorialManager.AnimHand();
             tutorialManager.AnimHandRotate();
+
         }
         else
         {
@@ -349,7 +352,6 @@ public class LogicGame : MonoBehaviour
     }
     public void UseBooster()
     {
-        Debug.Log(PlayerPrefs.GetInt("BoosterHint") + " -----" + PlayerPrefs.GetInt("NumHint"));
         if (PlayerPrefs.GetInt("BoosterHint") == 1 && PlayerPrefs.GetInt("NumHint") > 0)
         {
             int count = PlayerPrefs.GetInt("NumHint");
@@ -366,6 +368,7 @@ public class LogicGame : MonoBehaviour
             count--;
             PlayerPrefs.SetInt("NumTimer", count);
             PlayerPrefs.Save();
+            Debug.Log("can use booster hint!");
 
             UseBoosterTimer();
         }
@@ -376,7 +379,7 @@ public class LogicGame : MonoBehaviour
             count--;
             PlayerPrefs.SetInt("NumLightning", count);
             PlayerPrefs.Save();
-
+            Debug.Log("can use booster BoosterLightning!");
             UseBoosterLightning();
         }
     }
@@ -417,66 +420,70 @@ public class LogicGame : MonoBehaviour
     }
     void UseBoosterLightning()
     {
-        int index = UnityEngine.Random.Range(0, listBBShuffle.Count);
-        if (indexHint != -1)
+        bool foundPair = false;
+        do
         {
-            if (listBBShuffle[index].ID == listBBShuffle[indexHint].ID)
+            int index = UnityEngine.Random.Range(0, listBBShuffle.Count);
+            if (indexHint != -1)
             {
-                index = UnityEngine.Random.Range(0, listBBShuffle.Count);
-            }
-        }
-
-        for (int i = 0; i < listBBShuffle.Count; i++)
-        {
-            for (int j = i + 1; j < listBBShuffle.Count; j++)
-            {
-                if (listBBShuffle[i].ID == listBBShuffle[index].ID && listBBShuffle[j].ID == listBBShuffle[index].ID
-                    && i != index && j != index)
+                if (listBBShuffle[index].ID == listBBShuffle[indexHint].ID)
                 {
-                    var g1 = listBBShuffle[i];
-                    var g2 = listBBShuffle[j];
-                    var g3 = listBBShuffle[index];
-
-                    //1.3f
-                    g1.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 1f)
-
-                        .OnComplete(() =>
-                        {
-                            SolveChildOfBB(g1);
-                            AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
-                            StartCoroutine(AnimBBBooster(g1));
-
-                            listBBShuffle.Remove(g1);
-                            listBB.Remove(g1);
-                        });
-
-                    g2.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 1f)
-
-                        .OnComplete(() =>
-                        {
-                            SolveChildOfBB(g2);
-                            AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
-                            StartCoroutine(AnimBBBooster(g2));
-
-                            listBBShuffle.Remove(g2);
-                            listBB.Remove(g2);
-                        });
-
-                    g3.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 1f)
-
-                        .OnComplete(() =>
-                        {
-                            SolveChildOfBB(g3);
-                            AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
-                            StartCoroutine(AnimBBBooster(g3));
-
-                            listBBShuffle.Remove(g3);
-                            listBB.Remove(g3);
-                        });
-                    return;
+                    index = UnityEngine.Random.Range(0, listBBShuffle.Count);
                 }
             }
-        }
+
+            for (int i = 0; i < listBBShuffle.Count; i++)
+            {
+                for (int j = i + 1; j < listBBShuffle.Count; j++)
+                {
+                    if (listBBShuffle[i].ID == listBBShuffle[index].ID && listBBShuffle[j].ID == listBBShuffle[index].ID
+                        && i != index && j != index)
+                    {
+                        var g1 = listBBShuffle[i];
+                        var g2 = listBBShuffle[j];
+                        var g3 = listBBShuffle[index];
+
+                        g1.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 1f)
+                            .OnComplete(() =>
+                            {
+                                SolveChildOfBB(g1);
+                                AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
+                                StartCoroutine(AnimBBBooster(g1));
+                                listBBShuffle.Remove(g1);
+                                listBB.Remove(g1);
+                            });
+
+                        g2.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 1f)
+
+                            .OnComplete(() =>
+                            {
+                                SolveChildOfBB(g2);
+                                AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
+                                StartCoroutine(AnimBBBooster(g2));
+
+                                listBBShuffle.Remove(g2);
+                                listBB.Remove(g2);
+                            });
+
+                        g3.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 1f)
+
+                            .OnComplete(() =>
+                            {
+                                SolveChildOfBB(g3);
+                                AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
+                                StartCoroutine(AnimBBBooster(g3));
+
+                                listBBShuffle.Remove(g3);
+                                listBB.Remove(g3);
+                            });
+
+                        foundPair = true;
+                        return;
+                    }
+                }
+            }
+        } while (!foundPair);
+
     }
     IEnumerator AnimBBBooster(Bubble bb)
     {

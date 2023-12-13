@@ -15,15 +15,14 @@ public class SelectBoosterManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI txtNumLV;
     [SerializeField] ControllerIsInGame controller;
     [SerializeField] DailyManager dailyManager;
-    //private void Start()
-    //{
-    //    btnStart.onClick.AddListener(StartGame);
-    //}
+    [SerializeField] LogicUITest logicUI;
+    [SerializeField] GameObject textTutLight;
+    [SerializeField] GameObject textTutTimer;
+    [SerializeField] GameObject textTutHint;
 
     public void StartGame()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
-
         if (DataUseInGame.gameData.heart > 0 || DataUseInGame.gameData.isHeartInfinity)
         {
             PlayerPrefs.SetInt("IsInGame", 1);
@@ -33,9 +32,10 @@ public class SelectBoosterManager : MonoBehaviour
             selectBoosterCG.DOFade(0f, 0.5f)
                 .OnComplete(() =>
                 {
-                    Debug.Log("saasmcsacacssmacc ");
-                    gameObject.SetActive(false);
+                    btnBoosterManager.UpdateStateSelect();
+
                     controller.UpdateStateIsInGame();
+
                     if (!DataUseInGame.gameData.isDaily)
                     {
                         LogicGame.instance.InitAll();
@@ -45,7 +45,12 @@ public class SelectBoosterManager : MonoBehaviour
                         dailyManager.gameObject.SetActive(false);
                         LogicGame.instance.Instantiate();
                     }
-                    DOTween.KillAll();
+                    if (!LogicGame.instance.isUseBooster)
+                    {
+                        LogicGame.instance.timer.stopTimer = false;
+                    }
+
+                    logicUI.selectBooster.gameObject.SetActive(false);
                 });
         }
         else
@@ -77,5 +82,62 @@ public class SelectBoosterManager : MonoBehaviour
         }
 
     }
+
+    public void StateBoosterIfReachLevel()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            btnBoosterManager.buttons[i].btn.interactable = false;
+            btnBoosterManager.buttons[i].lockImg.gameObject.SetActive(true);
+        }
+
+        if (DataUseInGame.gameData.indexLevel >= 6 || DataUseInGame.gameData.isDaily)
+        {
+            btnBoosterManager.buttons[0].btn.interactable = true;
+            btnBoosterManager.buttons[0].lockImg.gameObject.SetActive(false);
+        }
+        if (DataUseInGame.gameData.indexLevel >= 7 || DataUseInGame.gameData.isDaily)
+        {
+            btnBoosterManager.buttons[1].btn.interactable = true;
+            btnBoosterManager.buttons[1].lockImg.gameObject.SetActive(false);
+        }
+        if (DataUseInGame.gameData.indexLevel >= 8 || DataUseInGame.gameData.isDaily)
+        {
+            btnBoosterManager.buttons[2].btn.interactable = true;
+            btnBoosterManager.buttons[2].lockImg.gameObject.SetActive(false);
+        }
+
+        ShowTextTutBooster();
+    }
+
+    public void ShowTextTutBooster()
+    {
+        int indexLevel = DataUseInGame.gameData.indexLevel;
+        int isInGame = PlayerPrefs.GetInt("IsInGame");
+
+        if (isInGame == 1)
+        {
+            if (indexLevel == 6)
+            {
+                textTutLight.SetActive(true);
+                btnBoosterManager.buttons[0].isSelected = true;
+                btnBoosterManager.buttons[0].selected.SetActive(true);
+            }
+            else if (indexLevel == 7)
+            {
+                textTutTimer.SetActive(true);
+                btnBoosterManager.buttons[1].isSelected = true;
+                btnBoosterManager.buttons[1].selected.SetActive(true);
+            }
+            else if (indexLevel == 8)
+            {
+                textTutHint.SetActive(true);
+                btnBoosterManager.buttons[2].isSelected = true;
+                btnBoosterManager.buttons[2].selected.SetActive(true);
+            }
+        }
+    }
+
+
 
 }
