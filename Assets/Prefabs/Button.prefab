@@ -139,6 +139,8 @@ MonoBehaviour:
   button: {fileID: 5374728117938674194}
   mark: {fileID: 6925004288245812699}
   index: 0
+  isDone: 0
+  isSelected: 0
 --- !u!1 &5374728118719422539
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5f4e38ae58ef5144b907ba0f0732ac6a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c06961b19af09df48ab6bfdede3678f1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

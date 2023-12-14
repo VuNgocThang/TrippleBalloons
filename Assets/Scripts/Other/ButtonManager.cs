@@ -12,6 +12,7 @@ public class ButtonManager : MonoBehaviour
 
     [SerializeField] public GameObject mark;
 
+
     public int index;
     public bool isDone;
     public bool isSelected;

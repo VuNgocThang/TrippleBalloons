@@ -536,7 +536,6 @@ public class LogicGame : MonoBehaviour
                 bool isHit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit, 1000f, layerMask);
                 if (isHit)
                 {
-                    Debug.Log("clickedBB");
                     Bubble bubble = raycastHit.collider.GetComponent<Bubble>();
 
                     if (!bubble.click && indexLevel == 0 && !DataUseInGame.gameData.isDaily) return;

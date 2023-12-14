@@ -254,13 +254,11 @@ public class LogicUITest : MonoBehaviour
 
     public IEnumerator InitTimerSetting()
     {
-        Debug.Log(PlayerPrefs.GetInt("BoosterLightning") + "dada sada");
         if (PlayerPrefs.GetInt("BoosterHint") == 1 && PlayerPrefs.GetInt("NumHint") > 0
             || PlayerPrefs.GetInt("BoosterTimer") == 1 && PlayerPrefs.GetInt("NumTimer") > 0
             || PlayerPrefs.GetInt("BoosterLightning") == 1 && PlayerPrefs.GetInt("NumLightning") > 0
             )
         {
-            Debug.Log("asdadasd adadada ddasda dasd adasdadadadada dadadada ");
             usingBooster.SetActive(true);
             LogicGame.instance.timer.Init();
             LogicGame.instance.isUseBooster = true;
