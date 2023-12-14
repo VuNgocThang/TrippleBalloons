@@ -28,7 +28,6 @@ public class ControllerIsInGame : MonoBehaviour
 
             if (DataUseInGame.gameData.indexLevel == 0 && !DataUseInGame.gameData.isDaily)
             {
-                Debug.Log(" ádadkjahjdas");
                 LogicGame.instance.tutorialManager.handClick.gameObject.SetActive(true);
                 LogicGame.instance.tutorialManager.AnimHand();
             }
@@ -47,5 +46,10 @@ public class ControllerIsInGame : MonoBehaviour
         }
     }
 
-   
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("IsInGame", 0);
+        PlayerPrefs.Save();
+    }
+
 }

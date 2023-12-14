@@ -20,6 +20,10 @@ public class SelectBoosterManager : MonoBehaviour
     [SerializeField] GameObject textTutTimer;
     [SerializeField] GameObject textTutHint;
 
+    private void Start()
+    {
+        StateBoosterIfReachLevel();
+    }
     public void StartGame()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
@@ -36,15 +40,16 @@ public class SelectBoosterManager : MonoBehaviour
 
                     controller.UpdateStateIsInGame();
 
-                    if (!DataUseInGame.gameData.isDaily)
-                    {
-                        LogicGame.instance.InitAll();
-                    }
-                    else
+                    if (DataUseInGame.gameData.isDaily)
                     {
                         dailyManager.gameObject.SetActive(false);
                         LogicGame.instance.Instantiate();
                     }
+                    else
+                    {
+                        LogicGame.instance.InitAll();
+                    }
+
                     if (!LogicGame.instance.isUseBooster)
                     {
                         LogicGame.instance.timer.stopTimer = false;

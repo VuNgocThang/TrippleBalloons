@@ -64,6 +64,7 @@ public class LogicGame : MonoBehaviour
 
     public void Instantiate()
     {
+        Debug.Log("1");
         if (!DataUseInGame.gameData.isDaily)
         {
             indexLevel = DataUseInGame.gameData.indexLevel;
@@ -76,7 +77,10 @@ public class LogicGame : MonoBehaviour
             level = Instantiate(listLevelDaily[indexLevel], transform);
         }
         InitBubbles();
-        controller.UpdateStateIsInGame();
+        if (!DataUseInGame.gameData.isDaily)
+        {
+            controller.UpdateStateIsInGame();
+        }
         if (PlayerPrefs.GetInt("IsInGame") == 1)
         {
             InitAll();
@@ -112,16 +116,11 @@ public class LogicGame : MonoBehaviour
             GameManager.Instance.canRotate = true;
         }
         lineController.CreateLine(listBBShuffle);
-        //cameraResize.InitSizeObject(level.gameObject);
         currentTotalBB = listBB.Count;
         canShuffle = true;
-        //tutorialManager.ShowTutWrappedBB();
 
         //số bóng *3 + 30 giây
         timer.timeLeft = currentTotalBB * 3 + 30f;
-
-        //timer.stopTimer = true;
-        //StartCoroutine(timer.InitTimerSetting());
 
         if (!DataUseInGame.gameData.isTutHintDone && DataUseInGame.gameData.indexLevel == 1
             ||
@@ -135,7 +134,7 @@ public class LogicGame : MonoBehaviour
             timer.stopTimer = true;
         }
 
-        if (!DataUseInGame.gameData.isTutOtherDone)
+        if (!DataUseInGame.gameData.isTutUndoDone)
         {
             InitBBForTut();
         }
@@ -294,7 +293,6 @@ public class LogicGame : MonoBehaviour
         {
             if (tempB[i].hasChildren)
             {
-                //Debug.Log(i + " --- " + tempB[i].name);
                 bubbleParent.Add(tempB[i]);
                 listBBInit.Remove(tempB[i]);
             }
@@ -312,8 +310,6 @@ public class LogicGame : MonoBehaviour
             }
 
             tutorialManager.ShowTutorial();
-            //tutorialManager.handClick.gameObject.SetActive(true);
-            //tutorialManager.AnimHand();
             tutorialManager.AnimHandRotate();
 
         }
@@ -354,35 +350,59 @@ public class LogicGame : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("BoosterHint") == 1 && PlayerPrefs.GetInt("NumHint") > 0)
         {
-            int count = PlayerPrefs.GetInt("NumHint");
-            count--;
-            PlayerPrefs.SetInt("NumHint", count);
+            int countHint = PlayerPrefs.GetInt("NumHint");
+            countHint--;
+            PlayerPrefs.SetInt("NumHint", countHint);
             PlayerPrefs.Save();
-            Debug.Log("can use booster hint!");
             UseBoosterHint();
         }
 
         if (PlayerPrefs.GetInt("BoosterTimer") == 1 && PlayerPrefs.GetInt("NumTimer") > 0)
         {
-            int count = PlayerPrefs.GetInt("NumTimer");
-            count--;
-            PlayerPrefs.SetInt("NumTimer", count);
+            int countTimer = PlayerPrefs.GetInt("NumTimer");
+            countTimer--;
+            PlayerPrefs.SetInt("NumTimer", countTimer);
             PlayerPrefs.Save();
-            Debug.Log("can use booster hint!");
-
             UseBoosterTimer();
         }
 
         if (PlayerPrefs.GetInt("BoosterLightning") == 1 && PlayerPrefs.GetInt("NumLightning") > 0)
         {
-            int count = PlayerPrefs.GetInt("NumLightning");
-            count--;
-            PlayerPrefs.SetInt("NumLightning", count);
+            int countLightning = PlayerPrefs.GetInt("NumLightning");
+            countLightning--;
+            PlayerPrefs.SetInt("NumLightning", countLightning);
             PlayerPrefs.Save();
-            Debug.Log("can use booster BoosterLightning!");
             UseBoosterLightning();
         }
     }
+    //public void SubIfUseBooster()
+    //{
+    //    Debug.Log(PlayerPrefs.GetInt("NumHint"));
+    //    if (PlayerPrefs.GetInt("BoosterHint") == 1)
+    //    {
+    //        int countHint = PlayerPrefs.GetInt("NumHint");
+    //        countHint--;
+    //        PlayerPrefs.SetInt("NumHint", countHint);
+    //        PlayerPrefs.Save();
+    //    }
+
+    //    if (PlayerPrefs.GetInt("BoosterTimer") == 1)
+    //    {
+    //        int countTimer = PlayerPrefs.GetInt("NumTimer");
+    //        countTimer--;
+    //        PlayerPrefs.SetInt("NumTimer", countTimer);
+    //        PlayerPrefs.Save();
+    //    }
+
+    //    if (PlayerPrefs.GetInt("BoosterLightning") == 1)
+    //    {
+    //        int countLightning = PlayerPrefs.GetInt("NumLightning");
+    //        countLightning--;
+    //        PlayerPrefs.SetInt("NumLightning", countLightning);
+    //        PlayerPrefs.Save();
+    //    }
+    //}
+
     int indexHint = -1;
     void UseBoosterHint()
     {
@@ -499,7 +519,7 @@ public class LogicGame : MonoBehaviour
     }
     void Update()
     {
-        if (PlayerPrefs.GetInt("IsInGame") == 1)
+        if (PlayerPrefs.GetInt(GameSave.ISINGAME) == 1)
         {
             OnClick();
         }
@@ -548,10 +568,7 @@ public class LogicGame : MonoBehaviour
                         tutorialManager.OnClick(bubble);
                     }
 
-                    if (indexLevel == 5 && !DataUseInGame.gameData.isDaily)
-                    {
-                        tutorialManager.HideHandWrapped();
-                    }
+
                     Move(bubble);
                 }
             }
@@ -676,6 +693,8 @@ public class LogicGame : MonoBehaviour
                 g3.Move(g2.transform.parent, 0.31f);
                 g1.IsDone = g2.IsDone = g3.IsDone = true;
 
+
+
                 tweener = g3.tweenerMove;
                 i += 2;
             }
@@ -686,6 +705,11 @@ public class LogicGame : MonoBehaviour
             {
                 CheckDone();
             });
+        }
+
+        if (indexLevel == 5 && !DataUseInGame.gameData.isDaily)
+        {
+            tutorialManager.HideHandWrapped();
         }
 
         if (count == 0)

@@ -117,18 +117,21 @@ public class LogicUITest : MonoBehaviour
         }
         else
         {
+            LogicGame.instance.timer.stopTimer = false;
             PlayerPrefs.SetInt("IsInGame", 1);
             PlayerPrefs.Save();
             controller.UpdateStateIsInGame();
+
             if (!DataUseInGame.gameData.isDaily)
             {
                 LogicGame.instance.InitAll();
             }
-            else
-            {
-                panelDaily.SetActive(false);
-                LogicGame.instance.Instantiate();
-            }
+            //else
+            //{
+            //    panelDaily.SetActive(false);
+            //    LogicGame.instance.Instantiate();
+            //}
+
             DOTween.KillAll();
         }
 
@@ -259,12 +262,13 @@ public class LogicUITest : MonoBehaviour
             || PlayerPrefs.GetInt("BoosterLightning") == 1 && PlayerPrefs.GetInt("NumLightning") > 0
             )
         {
+            Debug.Log("21312313123 ");
             usingBooster.SetActive(true);
             LogicGame.instance.timer.Init();
             LogicGame.instance.isUseBooster = true;
             LogicGame.instance.timer.stopTimer = true;
-            AnimationPopup.instance.FadeWhileMoveUp(LogicGame.instance.timer.usingBoosterCG.gameObject, 2f);
-            usingBoosterCG.DOFade(0f, 2f)
+            AnimationPopup.instance.FadeWhileMoveUp(LogicGame.instance.timer.usingBoosterCG.gameObject, 1f);
+            usingBoosterCG.DOFade(0f, 1f)
                 .OnComplete(() =>
                 {
                     usingBooster.SetActive(false);
@@ -277,10 +281,7 @@ public class LogicUITest : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             LogicGame.instance.isUseBooster = false;
-            PlayerPrefs.SetInt("BoosterHint", 0);
-            PlayerPrefs.SetInt("BoosterTimer", 0);
-            PlayerPrefs.SetInt("BoosterLightning", 0);
-            PlayerPrefs.Save();
+            SetStateDefaultUseBooster();
             LogicGame.instance.timer.stopTimer = false;
             LogicGame.instance.timer.timeOut = false;
             LogicGame.instance.timer.isFreeze = false;
@@ -293,6 +294,16 @@ public class LogicUITest : MonoBehaviour
         }
     }
 
+    private void SetStateDefaultUseBooster()
+    {
+        PlayerPrefs.SetInt("BoosterHint", 0);
+        PlayerPrefs.SetInt("BoosterTimer", 0);
+        PlayerPrefs.SetInt("BoosterLightning", 0);
+        PlayerPrefs.Save();
+    }
+
+    
+
     private void OnGUI()
     {
         float timerStarCollector = DataUseInGame.gameData.timeStarCollector;
@@ -303,6 +314,11 @@ public class LogicUITest : MonoBehaviour
         float seconds = Mathf.RoundToInt(timePerHour % 60);
 
         txtTimerStarCollector.text = hours.ToString("00") + ":" + minutes.ToString("00") + ":" + seconds.ToString("00");
+    }
+
+    private void OnApplicationQuit()
+    {
+        SetStateDefaultUseBooster();
     }
 
 

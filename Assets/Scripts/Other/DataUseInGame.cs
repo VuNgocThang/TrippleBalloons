@@ -53,11 +53,11 @@ public class GameData
         heart = 5;
         star = 0;
         gold = 0;
-        numHintItem = 99;
-        numShuffleItem = 99;
-        numUndoItem = 99;
-        numTrippleUndoItem = 99;
-        numFreezeTimeItem = 99;
+        numHintItem = 9999;
+        numShuffleItem = 9999;
+        numUndoItem = 9999;
+        numTrippleUndoItem = 9999;
+        numFreezeTimeItem = 9999;
         isHeartInfinity = false;
         timeHeartInfinity = 0;
         timeStarCollector = 86400f;
