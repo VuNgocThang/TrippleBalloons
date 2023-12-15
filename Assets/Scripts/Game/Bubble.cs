@@ -18,19 +18,16 @@ public class Bubble : MonoBehaviour
     public bool IsMoving;
     public bool IsDone;
 
-    public float radius;
-    public Transform children;
-    public Transform connectPoint;
-    public Material mat;
-    public Texture2DArray bubblTexture2d;
+    public Rigidbody rb;
     public List<GameObject> objs = new List<GameObject>();
     public List<Material> mats = new List<Material>();
     public MeshCollider meshCollider;
-    public Rigidbody rb;
-    public Tweener tweenerMove;
+    public Transform children;
+    public Transform connectPoint;
     public GameObject particleBoom;
     public GameObject particlePP;
     public ParticleSystem particleEatt;
+    public Tweener tweenerMove;
     public bool CanMoving => !IsMoving && !IsDone;
 
     private void Awake()

@@ -64,7 +64,7 @@ public class LogicGame : MonoBehaviour
 
     public void Instantiate()
     {
-        Debug.Log("1");
+        Debug.Log(DataUseInGame.gameData.isDaily + " --  " + PlayerPrefs.GetInt("IsInGame"));
         if (!DataUseInGame.gameData.isDaily)
         {
             indexLevel = DataUseInGame.gameData.indexLevel;
@@ -72,15 +72,21 @@ public class LogicGame : MonoBehaviour
         }
         else
         {
-            indexLevel = DataUseInGame.gameData.indexDailyLV;
+            if (level == null)
+            {
+                int indexLevelText = DataUseInGame.gameData.indexLevel;
+                level = Instantiate(listLevel[indexLevelText], transform);
+            }
             level.gameObject.SetActive(false);
+
+            indexLevel = DataUseInGame.gameData.indexDailyLV;
             level = Instantiate(listLevelDaily[indexLevel], transform);
+
         }
         InitBubbles();
-        if (!DataUseInGame.gameData.isDaily)
-        {
-            controller.UpdateStateIsInGame();
-        }
+     
+        controller.UpdateStateIsInGame();
+
         if (PlayerPrefs.GetInt("IsInGame") == 1)
         {
             InitAll();

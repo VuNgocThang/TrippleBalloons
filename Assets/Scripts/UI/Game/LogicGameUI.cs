@@ -65,8 +65,8 @@ public class LogicGameUI : MonoBehaviour
         btnReplay.onClick.AddListener(ReplayGame);
 
         btnClosePersident.onClick.AddListener(ClosePersident);
-        btnRetry.onClick.AddListener(Retry);
-        btnHomePersident.onClick.AddListener(BackHomePersident);
+        //btnRetry.onClick.AddListener(Retry);
+        //btnHomePersident.onClick.AddListener(BackHomePersident);
 
         btnRemoveAds.onClick.AddListener(OpenPanelRemoveAds);
         btnClosePanelRemoveAds.onClick.AddListener(ClosePanelRemoveAds);
@@ -146,42 +146,34 @@ public class LogicGameUI : MonoBehaviour
                 StartCoroutine(CanClickAgain());
             });
     }
-    public void Retry()
-    {
-        AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
-        GameManager.Instance.SubHeart();
-        btnRetry.interactable = false;
-        btnHome.interactable = false;
-        AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
-        panelPersidentCG.DOFade(0f, 0.5f)
-            .OnComplete(() =>
-            {
-                btnRetry.interactable = true;
-                btnHome.interactable = true;
-            });
+    //public void Retry()
+    //{
+    //    AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
+    //    GameManager.Instance.SubHeart();
+    //    btnRetry.interactable = false;
+    //    btnHome.interactable = false;
+    //    AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
+    //    panelPersidentCG.DOFade(0f, 0.5f);
 
-        StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
-    }
-    public void BackHomePersident()
-    {
-        AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
-        GameManager.Instance.SubHeart();
-        btnRetry.interactable = false;
-        btnHome.interactable = false;
-        AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
-        panelPersidentCG.DOFade(0f, 0.5f)
-            .OnComplete(() =>
-            {
-                DataUseInGame.gameData.isDaily = false;
-                DataUseInGame.instance.SaveData();
-
-                btnRetry.interactable = true;
-                btnHome.interactable = true;
-            });
-        PlayerPrefs.SetInt("IsInGame", 0);
-        PlayerPrefs.Save();
-        StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
-    }
+    //    StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
+    //}
+    //public void BackHomePersident()
+    //{
+    //    AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
+    //    GameManager.Instance.SubHeart();
+    //    btnRetry.interactable = false;
+    //    btnHome.interactable = false;
+    //    AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
+    //    panelPersidentCG.DOFade(0f, 0.5f)
+    //        .OnComplete(() =>
+    //        {
+    //            DataUseInGame.gameData.isDaily = false;
+    //            DataUseInGame.instance.SaveData();
+    //        });
+    //    PlayerPrefs.SetInt("IsInGame", 0);
+    //    PlayerPrefs.Save();
+    //    StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
+    //}
 
     void OpenPanelRemoveAds()
     {

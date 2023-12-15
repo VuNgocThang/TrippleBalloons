@@ -148,15 +148,11 @@ public class LoseManager : MonoBehaviour
         btnRetry.interactable = false;
         btnHome.interactable = false;
         AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
-        panelPersidentCG.DOFade(0f, 0.5f)
-            .OnComplete(() =>
-            {
-                btnRetry.interactable = true;
-                btnHome.interactable = true;
-                StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
-            });
-
+        panelPersidentCG.DOFade(0f, 0.5f);
         bg.SetActive(false);
+        StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
+        PlayerPrefs.SetInt("IsInGame", 1);
+        PlayerPrefs.Save();
     }
     public void BackHome()
     {
@@ -164,14 +160,15 @@ public class LoseManager : MonoBehaviour
         btnRetry.interactable = false;
         btnHome.interactable = false;
         AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
-        panelPersidentCG.DOFade(0f, 0.5f)
-            .OnComplete(() =>
-            {
-                btnRetry.interactable = true;
-                btnHome.interactable = true;
-                StartCoroutine(LogicGame.instance.AnimBoomBB("SceneHome"));
-            });
+        panelPersidentCG.DOFade(0f, 0.5f);
+        PlayerPrefs.SetInt("IsInGame", 0);
+        PlayerPrefs.Save();
+        DataUseInGame.gameData.isDaily = false;
+        DataUseInGame.instance.SaveData();
+        StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
         bg.SetActive(false);
     }
+
+
 
 }

@@ -126,11 +126,7 @@ public class LogicUITest : MonoBehaviour
             {
                 LogicGame.instance.InitAll();
             }
-            //else
-            //{
-            //    panelDaily.SetActive(false);
-            //    LogicGame.instance.Instantiate();
-            //}
+           
 
             DOTween.KillAll();
         }
@@ -155,7 +151,7 @@ public class LogicUITest : MonoBehaviour
 
     // 1 unselect
     // 0 select
-    void OpenPanelShop()
+    public void OpenPanelShop()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
         panelHome.SetActive(false);
