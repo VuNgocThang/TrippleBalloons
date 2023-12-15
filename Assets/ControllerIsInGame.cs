@@ -19,11 +19,7 @@ public class ControllerIsInGame : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("IsInGame") == 1)
         {
-            homePanel.SetActive(false);
-            topHome.SetActive(false);
-            bottomHome.SetActive(false);
-            uiInGame.gameObject.SetActive(true);
-            listPos.SetActive(true);
+            PanelInGame();
             StartCoroutine(logicUI.InitTimerSetting());
 
             if (DataUseInGame.gameData.indexLevel == 0 && !DataUseInGame.gameData.isDaily)
@@ -38,14 +34,27 @@ public class ControllerIsInGame : MonoBehaviour
         }
         else
         {
-            homePanel.SetActive(true);
-            topHome.SetActive(true);
-            bottomHome.SetActive(true);
-            uiInGame.gameObject.SetActive(false);
-            listPos.SetActive(false);
+            PanelInHome();
         }
     }
 
-    
+    public void PanelInHome()
+    {
+        homePanel.SetActive(true);
+        topHome.SetActive(true);
+        bottomHome.SetActive(true);
+        uiInGame.gameObject.SetActive(false);
+        listPos.SetActive(false);
+    }
+
+    public void PanelInGame()
+    {
+        homePanel.SetActive(false);
+        topHome.SetActive(false);
+        bottomHome.SetActive(false);
+        uiInGame.gameObject.SetActive(true);
+        listPos.SetActive(true);
+    }
+
 
 }

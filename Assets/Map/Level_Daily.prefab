@@ -295,7 +295,7 @@ MonoBehaviour:
   - {fileID: 8304739013968440838}
   - {fileID: 1868537263693167563}
   - {fileID: 1868537263983229708}
-  maxEach: 15
+  maxEach: 3
 --- !u!114 &-8143389902815294867
 MonoBehaviour:
   m_ObjectHideFlags: 0

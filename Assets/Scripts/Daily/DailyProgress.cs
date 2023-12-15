@@ -19,9 +19,9 @@ public class DailyProgress : MonoBehaviour
     {
         max = DataUseInGame.gameData.maxRewardDaily;
         currentReward = DataUseInGame.gameData.currentRewardDaily;
-        if (PlayerPrefs.HasKey("Reward"))
+        if (PlayerPrefs.HasKey(GameSave.REWARD_DAILY))
         {
-            reward = PlayerPrefs.GetFloat("Reward");
+            reward = PlayerPrefs.GetFloat(GameSave.REWARD_DAILY);
         }
         else
         {
@@ -55,11 +55,32 @@ public class DailyProgress : MonoBehaviour
     private void OnDisable()
     {
         reward = currentReward;
-        PlayerPrefs.SetFloat("Reward", reward);
+        PlayerPrefs.SetFloat(GameSave.REWARD_DAILY, reward);
     }
 
     void UpdateReward()
     {
+        for (int i = 0; i < listRewardDaily.Count; i++)
+        {
+            if (currentReward < GetRequiredReward[i])
+            {
+                listRewardDaily[i].btnSelect.interactable = false;
+                listRewardDaily[i].vfx.SetActive(false);
+            }
+            else
+            {
+                if (listRewardDaily[i].isCollected)
+                {
+                    listRewardDaily[i].btnSelect.interactable = false;
+                    listRewardDaily[i].vfx.SetActive(false);
+                }
+                else
+                {
+                    listRewardDaily[i].btnSelect.interactable = true;
+                    listRewardDaily[i].vfx.SetActive(true);
+                }
+            }
+        }
         //if (currentReward < 7)
         //{
         //    listRewardDaily[0].btnSelect.interactable = false;
@@ -118,26 +139,6 @@ public class DailyProgress : MonoBehaviour
         //    }
         //}
 
-        for (int i = 0; i < listRewardDaily.Count; i++)
-        {
-            if (currentReward < GetRequiredReward[i])
-            {
-                listRewardDaily[i].btnSelect.interactable = false;
-                listRewardDaily[i].vfx.SetActive(false);
-            }
-            else
-            {
-                if (listRewardDaily[i].isCollected)
-                {
-                    listRewardDaily[i].btnSelect.interactable = false;
-                    listRewardDaily[i].vfx.SetActive(false);
-                }
-                else
-                {
-                    listRewardDaily[i].btnSelect.interactable = true;
-                    listRewardDaily[i].vfx.SetActive(true);
-                }
-            }
-        }
+
     }
 }

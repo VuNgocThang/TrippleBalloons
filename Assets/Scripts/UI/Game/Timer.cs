@@ -14,13 +14,13 @@ public class Timer : MonoBehaviour
     public bool timeOut;
     public bool stopTimer;
     public bool isFreeze;
-    public GameObject usingBooster;
 
+    public GameObject usingBooster;
     public GameObject usingBoosterHint;
     public GameObject usingBoosterTimer;
     public GameObject usingBoosterLightning;
-
     public CanvasGroup usingBoosterCG;
+
 
    
 

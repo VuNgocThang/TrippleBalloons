@@ -62,7 +62,9 @@ public class LogicGame : MonoBehaviour
     void Start()
     {
         Instantiate();
+
     }
+   
 
     public void Instantiate()
     {
@@ -87,7 +89,15 @@ public class LogicGame : MonoBehaviour
         }
         InitBubbles();
 
-        controller.UpdateStateIsInGame();
+        if (!DataUseInGame.gameData.isDaily)
+        {
+            controller.UpdateStateIsInGame();
+        }
+        else
+        {
+            Debug.Log("1231231321");
+            controller.PanelInGame();
+        }
 
         if (PlayerPrefs.GetInt("IsInGame") == 1)
         {
@@ -356,60 +366,34 @@ public class LogicGame : MonoBehaviour
     }
     public void UseBooster()
     {
-        if (PlayerPrefs.GetInt("BoosterHint") == 1 && PlayerPrefs.GetInt("NumHint") > 0)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_HINT) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_HINT) > 0)
         {
-            int countHint = PlayerPrefs.GetInt("NumHint");
+            int countHint = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_HINT);
             countHint--;
-            PlayerPrefs.SetInt("NumHint", countHint);
+            PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_HINT, countHint);
             PlayerPrefs.Save();
             UseBoosterHint();
         }
 
-        if (PlayerPrefs.GetInt("BoosterTimer") == 1 && PlayerPrefs.GetInt("NumTimer") > 0)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_TIMER) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_TIMER) > 0)
         {
-            int countTimer = PlayerPrefs.GetInt("NumTimer");
+            int countTimer = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_TIMER);
             countTimer--;
-            PlayerPrefs.SetInt("NumTimer", countTimer);
+            PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_TIMER, countTimer);
             PlayerPrefs.Save();
             UseBoosterTimer();
         }
 
-        if (PlayerPrefs.GetInt("BoosterLightning") == 1 && PlayerPrefs.GetInt("NumLightning") > 0)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_LIGHTNING) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_LIGHTNING) > 0)
         {
-            int countLightning = PlayerPrefs.GetInt("NumLightning");
+            int countLightning = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_LIGHTNING);
             countLightning--;
-            PlayerPrefs.SetInt("NumLightning", countLightning);
+            PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_LIGHTNING, countLightning);
             PlayerPrefs.Save();
             UseBoosterLightning();
         }
     }
-    //public void SubIfUseBooster()
-    //{
-    //    Debug.Log(PlayerPrefs.GetInt("NumHint"));
-    //    if (PlayerPrefs.GetInt("BoosterHint") == 1)
-    //    {
-    //        int countHint = PlayerPrefs.GetInt("NumHint");
-    //        countHint--;
-    //        PlayerPrefs.SetInt("NumHint", countHint);
-    //        PlayerPrefs.Save();
-    //    }
-
-    //    if (PlayerPrefs.GetInt("BoosterTimer") == 1)
-    //    {
-    //        int countTimer = PlayerPrefs.GetInt("NumTimer");
-    //        countTimer--;
-    //        PlayerPrefs.SetInt("NumTimer", countTimer);
-    //        PlayerPrefs.Save();
-    //    }
-
-    //    if (PlayerPrefs.GetInt("BoosterLightning") == 1)
-    //    {
-    //        int countLightning = PlayerPrefs.GetInt("NumLightning");
-    //        countLightning--;
-    //        PlayerPrefs.SetInt("NumLightning", countLightning);
-    //        PlayerPrefs.Save();
-    //    }
-    //}
+    
 
     int indexHint = -1;
     void UseBoosterHint()
@@ -418,7 +402,6 @@ public class LogicGame : MonoBehaviour
         do
         {
             indexHint = UnityEngine.Random.Range(0, listBBShuffle.Count);
-            Debug.Log(indexHint + " indexHint");
             for (int i = 0; i < listBBShuffle.Count; i++)
             {
                 for (int j = i + 1; j < listBBShuffle.Count; j++)
@@ -527,7 +510,7 @@ public class LogicGame : MonoBehaviour
     }
     void Update()
     {
-        if (PlayerPrefs.GetInt("IsInGame") == 1)
+        if (/*PlayerPrefs.GetInt("IsInGame") == 1 && */uiGame.gameObject.activeSelf)
         {
             OnClick();
         }

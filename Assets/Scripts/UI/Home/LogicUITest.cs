@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -75,6 +76,11 @@ public class LogicUITest : MonoBehaviour
         homeUI.InitTest();
     }
 
+  
+    private void Update()
+    {
+        Debug.Log(PlayerPrefs.GetInt("IsInGame"));
+    }
     void OpenPanelSetting()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
@@ -253,12 +259,11 @@ public class LogicUITest : MonoBehaviour
 
     public IEnumerator InitTimerSetting()
     {
-        if (PlayerPrefs.GetInt("BoosterHint") == 1 && PlayerPrefs.GetInt("NumHint") > 0
-            || PlayerPrefs.GetInt("BoosterTimer") == 1 && PlayerPrefs.GetInt("NumTimer") > 0
-            || PlayerPrefs.GetInt("BoosterLightning") == 1 && PlayerPrefs.GetInt("NumLightning") > 0
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_HINT) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_HINT) > 0
+            || PlayerPrefs.GetInt(GameSave.BOOSTER_TIMER) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_TIMER) > 0
+            || PlayerPrefs.GetInt(GameSave.BOOSTER_LIGHTNING) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_LIGHTNING) > 0
             )
         {
-            Debug.Log("21312313123 ");
             usingBooster.SetActive(true);
             LogicGame.instance.timer.Init();
             LogicGame.instance.isUseBooster = true;
@@ -293,9 +298,9 @@ public class LogicUITest : MonoBehaviour
 
     private void SetStateDefaultUseBooster()
     {
-        PlayerPrefs.SetInt("BoosterHint", 0);
-        PlayerPrefs.SetInt("BoosterTimer", 0);
-        PlayerPrefs.SetInt("BoosterLightning", 0);
+        PlayerPrefs.SetInt(GameSave.BOOSTER_HINT, 0);
+        PlayerPrefs.SetInt(GameSave.BOOSTER_TIMER, 0);
+        PlayerPrefs.SetInt(GameSave.BOOSTER_LIGHTNING, 0);
         PlayerPrefs.Save();
     }
 
@@ -324,12 +329,21 @@ public class LogicUITest : MonoBehaviour
     bool isPaused = false;
     void OnApplicationFocus(bool hasFocus)
     {
-        PlayerPrefs.SetInt("IsInGame", 0);
-        PlayerPrefs.Save();
         isPaused = !hasFocus;
+        if (hasFocus)
+        {
+            PlayerPrefs.SetInt("IsInGame", 1);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("IsInGame", 0);
+            PlayerPrefs.Save();
+        }
     }
     void OnApplicationPause(bool pauseStatus)
     {
         isPaused = pauseStatus;
     }
+
 }
