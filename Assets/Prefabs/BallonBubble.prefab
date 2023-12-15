@@ -114,11 +114,7 @@ MonoBehaviour:
   canMoveHT: 1
   IsMoving: 0
   IsDone: 0
-  radius: 0
-  children: {fileID: 6940826176452586979}
-  connectPoint: {fileID: 3289350250619337334}
-  mat: {fileID: 0}
-  bubblTexture2d: {fileID: 18700000, guid: 524641875cb0d3f4bb40d76aa7ef7669, type: 3}
+  rb: {fileID: 6042299365496451216}
   objs:
   - {fileID: 2751347547741323121}
   - {fileID: 4583184949514558193}
@@ -128,7 +124,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: db8bffecfcca79c45bc436599f9398ca, type: 2}
   - {fileID: 2100000, guid: b0f27d83accd3a448bc58229ff3f200d, type: 2}
   meshCollider: {fileID: 0}
-  rb: {fileID: 6042299365496451216}
+  children: {fileID: 6940826176452586979}
+  connectPoint: {fileID: 3289350250619337334}
   particleBoom: {fileID: 8463052633291107253}
   particlePP: {fileID: 3552574036399960286}
   particleEatt: {fileID: 4173705881194629233}

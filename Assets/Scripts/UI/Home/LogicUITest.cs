@@ -126,7 +126,7 @@ public class LogicUITest : MonoBehaviour
             {
                 LogicGame.instance.InitAll();
             }
-           
+
 
             DOTween.KillAll();
         }
@@ -284,6 +284,7 @@ public class LogicUITest : MonoBehaviour
         }
         else
         {
+            LogicGame.instance.timer.stopTimer = false;
             LogicGame.instance.timer.timeOut = false;
             LogicGame.instance.timer.isFreeze = false;
             LogicGame.instance.isUseBooster = false;
@@ -298,7 +299,7 @@ public class LogicUITest : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    
+
 
     private void OnGUI()
     {
@@ -315,7 +316,20 @@ public class LogicUITest : MonoBehaviour
     private void OnApplicationQuit()
     {
         SetStateDefaultUseBooster();
+
+        PlayerPrefs.SetInt("IsInGame", 0);
+        PlayerPrefs.Save();
     }
 
-
+    bool isPaused = false;
+    void OnApplicationFocus(bool hasFocus)
+    {
+        PlayerPrefs.SetInt("IsInGame", 0);
+        PlayerPrefs.Save();
+        isPaused = !hasFocus;
+    }
+    void OnApplicationPause(bool pauseStatus)
+    {
+        isPaused = pauseStatus;
+    }
 }

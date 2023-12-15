@@ -46,10 +46,6 @@ public class ControllerIsInGame : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetInt("IsInGame", 0);
-        PlayerPrefs.Save();
-    }
+    
 
 }

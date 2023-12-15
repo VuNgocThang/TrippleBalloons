@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class GameSave
 {
-    public const string ISINGAME = "IsInGame";
+    public const bool ISINGAME = false;
 }

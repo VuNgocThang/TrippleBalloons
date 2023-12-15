@@ -38,9 +38,16 @@ public class WinUI : MonoBehaviour
 
     private void Start()
     {
+        InitWinUIStart();
+    }
+
+    public void InitWinUIStart()
+    {
         currentScore = DataUseInGame.gameData.star;
         Move();
         InitPileCoin();
+        btnStop.interactable = true;
+        btnStopNoAds.interactable = true;
         btnStop.onClick.AddListener(StopMoveHand);
         btnStopNoAds.onClick.AddListener(RewardPileOfCoin);
     }
@@ -101,7 +108,7 @@ public class WinUI : MonoBehaviour
             initRos[i] = pileOfStars[i].transform.rotation;
         }
     }
-    private void Reset()
+    public void Reset()
     {
         for (int i = 0; i < pileOfStars.Count; i++)
         {
@@ -131,6 +138,7 @@ public class WinUI : MonoBehaviour
                     .DOMove(endPosStar.position, 0.5f)
                     .SetDelay(delay + 0.2f)
                     .SetEase(Ease.OutBack);
+                    
             }
 
             pileOfStars[i].transform

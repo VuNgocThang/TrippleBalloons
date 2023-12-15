@@ -50,6 +50,7 @@ public class LogicGameUI : MonoBehaviour
 
     [Header("ButtonInGame")]
     public TutorialButtonInGame tutBtn;
+    public ControllerIsInGame controller;
 
     private void Awake()
     {
@@ -75,7 +76,7 @@ public class LogicGameUI : MonoBehaviour
         btnClaimStar.onClick.AddListener(ClaimStar);
         btnClaimStarNoAds.onClick.AddListener(ClaimStarNoAds);
     }
-
+    
     void BackHome()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
@@ -200,16 +201,16 @@ public class LogicGameUI : MonoBehaviour
     {
         loseUI.gameObject.SetActive(true);
     }
-    //public GameObject Nlight;
     public void OpenWinUI()
     {
+        LogicGame.instance.pathCreaterGift.position = LogicGame.instance.defaultPosGift;
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
-        //Nlight.SetActive(true);
         camerUI.gameObject.SetActive(true);
         panel.SetActive(true);
 
         bgBlackWinUI.SetActive(true);
         winUI.gameObject.SetActive(true);
+        //winUI.InitWinUIStart();
         particleWin.SetActive(true);
         AnimationPopup.instance.DoTween_Button(winUICG.gameObject, 0, 200, 0.5f);
         winUICG.DOFade(1f, 0.5f);
@@ -238,13 +239,19 @@ public class LogicGameUI : MonoBehaviour
     public void CloseWinUI()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
-        winUI.gameObject.SetActive(false);
-        panel.SetActive(false);
-        camerUI.gameObject.SetActive(false);
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        ChangeRenderMode();
         PlayerPrefs.SetInt("IsInGame", 0);
         PlayerPrefs.Save();
         SceneManager.LoadScene("SceneGame");
+    }
+
+    private void ChangeRenderMode()
+    {
+        winUI.gameObject.SetActive(false);
+        panel.SetActive(false);
+        camerUI.gameObject.SetActive(false);
+        bgBlackWinUI.gameObject.SetActive(false);
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
     }
 
     IEnumerator CanClickAgain()
@@ -287,6 +294,11 @@ public class LogicGameUI : MonoBehaviour
                         }
                         DataUseInGame.gameData.indexLevel = index;
                         DataUseInGame.instance.SaveData();
+
+                        //ChangeRenderMode();
+                        //controller.UpdateStateIsInGame();
+                        //LogicGame.instance.Instantiate();
+                        //tutBtn.InitTutBtnInGame();
 
                         SceneManager.LoadScene("SceneGame");
                     }

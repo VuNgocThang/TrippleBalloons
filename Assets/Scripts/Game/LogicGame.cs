@@ -39,6 +39,7 @@ public class LogicGame : MonoBehaviour
     public Transform pathCreaterGift;
     public Transform pathHandRotate;
     public GameObject particleTest;
+    public Vector3 defaultPosGift;
     public int indexLevel;
     public int count;
     int currentTotalBB;
@@ -55,6 +56,7 @@ public class LogicGame : MonoBehaviour
     private void Awake()
     {
         if (instance == null) instance = this;
+        defaultPosGift = pathCreaterGift.position;
         cameraResize.InitSizeObject();
     }
     void Start()
@@ -64,7 +66,7 @@ public class LogicGame : MonoBehaviour
 
     public void Instantiate()
     {
-        Debug.Log(DataUseInGame.gameData.isDaily + " --  " + PlayerPrefs.GetInt("IsInGame"));
+        checkWin = false;
         if (!DataUseInGame.gameData.isDaily)
         {
             indexLevel = DataUseInGame.gameData.indexLevel;
@@ -84,7 +86,7 @@ public class LogicGame : MonoBehaviour
 
         }
         InitBubbles();
-     
+
         controller.UpdateStateIsInGame();
 
         if (PlayerPrefs.GetInt("IsInGame") == 1)
@@ -525,7 +527,7 @@ public class LogicGame : MonoBehaviour
     }
     void Update()
     {
-        if (PlayerPrefs.GetInt(GameSave.ISINGAME) == 1)
+        if (PlayerPrefs.GetInt("IsInGame") == 1)
         {
             OnClick();
         }

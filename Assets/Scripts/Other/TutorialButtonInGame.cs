@@ -9,14 +9,20 @@ public class TutorialButtonInGame : MonoBehaviour
     public List<GameObject> listTexts;
 
     public GameObject ImageHint;
-   
+
     private void Start()
+    {
+        InitTutBtnInGame();
+    }
+
+    public void InitTutBtnInGame()
     {
         TutHintBtn();
         TutUndo();
         TutShuffle();
         TutFreeze();
     }
+
     public void Arrange(int index)
     {
         ImageHint.SetActive(true);
