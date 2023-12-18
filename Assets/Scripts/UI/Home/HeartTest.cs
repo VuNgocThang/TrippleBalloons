@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Playables;
 
 public class HeartTest : MonoBehaviour
 {
@@ -17,8 +16,8 @@ public class HeartTest : MonoBehaviour
     float minutes;
     float seconds;
     public bool canPlusHeart;
-    int time = 30;
-    private DateTime lastHeartLossTime;
+    public int time = 30;
+    public DateTime lastHeartLossTime;
 
     private void Start()
     {
@@ -76,7 +75,9 @@ public class HeartTest : MonoBehaviour
         if (countdownTimer <= 0 && canPlusHeart)
         {
             heart++;
-            SaveHeart();
+            DataUseInGame.gameData.heart = heart;
+            DataUseInGame.instance.SaveData();
+            Debug.Log("heart");
             lastHeartLossTime = DateTime.Now;
             countdownTimer = time;
             canPlusHeart = false;
@@ -93,8 +94,6 @@ public class HeartTest : MonoBehaviour
             float minutes = Mathf.Floor(timePerHour / 60);
             float seconds = Mathf.RoundToInt(timePerHour % 60);
 
-            //float minutes = Mathf.Floor(DataUseInGame.gameData.timeHeartInfinity / 60);
-            //float seconds = Mathf.RoundToInt(DataUseInGame.gameData.timeHeartInfinity % 60);
 
             txtNumHeart.text = "∞";
             if (hours > 0)
@@ -154,6 +153,5 @@ public class HeartTest : MonoBehaviour
     {
         DataUseInGame.gameData.heart = heart;
         DataUseInGame.instance.SaveData();
-
     }
 }

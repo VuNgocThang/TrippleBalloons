@@ -183,6 +183,8 @@ public class DataUseInGame : MonoBehaviour
             Debug.Log("Reset time");
         }
 
+      
+
     }
     void CheckTimeHeartInfinity()
     {

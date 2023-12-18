@@ -20,7 +20,8 @@ public class SelectBoosterManager : MonoBehaviour
     [SerializeField] GameObject textTutTimer;
     [SerializeField] GameObject textTutHint;
 
-    private void Start()
+
+    private void OnEnable()
     {
         StateBoosterIfReachLevel();
     }

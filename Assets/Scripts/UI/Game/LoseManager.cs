@@ -169,6 +169,6 @@ public class LoseManager : MonoBehaviour
         bg.SetActive(false);
     }
 
-
+   
 
 }

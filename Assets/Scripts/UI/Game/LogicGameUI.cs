@@ -59,6 +59,7 @@ public class LogicGameUI : MonoBehaviour
 
     private void Start()
     {
+
         btnHome.onClick.AddListener(BackHome);
         btnPause.onClick.AddListener(OpenPanelPause);
         btnResume.onClick.AddListener(ClosePanelPause);
@@ -76,7 +77,7 @@ public class LogicGameUI : MonoBehaviour
         btnClaimStar.onClick.AddListener(ClaimStar);
         btnClaimStarNoAds.onClick.AddListener(ClaimStarNoAds);
     }
-    
+
     void BackHome()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
@@ -93,6 +94,16 @@ public class LogicGameUI : MonoBehaviour
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
         timer.stopTimer = true;
         panelPause.SetActive(true);
+
+        //if (DataUseInGame.gameData.heart <= 0)
+        //{
+        //    btnRetry.interactable = false;
+        //}
+        //else
+        //{
+        //    btnRetry.interactable = true;
+        //}
+
         AnimationPopup.instance.DoTween_Button(panelPauseCG.gameObject, 0, 200, 0.5f);
         panelPauseCG.DOFade(1f, 0.5f);
     }
@@ -326,5 +337,18 @@ public class LogicGameUI : MonoBehaviour
                 }
 
             });
+    }
+
+    private void Update()
+    {
+        Debug.Log(DataUseInGame.gameData.heart);
+        if (DataUseInGame.gameData.heart <= 0)
+        {
+            btnRetry.interactable = false;
+        }
+        else
+        {
+            btnRetry.interactable = true;
+        }
     }
 }

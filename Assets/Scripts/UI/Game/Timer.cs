@@ -22,21 +22,19 @@ public class Timer : MonoBehaviour
     public CanvasGroup usingBoosterCG;
 
 
-   
-
     public void Init()
     {
-        if (PlayerPrefs.GetInt("BoosterHint") == 1)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_HINT) == 1)
         {
             usingBoosterHint.SetActive(true);
         }
 
-        if (PlayerPrefs.GetInt("BoosterTimer") == 1)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_TIMER) == 1)
         {
             usingBoosterTimer.SetActive(true);
         }
 
-        if (PlayerPrefs.GetInt("BoosterLightning") == 1)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_LIGHTNING) == 1)
         {
             usingBoosterLightning.SetActive(true);
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -8,6 +9,7 @@ using Random = UnityEngine.Random;
 public class DailyManager : MonoBehaviour
 {
     public Button btnPlayThisDay;
+    public TextMeshProUGUI txtPlayThisDay;
     public LogicUITest logicUI;
 
     private void Start()

@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class RewardDaily : MonoBehaviour
 {
     public int index;
-    public Button btnSelect;
-    public GameObject vfx;
+    public int value;
     public bool isCollected;
+    public Button btnSelect;
+    public Button btnClaim;
+    public GameObject vfx;
     public GameObject popup;
     private void Start()
     {
@@ -22,14 +24,16 @@ public class RewardDaily : MonoBehaviour
     {
         if (!isCollected)
         {
-            Debug.Log("index : " + index);
-            isCollected = true;
             vfx.SetActive(false);
             popup.SetActive(true);
-            btnSelect.interactable = false;
-            PlayerPrefs.SetInt($"IsCollected{index}", 1);
-            PlayerPrefs.Save();
         }
+    }
+    public void ClaimReward()
+    {
+        isCollected = true;
+        btnSelect.interactable = false;
+        PlayerPrefs.SetInt($"IsCollected{index}", 1);
+        PlayerPrefs.Save();
     }
 
     public void SaveStateReward(int index)
@@ -41,4 +45,6 @@ public class RewardDaily : MonoBehaviour
             btnSelect.interactable = false;
         }
     }
+
+    
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("IsInGame", 0);

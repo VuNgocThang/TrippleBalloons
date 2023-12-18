@@ -34,7 +34,6 @@ public class CalendarManager : MonoBehaviour
         Refresh(targetDateTime.Year, targetDateTime.Month);
         bodyManager.SetStateBeforeNow();
         bodyManager.OnClickButton();
-
     }
     public void OnGoToNextMonthButtonClicked()
     {
@@ -69,5 +68,7 @@ public class CalendarManager : MonoBehaviour
             DataUseInGame.instance.SaveData();
         }
     }
+
+   
 
 }

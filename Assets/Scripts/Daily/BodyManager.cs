@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class BodyManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject buttonPrefab;
-    [SerializeField]
-    private GameObject placeHolderPrefab;
+    [SerializeField] private GameObject buttonPrefab;
+    [SerializeField] private GameObject placeHolderPrefab;
     private List<GameObject> cells;
     public List<ButtonManager> buttonsManager;
     [SerializeField] DailyManager dailyManager;
@@ -79,7 +78,7 @@ public class BodyManager : MonoBehaviour
                     OnClickState();
                     SetSelected(button, true);
                     UpdateState();
-
+                    //UpdateTextPlay(button);
                     DataUseInGame.gameData.isDaily = true;
                     DataUseInGame.gameData.indexDailyLV = button.index - 1;
                     DataUseInGame.gameData.year = dateTime.Year;
@@ -144,6 +143,22 @@ public class BodyManager : MonoBehaviour
                 button.button.interactable = false;
             }
 
+        }
+    }
+
+    public void UpdateTextPlay(ButtonManager button)
+    {
+        CultureInfo cultureInfo = new CultureInfo("en-US");
+        if (dateTime.Month < DateTime.Now.Month || button.index < DateTime.Now.Day && dateTime.Month <= DateTime.Now.Month)
+        {
+            if (!button.isDone)
+            {
+                dailyManager.txtPlayThisDay.text = $"Play {button.index} - {cultureInfo.DateTimeFormat.GetMonthName(dateTime.Month)} ";
+            }
+        }
+        else
+        {
+            dailyManager.txtPlayThisDay.text = $"Play";
         }
     }
 

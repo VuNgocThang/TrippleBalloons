@@ -27,7 +27,7 @@ public class ButtonBooster : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey($"{txt}"))
         {
-            count = 3;
+            count = 99;
             btnPlus.gameObject.SetActive(true);
             PlayerPrefs.SetInt($"{txt}", count);
             PlayerPrefs.Save();

@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -76,11 +77,7 @@ public class LogicUITest : MonoBehaviour
         homeUI.InitTest();
     }
 
-  
-    private void Update()
-    {
-        Debug.Log(PlayerPrefs.GetInt("IsInGame"));
-    }
+   
     void OpenPanelSetting()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
@@ -325,25 +322,26 @@ public class LogicUITest : MonoBehaviour
         PlayerPrefs.SetInt("IsInGame", 0);
         PlayerPrefs.Save();
     }
+   
 
-    bool isPaused = false;
-    void OnApplicationFocus(bool hasFocus)
-    {
-        isPaused = !hasFocus;
-        if (hasFocus)
-        {
-            PlayerPrefs.SetInt("IsInGame", 1);
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            PlayerPrefs.SetInt("IsInGame", 0);
-            PlayerPrefs.Save();
-        }
-    }
-    void OnApplicationPause(bool pauseStatus)
-    {
-        isPaused = pauseStatus;
-    }
+    //bool isPaused = false;
+    //void OnApplicationFocus(bool hasFocus)
+    //{
+    //    isPaused = !hasFocus;
+    //    if (hasFocus)
+    //    {
+    //        PlayerPrefs.SetInt("IsInGame", 1);
+    //        PlayerPrefs.Save();
+    //    }
+    //    else
+    //    {
+    //        PlayerPrefs.SetInt("IsInGame", 0);
+    //        PlayerPrefs.Save();
+    //    }
+    //}
+    //void OnApplicationPause(bool pauseStatus)
+    //{
+    //    isPaused = pauseStatus;
+    //}
 
 }

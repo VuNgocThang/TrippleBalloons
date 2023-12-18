@@ -259,15 +259,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c8539f7b75c814fa4a66ee10ee4162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 7209775259019066264, guid: b7cd0a7b44a5fb04a8260009a70d4a78, type: 3}
+  cubePrefab: {fileID: 1117668122067155235, guid: a701272917025e24f804b74ac2f07152, type: 3}
   radiuss:
-  - 2
-  - 1.5
   - 1
-  ys:
+  - 0.75
+  - 0.5
+  yAxis:
   - 0
   - 1
-  - 1
+  - 2
   numbers: 0a0000000600000004000000
 --- !u!1 &2127567726
 GameObject:

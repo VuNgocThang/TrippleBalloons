@@ -81,64 +81,6 @@ public class DailyProgress : MonoBehaviour
                 }
             }
         }
-        //if (currentReward < 7)
-        //{
-        //    listRewardDaily[0].btnSelect.interactable = false;
-        //    listRewardDaily[0].vfx.SetActive(false);
-        //}
-        //else
-        //{
-        //    if (listRewardDaily[0].isCollected)
-        //    {
-        //        listRewardDaily[0].btnSelect.interactable = false;
-        //        listRewardDaily[0].vfx.SetActive(false);
-        //    }
-        //    else
-        //    {
-        //        listRewardDaily[0].btnSelect.interactable = true;
-        //        listRewardDaily[0].vfx.SetActive(true);
-        //    }
-
-        //}
-
-        //if (currentReward < 14)
-        //{
-        //    listRewardDaily[1].btnSelect.interactable = false;
-        //    listRewardDaily[1].vfx.SetActive(false);
-        //}
-        //else
-        //{
-        //    if (listRewardDaily[1].isCollected)
-        //    {
-        //        listRewardDaily[1].btnSelect.interactable = false;
-        //        listRewardDaily[1].vfx.SetActive(false);
-        //    }
-        //    else
-        //    {
-        //        listRewardDaily[1].btnSelect.interactable = true;
-        //        listRewardDaily[1].vfx.SetActive(true);
-        //    }
-        //}
-
-        //if (currentReward < 28)
-        //{
-        //    listRewardDaily[2].btnSelect.interactable = false;
-        //    listRewardDaily[2].vfx.SetActive(false);
-        //}
-        //else
-        //{
-        //    if (listRewardDaily[2].isCollected)
-        //    {
-        //        listRewardDaily[2].btnSelect.interactable = false;
-        //        listRewardDaily[2].vfx.SetActive(false);
-        //    }
-        //    else
-        //    {
-        //        listRewardDaily[2].btnSelect.interactable = true;
-        //        listRewardDaily[2].vfx.SetActive(true);
-        //    }
-        //}
-
-
+       
     }
 }
