@@ -49,7 +49,7 @@ public class ShopHandler : MonoBehaviour
         }
         else
         {
-            numLightningBooster = 0;
+            numLightningBooster = 99;
         }
        
         if (PlayerPrefs.HasKey("NumHint"))
@@ -59,7 +59,7 @@ public class ShopHandler : MonoBehaviour
         }
         else
         {
-            numHintBooster = 0;
+            numHintBooster = 99;
         }
        
         if (PlayerPrefs.HasKey("NumTimer"))
@@ -69,7 +69,7 @@ public class ShopHandler : MonoBehaviour
         }
         else
         {
-            numTimerBooster = 0;
+            numTimerBooster = 99;
         }
        
 

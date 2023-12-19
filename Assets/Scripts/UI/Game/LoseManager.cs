@@ -144,31 +144,39 @@ public class LoseManager : MonoBehaviour
     }
     public void Retry()
     {
-        GameManager.Instance.SubHeart();
         btnRetry.interactable = false;
         btnHome.interactable = false;
+        btnRetry.gameObject.SetActive(false);
+        btnHome.gameObject.SetActive(false);
+        Debug.Log("subHeart" + DataUseInGame.gameData.heart);
+
         AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
         panelPersidentCG.DOFade(0f, 0.5f);
         bg.SetActive(false);
         StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
+        GameManager.Instance.SubHeart();
         PlayerPrefs.SetInt("IsInGame", 1);
         PlayerPrefs.Save();
     }
     public void BackHome()
     {
-        GameManager.Instance.SubHeart();
         btnRetry.interactable = false;
         btnHome.interactable = false;
+        btnRetry.gameObject.SetActive(false);
+        btnHome.gameObject.SetActive(false);
+        Debug.Log("subHeart" + DataUseInGame.gameData.heart);
+
         AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
         panelPersidentCG.DOFade(0f, 0.5f);
         PlayerPrefs.SetInt("IsInGame", 0);
         PlayerPrefs.Save();
         DataUseInGame.gameData.isDaily = false;
         DataUseInGame.instance.SaveData();
+        GameManager.Instance.SubHeart();
         StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
         bg.SetActive(false);
     }
 
-   
+
 
 }

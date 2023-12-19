@@ -25,7 +25,7 @@ public class ControllerIsInGame : MonoBehaviour
             if (DataUseInGame.gameData.indexLevel == 0 && !DataUseInGame.gameData.isDaily)
             {
                 LogicGame.instance.tutorialManager.handClick.gameObject.SetActive(true);
-                LogicGame.instance.tutorialManager.AnimHand();
+                //LogicGame.instance.tutorialManager.AnimHand();
             }
             if (DataUseInGame.gameData.indexLevel >= 6 && !DataUseInGame.gameData.isDaily)
             {

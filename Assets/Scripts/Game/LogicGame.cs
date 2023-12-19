@@ -327,7 +327,7 @@ public class LogicGame : MonoBehaviour
             }
 
             tutorialManager.ShowTutorial();
-            tutorialManager.AnimHandRotate();
+            //tutorialManager.AnimHandRotate();
 
         }
         else
@@ -558,7 +558,6 @@ public class LogicGame : MonoBehaviour
                         tutorialManager.OnClick(bubble);
                     }
 
-
                     Move(bubble);
                 }
             }
@@ -571,7 +570,6 @@ public class LogicGame : MonoBehaviour
 
         SolveChildOfBB(bubble);
 
-        //bubble.StateAfterMove();
         listBB.Remove(bubble);
         listBBShuffle.Remove(bubble);
         listBubbleUndo.Add(bubble);
@@ -597,7 +595,9 @@ public class LogicGame : MonoBehaviour
             }
         }
         listGOStored = tempB;
+
         CanEat();
+
         for (int i = 0; i < listGOStored.Count; ++i)
         {
             if (!listGOStored[i].IsDone)

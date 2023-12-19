@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("IsInGame", 0);
@@ -95,13 +95,6 @@ public class GameManager : MonoBehaviour
         DataUseInGame.gameData.gold = gold;
         DataUseInGame.instance.SaveData();
     }
-    //public void AddItemHint(int itemHint)
-    //{
-    //    int hint = DataUseInGame.gameData.numHintItem;
-    //    hint += itemHint;
-    //    DataUseInGame.gameData.gold = hint;
-    //    DataUseInGame.instance.SaveData();
-    //}
 
     public void IncreaseItemBig(int numItem)
     {
@@ -123,7 +116,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            numLightningBooster = 0;
+            numLightningBooster = 99;
         }
 
         if (PlayerPrefs.HasKey("NumHint"))
@@ -133,7 +126,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            numHintBooster = 0;
+            numHintBooster = 99;
         }
 
         if (PlayerPrefs.HasKey("NumTimer"))
@@ -143,7 +136,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            numTimerBooster = 0;
+            numTimerBooster = 99;
         }
 
 

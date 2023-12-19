@@ -144,17 +144,17 @@ public class StartCollector : MonoBehaviour
     {
         for (int i = 0; i < listBtnSelector.Count; i++)
         {
-            int a = i;
-            listBtnSelector[a].idBought = unlockReward.listUnlockReward[a].id;
-            if (listBtnSelector[a].idBought == 1)
+            //int a = i;
+            listBtnSelector[i].idBought = unlockReward.listUnlockReward[i].id;
+            if (listBtnSelector[i].idBought == 1)
             {
-                listBtnSelector[a].btnBuy.interactable = false;
-                listBtnSelector[a].lockObject.SetActive(false);
+                listBtnSelector[i].btnBuy.interactable = false;
+                listBtnSelector[i].lockObject.SetActive(false);
             }
             else
             {
-                listBtnSelector[a].btnBuy.interactable = true;
-                listBtnSelector[a].lockObject.SetActive(true);
+                listBtnSelector[i].btnBuy.interactable = true;
+                listBtnSelector[i].lockObject.SetActive(true);
             }
         }
     }

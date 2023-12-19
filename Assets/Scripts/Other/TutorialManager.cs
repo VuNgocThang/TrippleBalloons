@@ -28,6 +28,16 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
+        if (PlayerPrefs.GetInt("IsInGame") == 1 && DataUseInGame.gameData.indexLevel == 0 && !DataUseInGame.gameData.isDaily)
+        {
+            if (handClick != null)
+            {
+                MoveHandClick();
+
+            }
+        }
+        
+
         if (PlayerPrefs.GetInt("IsInGame") == 1 && DataUseInGame.gameData.indexLevel == 5)
         {
             ShowTutWrappedBB();
@@ -36,7 +46,7 @@ public class TutorialManager : MonoBehaviour
     public void ShowTutorial()
     {
         InitTutorial();
-        MoveHandClick();
+        //MoveHandClick();
     }
     void InitTutorial()
     {
@@ -47,7 +57,10 @@ public class TutorialManager : MonoBehaviour
     }
     void MoveHandClick()
     {
-        StartCoroutine(WaitForMoveClick());
+        if (DataUseInGame.gameData.indexLevel == 0 && !DataUseInGame.gameData.isDaily)
+        {
+            StartCoroutine(WaitForMoveClick());
+        }
     }
     public void OnClick(Bubble bb)
     {
@@ -65,18 +78,32 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
+
     IEnumerator WaitForMoveClick()
     {
         yield return new WaitForSeconds(0.5f);
         Vector3 targetPos = listBubbles[currentStepClick].transform.position;
 
-        foreach (Bubble bb in LogicGame.instance.listBB)
+        if (LogicGame.instance.listBB.Count > 6)
         {
-            bb.click = false;
-            LogicGame.instance.listBB[0].click = true;
+            foreach (Bubble bb in LogicGame.instance.listBB)
+            {
+                bb.click = false;
+                LogicGame.instance.listBB[0].click = true;
+            }
         }
-        //shader.transform.position = targetPos;
-        handClick.transform.DOMove(Camera.main.WorldToScreenPoint(targetPos), 0.4f);
+        else
+        {
+            foreach (Bubble bb in LogicGame.instance.listBB)
+            {
+                bb.click = true;
+            }
+        }
+
+        if (targetPos != null && handClick.transform != null)
+        {
+            handClick.transform.DOMove(Camera.main.WorldToScreenPoint(targetPos), 0.4f);
+        }
     }
     IEnumerator HideHandClick()
     {
@@ -105,21 +132,7 @@ public class TutorialManager : MonoBehaviour
             fingerRotate.SetActive(false);
         }
     }
-    public void AnimHand()
-    {
-        if (handClick.gameObject != null)
-        {
-            handClick.transform.DOScale(new Vector3(1.3f, 1.3f, 1.3f), 1f)
-                .OnComplete(() =>
-                {
-                    handClick.transform.DOScale(new Vector3(1f, 1f, 1f), 1f)
-                    .OnComplete(() =>
-                    {
-                        AnimHand();
-                    });
-                });
-        }
-    }
+
     public void ShowTutWrappedBB()
     {
         if (DataUseInGame.gameData.indexLevel == 5 && !DataUseInGame.gameData.isDaily && !DataUseInGame.gameData.isTutWrappedDone)
@@ -140,7 +153,6 @@ public class TutorialManager : MonoBehaviour
                 Vector3 pos = LogicGame.instance.listBBShuffle[0].transform.position;
                 handClick.transform.DOMove(Camera.main.WorldToScreenPoint(pos), 0.4f);
             }
-
         }
     }
 
