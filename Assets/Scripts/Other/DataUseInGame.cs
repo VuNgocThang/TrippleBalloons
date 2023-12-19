@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -8,6 +9,7 @@ public class GameData
     public int indexLevel;
     public List<int> listIndex;
     public int heart;
+    public int maxHeart;
     public int star;
     public int gold;
     public int numHintItem;
@@ -51,13 +53,14 @@ public class GameData
             0, 1, 2, 3, 4, 5, 6, 7, 8,
         };
         heart = 5;
+        maxHeart = 5;
         star = 0;
         gold = 0;
-        numHintItem = 9999;
-        numShuffleItem = 9999;
-        numUndoItem = 9999;
-        numTrippleUndoItem = 9999;
-        numFreezeTimeItem = 9999;
+        numHintItem = 99;
+        numShuffleItem = 99;
+        numUndoItem = 99;
+        numTrippleUndoItem = 99;
+        numFreezeTimeItem = 99;
         isHeartInfinity = false;
         timeHeartInfinity = 0;
         timeStarCollector = 86400f;
@@ -175,6 +178,7 @@ public class DataUseInGame : MonoBehaviour
         {
             gameData.timeStarCollector = 86400f;
             gameData.currentIndexStarCollector = 0;
+
             if (StartCollector.ins != null)
             {
                 StartCollector.ins.currentIndex = 0;
@@ -183,9 +187,62 @@ public class DataUseInGame : MonoBehaviour
             Debug.Log("Reset time");
         }
 
-      
-
+        SolveHeart();
     }
+
+    private void SolveHeart()
+    {
+        if (HeartTest.Instance != null)
+        {
+            PlayerPrefs.SetFloat("CountdownTimer", HeartTest.Instance.countdownTimer);
+            PlayerPrefs.Save();
+            //Debug.Log(PlayerPrefs.GetFloat("CountdownTimer"));
+            if (gameData.heart <= gameData.maxHeart)
+            {
+                PlayerPrefs.SetString("LastHeartLossTime", DateTime.Now.ToString());
+                PlayerPrefs.Save();
+            }
+
+            //Debug.Log(HeartTest.Instance.countdownTimer + " countDown" + HeartTest.Instance.canPlusHeart + " --- " + gameData.heart);
+            if (HeartTest.Instance.countdownTimer <= 0 && HeartTest.Instance.canPlusHeart && gameData.heart < gameData.maxHeart)
+            {
+                gameData.heart++;
+                SaveData();
+                HeartTest.Instance.lastHeartLossTime = DateTime.Now;
+                HeartTest.Instance.countdownTimer = HeartTest.Instance.time;
+                HeartTest.Instance.canPlusHeart = false;
+            }
+
+            if (HeartTest.Instance.countdownTimer > 0)
+            {
+                HeartTest.Instance.canPlusHeart = true;
+            }
+
+            if (gameData.heart == gameData.maxHeart)
+            {
+                //Debug.Log("full");
+            }
+            else
+            {
+                TimeSpan timeSinceLoss = DateTime.Now - HeartTest.Instance.lastHeartLossTime;
+
+                if (timeSinceLoss.TotalSeconds < HeartTest.Instance.countdownTimer)
+                {
+                    HeartTest.Instance.countdownTimer -= (float)timeSinceLoss.TotalSeconds;
+                }
+                else
+                {
+                    HeartTest.Instance.countdownTimer = 0;
+                }
+
+                HeartTest.Instance.lastHeartLossTime = DateTime.Now;
+            }
+        }
+        else
+        {
+        }
+    }
+
     void CheckTimeHeartInfinity()
     {
         if (PlayerPrefs.HasKey("CountdownTimerHeartInfinity"))

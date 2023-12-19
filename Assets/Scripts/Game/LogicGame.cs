@@ -95,7 +95,6 @@ public class LogicGame : MonoBehaviour
         }
         else
         {
-            Debug.Log("1231231321");
             controller.PanelInGame();
         }
 

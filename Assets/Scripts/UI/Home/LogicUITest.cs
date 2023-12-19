@@ -77,7 +77,7 @@ public class LogicUITest : MonoBehaviour
         homeUI.InitTest();
     }
 
-   
+
     void OpenPanelSetting()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
@@ -120,6 +120,7 @@ public class LogicUITest : MonoBehaviour
         }
         else
         {
+            if (DataUseInGame.gameData.heart <= 0) return;
             LogicGame.instance.timer.stopTimer = false;
             PlayerPrefs.SetInt("IsInGame", 1);
             PlayerPrefs.Save();
@@ -322,7 +323,7 @@ public class LogicUITest : MonoBehaviour
         PlayerPrefs.SetInt("IsInGame", 0);
         PlayerPrefs.Save();
     }
-   
+
 
     //bool isPaused = false;
     //void OnApplicationFocus(bool hasFocus)

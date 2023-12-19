@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour
         if (!DataUseInGame.gameData.isHeartInfinity)
         {
             heart--;
+            Debug.Log("heartttt" + heart);
+            DataUseInGame.gameData.heart = heart;
+            DataUseInGame.instance.SaveData();
         }
 
         if (heart <= 0)
@@ -92,11 +95,78 @@ public class GameManager : MonoBehaviour
         DataUseInGame.gameData.gold = gold;
         DataUseInGame.instance.SaveData();
     }
-    public void AddItemHint(int itemHint)
+    //public void AddItemHint(int itemHint)
+    //{
+    //    int hint = DataUseInGame.gameData.numHintItem;
+    //    hint += itemHint;
+    //    DataUseInGame.gameData.gold = hint;
+    //    DataUseInGame.instance.SaveData();
+    //}
+
+    public void IncreaseItemBig(int numItem)
     {
-        int hint = DataUseInGame.gameData.numHintItem;
-        hint += itemHint;
-        DataUseInGame.gameData.gold = hint;
+        AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
+
+        int numHint = DataUseInGame.gameData.numHintItem;
+        int numUndo = DataUseInGame.gameData.numUndoItem;
+        int numTrippleUndo = DataUseInGame.gameData.numTrippleUndoItem;
+        int numShuffle = DataUseInGame.gameData.numShuffleItem;
+        int numFreezeTime = DataUseInGame.gameData.numFreezeTimeItem;
+
+        int numHintBooster;
+        int numTimerBooster;
+        int numLightningBooster;
+
+        if (PlayerPrefs.HasKey("NumLightning"))
+        {
+            numLightningBooster = PlayerPrefs.GetInt("NumLightning");
+        }
+        else
+        {
+            numLightningBooster = 0;
+        }
+
+        if (PlayerPrefs.HasKey("NumHint"))
+        {
+            numHintBooster = PlayerPrefs.GetInt("NumHint");
+
+        }
+        else
+        {
+            numHintBooster = 0;
+        }
+
+        if (PlayerPrefs.HasKey("NumTimer"))
+        {
+            numTimerBooster = PlayerPrefs.GetInt("NumTimer");
+
+        }
+        else
+        {
+            numTimerBooster = 0;
+        }
+
+
+        numHint += numItem;
+        numUndo += numItem;
+        numTrippleUndo += numItem;
+        numShuffle += numItem;
+        numFreezeTime += numItem;
+
+        numHintBooster += numItem;
+        numTimerBooster += numItem;
+        numLightningBooster += numItem;
+
+        PlayerPrefs.SetInt("NumHint", numHintBooster);
+        PlayerPrefs.SetInt("NumTimer", numTimerBooster);
+        PlayerPrefs.SetInt("NumLightning", numLightningBooster);
+        PlayerPrefs.Save();
+
+        DataUseInGame.gameData.numHintItem = numHint;
+        DataUseInGame.gameData.numUndoItem = numUndo;
+        DataUseInGame.gameData.numTrippleUndoItem = numTrippleUndo;
+        DataUseInGame.gameData.numShuffleItem = numShuffle;
+        DataUseInGame.gameData.numFreezeTimeItem = numFreezeTime;
         DataUseInGame.instance.SaveData();
     }
 }

@@ -341,7 +341,7 @@ public class LogicGameUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(DataUseInGame.gameData.heart);
+        //Debug.Log(DataUseInGame.gameData.heart);
         if (DataUseInGame.gameData.heart <= 0)
         {
             btnRetry.interactable = false;

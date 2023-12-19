@@ -8,6 +8,7 @@ using UnityEngine;
 public class HeartTest : MonoBehaviour
 {
     // ∞
+    public static HeartTest Instance;
     public int heart;
     public int maxHeart = 5;
     public float countdownTimer;
@@ -19,6 +20,11 @@ public class HeartTest : MonoBehaviour
     public int time = 30;
     public DateTime lastHeartLossTime;
 
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+
+    }
     private void Start()
     {
         canPlusHeart = true;
@@ -31,15 +37,23 @@ public class HeartTest : MonoBehaviour
             float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString("LastHeartLossTime"))).TotalSeconds;
 
             int increaseHeart = (int)timeSinceLastLoss / time;
-            float timeSub = timeSinceLastLoss % time;
 
-            heart += increaseHeart;
-            heart = Mathf.Min(heart, maxHeart);
-            SaveHeart();
+            float timeSub = timeSinceLastLoss % time;
+            //Debug.Log(DateTime.Now  + " --- " + PlayerPrefs.GetString("LastHeartLossTime") + " --- " + timeSinceLastLoss +  " -- " + timeSub);
+
+            if (DataUseInGame.gameData.maxHeart > DataUseInGame.gameData.heart)
+            {
+                heart += increaseHeart;
+            }
+            heart = Mathf.Min(heart, DataUseInGame.gameData.maxHeart);
+            DataUseInGame.gameData.heart = heart;
+            DataUseInGame.instance.SaveData();
+
             countdownTimer = PlayerPrefs.GetFloat("CountdownTimer") - timeSub;
+            Debug.Log(countdownTimer + " timer Count Down");
             countdownTimer = Mathf.Max(countdownTimer, 0);
 
-            if (heart >= maxHeart)
+            if (DataUseInGame.gameData.heart >= DataUseInGame.gameData.maxHeart)
             {
                 countdownTimer = time;
             }
@@ -49,39 +63,19 @@ public class HeartTest : MonoBehaviour
             countdownTimer = time;
         }
 
+        txtNumHeart.text = heart.ToString();
+
 
         lastHeartLossTime = DateTime.Now;
-        txtNumHeart.text = heart.ToString();
     }
     private void OnDisable()
     {
-        //heart
-        PlayerPrefs.SetFloat("CountdownTimer", countdownTimer);
-        if (heart <= maxHeart)
-        {
-            PlayerPrefs.SetString("LastHeartLossTime", DateTime.Now.ToString());
-            PlayerPrefs.Save();
-        }
-        PlayerPrefs.Save();
 
         //infinityHeart
         PlayerPrefs.SetFloat("CountdownTimerHeartInfinity", DataUseInGame.instance.countdownTimerHeartInfinity);
         PlayerPrefs.SetString("LastTimerQuit", DateTime.Now.ToString());
         PlayerPrefs.Save();
 
-    }
-    private void Update()
-    {
-        if (countdownTimer <= 0 && canPlusHeart)
-        {
-            heart++;
-            DataUseInGame.gameData.heart = heart;
-            DataUseInGame.instance.SaveData();
-            Debug.Log("heart");
-            lastHeartLossTime = DateTime.Now;
-            countdownTimer = time;
-            canPlusHeart = false;
-        }
     }
 
     private void OnGUI()
@@ -108,27 +102,14 @@ public class HeartTest : MonoBehaviour
         }
         else
         {
-            txtNumHeart.text = heart.ToString();
+            txtNumHeart.text = DataUseInGame.gameData.heart.ToString();
 
-            if (heart == maxHeart)
+            if (DataUseInGame.gameData.heart == DataUseInGame.gameData.maxHeart)
             {
                 txtCountdownTimer.text = "FULL";
             }
             else
             {
-                TimeSpan timeSinceLoss = DateTime.Now - lastHeartLossTime;
-
-                if (timeSinceLoss.TotalSeconds < countdownTimer)
-                {
-                    countdownTimer -= (float)timeSinceLoss.TotalSeconds;
-                }
-                else
-                {
-                    countdownTimer = 0;
-                }
-
-                lastHeartLossTime = DateTime.Now;
-
                 if (countdownTimer > 0)
                 {
                     canPlusHeart = true;
@@ -144,9 +125,14 @@ public class HeartTest : MonoBehaviour
     private void OnApplicationQuit()
     {
         SaveHeart();
+
         PlayerPrefs.SetFloat("CountdownTimer", countdownTimer);
-        PlayerPrefs.SetString("LastHeartLossTime", DateTime.Now.ToString());
         PlayerPrefs.Save();
+        if (DataUseInGame.gameData.heart <= DataUseInGame.gameData.maxHeart)
+        {
+            PlayerPrefs.SetString("LastHeartLossTime", DateTime.Now.ToString());
+            PlayerPrefs.Save();
+        }
     }
 
     public void SaveHeart()
