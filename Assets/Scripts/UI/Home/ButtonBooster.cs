@@ -25,16 +25,22 @@ public class ButtonBooster : MonoBehaviour
 
     public void InitButton()
     {
-        if (!PlayerPrefs.HasKey($"{txt}"))
+        SwitchChange(txt);
+    }
+
+    void SwitchChange(string txt)
+    {
+        switch (txt)
         {
-            count = 99;
-            btnPlus.gameObject.SetActive(true);
-            PlayerPrefs.SetInt($"{txt}", count);
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            count = PlayerPrefs.GetInt($"{txt}");
+            case "NumHint":
+                count = DataUseInGame.gameData.numBoosterHint;
+                break;
+            case "NumTimer":
+                count = DataUseInGame.gameData.numBoosterTimer;
+                break;
+            case "NumLightning":
+                count = DataUseInGame.gameData.numBoosterLightning;
+                break;
         }
     }
     public void SaveStateBooster(string str, int i)

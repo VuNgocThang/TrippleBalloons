@@ -365,30 +365,39 @@ public class LogicGame : MonoBehaviour
     }
     public void UseBooster()
     {
-        if (PlayerPrefs.GetInt(GameSave.BOOSTER_HINT) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_HINT) > 0)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_HINT) == 1 && DataUseInGame.gameData.numBoosterHint > 0)
         {
-            int countHint = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_HINT);
+            //int countHint = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_HINT);
+            int countHint = DataUseInGame.gameData.numBoosterHint;
             countHint--;
-            PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_HINT, countHint);
-            PlayerPrefs.Save();
+            DataUseInGame.gameData.numBoosterHint = countHint;
+            DataUseInGame.instance.SaveData();
+            //PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_HINT, countHint);
+            //PlayerPrefs.Save();
             UseBoosterHint();
         }
 
-        if (PlayerPrefs.GetInt(GameSave.BOOSTER_TIMER) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_TIMER) > 0)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_TIMER) == 1 && DataUseInGame.gameData.numBoosterTimer > 0)
         {
-            int countTimer = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_TIMER);
+            //int countTimer = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_TIMER);
+            int countTimer = DataUseInGame.gameData.numBoosterTimer;
             countTimer--;
-            PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_TIMER, countTimer);
-            PlayerPrefs.Save();
+            DataUseInGame.gameData.numBoosterTimer = countTimer;
+            DataUseInGame.instance.SaveData();
+            //PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_TIMER, countTimer);
+            //PlayerPrefs.Save();
             UseBoosterTimer();
         }
 
-        if (PlayerPrefs.GetInt(GameSave.BOOSTER_LIGHTNING) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_LIGHTNING) > 0)
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_LIGHTNING) == 1 && DataUseInGame.gameData.numBoosterLightning > 0)
         {
-            int countLightning = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_LIGHTNING);
+            //int countLightning = PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_LIGHTNING);
+            int countLightning = DataUseInGame.gameData.numBoosterLightning;
             countLightning--;
-            PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_LIGHTNING, countLightning);
-            PlayerPrefs.Save();
+            DataUseInGame.gameData.numBoosterLightning = countLightning;
+            DataUseInGame.instance.SaveData();
+            //PlayerPrefs.SetInt(GameSave.NUM_BOOSTER_LIGHTNING, countLightning);
+            //PlayerPrefs.Save();
             UseBoosterLightning();
         }
     }

@@ -10,6 +10,7 @@ public class StartCollector : MonoBehaviour
     public List<DataButton> listDataBtn = new List<DataButton>();
     public List<DataReward> listDataRw = new List<DataReward>();
     public List<ButtonSelector> listBtnSelector = new List<ButtonSelector>();
+    public List<Sprite> listSpriteBtn = new List<Sprite>();
     public ButtonSelector prefab;
     public ListUnlockReward unlockReward = new ListUnlockReward();
     public int currentIndex;
@@ -103,6 +104,8 @@ public class StartCollector : MonoBehaviour
             });
         }
     }
+    // 1 : lock
+    // 0 : unlock
 
     public void UpdateUnlockBtn()
     {
@@ -112,18 +115,20 @@ public class StartCollector : MonoBehaviour
         {
             if (buttonSelector.id == currentIndex)
             {
-                buttonSelector.btnBuy.interactable = true;
+                //buttonSelector.btnBuy.interactable = true;
+                buttonSelector.imgBtnBuy.sprite = listSpriteBtn[0];
                 buttonSelector.lockObject.SetActive(false);
             }
 
-            if (star < buttonSelector.cost)
-            {
-                buttonSelector.btnBuy.interactable = false;
-            }
+            //if (star < buttonSelector.cost)
+            //{
+            //    buttonSelector.btnBuy.interactable = false;
+            //}
 
             if (buttonSelector.id > currentIndex)
             {
-                buttonSelector.btnBuy.interactable = false;
+                //buttonSelector.btnBuy.interactable = false;
+                buttonSelector.imgBtnBuy.sprite = listSpriteBtn[1];
 
                 buttonSelector.lockObject.SetActive(true);
             }
@@ -149,11 +154,13 @@ public class StartCollector : MonoBehaviour
             if (listBtnSelector[i].idBought == 1)
             {
                 listBtnSelector[i].btnBuy.interactable = false;
+                listBtnSelector[i].imgBtnBuy.sprite = listSpriteBtn[0];
                 listBtnSelector[i].lockObject.SetActive(false);
             }
             else
             {
-                listBtnSelector[i].btnBuy.interactable = true;
+                //listBtnSelector[i].btnBuy.interactable = true;
+                listBtnSelector[i].imgBtnBuy.sprite = listSpriteBtn[0];
                 listBtnSelector[i].lockObject.SetActive(true);
             }
         }

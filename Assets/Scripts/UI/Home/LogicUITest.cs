@@ -257,9 +257,9 @@ public class LogicUITest : MonoBehaviour
 
     public IEnumerator InitTimerSetting()
     {
-        if (PlayerPrefs.GetInt(GameSave.BOOSTER_HINT) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_HINT) > 0
-            || PlayerPrefs.GetInt(GameSave.BOOSTER_TIMER) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_TIMER) > 0
-            || PlayerPrefs.GetInt(GameSave.BOOSTER_LIGHTNING) == 1 && PlayerPrefs.GetInt(GameSave.NUM_BOOSTER_LIGHTNING) > 0
+        if (PlayerPrefs.GetInt(GameSave.BOOSTER_HINT) == 1 && DataUseInGame.gameData.numBoosterHint > 0
+            || PlayerPrefs.GetInt(GameSave.BOOSTER_TIMER) == 1 && DataUseInGame.gameData.numBoosterTimer > 0
+            || PlayerPrefs.GetInt(GameSave.BOOSTER_LIGHTNING) == 1 && DataUseInGame.gameData.numBoosterLightning > 0
             )
         {
             usingBooster.SetActive(true);
@@ -279,19 +279,21 @@ public class LogicUITest : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
 
-            LogicGame.instance.isUseBooster = false;
             SetStateDefaultUseBooster();
-            LogicGame.instance.timer.stopTimer = false;
-            LogicGame.instance.timer.timeOut = false;
-            LogicGame.instance.timer.isFreeze = false;
+            SetFalse();
         }
         else
         {
-            LogicGame.instance.timer.stopTimer = false;
-            LogicGame.instance.timer.timeOut = false;
-            LogicGame.instance.timer.isFreeze = false;
-            LogicGame.instance.isUseBooster = false;
+            SetFalse();
         }
+    }
+
+    private static void SetFalse()
+    {
+        LogicGame.instance.isUseBooster = false;
+        LogicGame.instance.timer.stopTimer = false;
+        LogicGame.instance.timer.timeOut = false;
+        LogicGame.instance.timer.isFreeze = false;
     }
 
     private void SetStateDefaultUseBooster()

@@ -522,6 +522,7 @@ MonoBehaviour:
   interac: 0
   lockObject: {fileID: 2167734077242864012}
   imgButton: {fileID: 2167734077129574856}
+  imgBtnBuy: {fileID: 2167734077303893109}
 --- !u!1 &2167734077242864012
 GameObject:
   m_ObjectHideFlags: 0

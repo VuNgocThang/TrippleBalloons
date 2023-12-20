@@ -12,11 +12,17 @@ public class GameData
     public int maxHeart;
     public int star;
     public int gold;
+
     public int numHintItem;
     public int numShuffleItem;
     public int numUndoItem;
     public int numTrippleUndoItem;
     public int numFreezeTimeItem;
+
+    public int numBoosterHint;
+    public int numBoosterLightning;
+    public int numBoosterTimer;
+
     public bool isHeartInfinity;
     public float timeHeartInfinity;
     public float timeStarCollector;
@@ -61,6 +67,11 @@ public class GameData
         numUndoItem = 99;
         numTrippleUndoItem = 99;
         numFreezeTimeItem = 99;
+
+        numBoosterLightning = 99;
+        numBoosterTimer = 99;
+        numBoosterHint = 99;
+
         isHeartInfinity = false;
         timeHeartInfinity = 0;
         timeStarCollector = 86400f;

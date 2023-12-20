@@ -18,6 +18,7 @@ public class ButtonSelector : MonoBehaviour
     public bool interac;
     public GameObject lockObject;
     public Image imgButton;
+    public Image imgBtnBuy;
 
     private void Awake()
     {
@@ -29,10 +30,10 @@ public class ButtonSelector : MonoBehaviour
         this.cost = cost;
         this.value = value;
         this.icon.sprite = icon;
-        this.imgButton.sprite = imgBtn;
+        imgButton.sprite = imgBtn;
         txtCost.text = cost.ToString();
         txtValue.text = $"x{value}";
-        this.stringName = name;
+        stringName = name;
     }
     
 }
