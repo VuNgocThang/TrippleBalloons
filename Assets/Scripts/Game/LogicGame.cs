@@ -645,8 +645,6 @@ public class LogicGame : MonoBehaviour
             {
                 canEat = true;
                 Debug.Log(canEat);
-                comboSystem.IncreaseCombo();
-
             }
         }
     }
@@ -658,6 +656,7 @@ public class LogicGame : MonoBehaviour
             if (listGOStored[i].CanMoving && listGOStored[i + 1].CanMoving && listGOStored[i + 2].CanMoving
                 && listGOStored[i].ID == listGOStored[i + 1].ID && listGOStored[i + 1].ID == listGOStored[i + 2].ID)
             {
+                comboSystem.IncreaseCombo();
                 //canEat = true;
                 isHint = false;
 

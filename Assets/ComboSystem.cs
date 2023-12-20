@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ComboSystem : MonoBehaviour
 {
     public int comboCount = 0;
-    public float defaultTimerCombo = 10f;
+    public float defaultTimerCombo = 4f;
     public float comboTimer;
     private float currentComboTimer;
 
@@ -26,8 +26,6 @@ public class ComboSystem : MonoBehaviour
             currentComboTimer -= Time.deltaTime;
             imgFillCombo.fillAmount = currentComboTimer / comboTimer;
 
-           
-
             if (currentComboTimer <= 0f)
             {
                 ResetCombo();
@@ -39,7 +37,12 @@ public class ComboSystem : MonoBehaviour
     public void IncreaseCombo()
     {
         comboCount++;
-        if (comboCount > 2)
+        if (comboCount > 3)
+        {
+            comboTimer = 3f;
+        }
+
+        if(comboCount > 5)
         {
             comboTimer = 2f;
         }
