@@ -25,6 +25,7 @@ public class LogicGame : MonoBehaviour
     {
         0,1,2,3,4,5,6,7,8
     };
+    public ComboSystem comboSystem;
     public LineController lineController;
     public Timer timer;
     public LevelSetMap level;
@@ -640,10 +641,12 @@ public class LogicGame : MonoBehaviour
     {
         for (int i = 0; i < listGOStored.Count - 2; ++i)
         {
-            if (listGOStored[i].CanMoving && listGOStored[i + 1].CanMoving && listGOStored[i + 2].CanMoving
-                && listGOStored[i].ID == listGOStored[i + 1].ID && listGOStored[i + 1].ID == listGOStored[i + 2].ID)
+            if (listGOStored[i].ID == listGOStored[i + 1].ID && listGOStored[i + 1].ID == listGOStored[i + 2].ID)
             {
                 canEat = true;
+                Debug.Log(canEat);
+                comboSystem.IncreaseCombo();
+
             }
         }
     }

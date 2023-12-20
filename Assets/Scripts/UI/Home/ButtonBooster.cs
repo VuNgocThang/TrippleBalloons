@@ -14,7 +14,8 @@ public class ButtonBooster : MonoBehaviour
     public Button btnPlus;
     public GameObject numBtn;
     public GameObject selected;
-    public GameObject lockImg;
+    public GameObject imgLock;
+    public GameObject imgNotice;
     public TextMeshProUGUI txtNumBtn;
     public bool interactable;
 
@@ -63,23 +64,6 @@ public class ButtonBooster : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        UpdateNumBooster();
-    }
-
-    void UpdateNumBooster()
-    {
-        if (count > 0)
-        {
-            numBtn.gameObject.SetActive(true);
-            txtNumBtn.text = count.ToString();
-        }
-        else
-        {
-            btnPlus.gameObject.SetActive(true);
-            btn.interactable = false;
-        }
-    }
+   
 
 }

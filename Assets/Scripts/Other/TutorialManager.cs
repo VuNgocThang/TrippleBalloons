@@ -36,7 +36,7 @@ public class TutorialManager : MonoBehaviour
 
             }
         }
-        
+
 
         if (PlayerPrefs.GetInt("IsInGame") == 1 && DataUseInGame.gameData.indexLevel == 5)
         {
@@ -99,11 +99,11 @@ public class TutorialManager : MonoBehaviour
                 bb.click = true;
             }
         }
-
-        if (targetPos != null && handClick.transform != null)
+        if (handClick.gameObject.activeSelf)
         {
             handClick.transform.DOMove(Camera.main.WorldToScreenPoint(targetPos), 0.4f);
         }
+
     }
     IEnumerator HideHandClick()
     {

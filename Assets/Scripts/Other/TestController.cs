@@ -16,8 +16,8 @@ public class TestController : MonoBehaviour
             if (dv != Vector3.zero)
             {
                 tutorialManager.AnimHandRotate();
-                nX.localEulerAngles += new Vector3(0, -dv.x, 0) * 30f * Time.deltaTime;
-                float f = Mathf.Clamp(transform.localEulerAngles.x - dv.y * 10f * Time.deltaTime, 0, 50);
+                nX.localEulerAngles += new Vector3(0, -dv.x, 0) * 10f * Time.deltaTime;
+                float f = Mathf.Clamp(transform.localEulerAngles.x - dv.y * 5f * Time.deltaTime, 0, 50);
                 transform.localEulerAngles = new Vector3(f, 0, 0);
                 LogicGame.instance.UpdateLine();
             }

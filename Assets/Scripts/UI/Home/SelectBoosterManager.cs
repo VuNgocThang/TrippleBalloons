@@ -86,7 +86,7 @@ public class SelectBoosterManager : MonoBehaviour
             int indexLevel = DataUseInGame.gameData.indexDailyLV + 1;
             txtNumLV.text = indexLevel.ToString();
         }
-
+        UpdateNumBooster();
     }
 
     public void StateBoosterIfReachLevel()
@@ -94,23 +94,29 @@ public class SelectBoosterManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             btnBoosterManager.buttons[i].btn.interactable = false;
-            btnBoosterManager.buttons[i].lockImg.gameObject.SetActive(true);
+            btnBoosterManager.buttons[i].imgLock.gameObject.SetActive(true);
+            btnBoosters[i].imgNotice.SetActive(false);
         }
 
         if (DataUseInGame.gameData.indexLevel >= 6 || DataUseInGame.gameData.isDaily)
         {
             btnBoosterManager.buttons[0].btn.interactable = true;
-            btnBoosterManager.buttons[0].lockImg.gameObject.SetActive(false);
+            btnBoosterManager.buttons[0].imgLock.gameObject.SetActive(false);
+            btnBoosters[0].imgNotice.SetActive(true);
+
         }
         if (DataUseInGame.gameData.indexLevel >= 7 || DataUseInGame.gameData.isDaily)
         {
             btnBoosterManager.buttons[1].btn.interactable = true;
-            btnBoosterManager.buttons[1].lockImg.gameObject.SetActive(false);
+            btnBoosterManager.buttons[1].imgLock.gameObject.SetActive(false);
+            btnBoosters[1].imgNotice.SetActive(true);
+
         }
         if (DataUseInGame.gameData.indexLevel >= 8 || DataUseInGame.gameData.isDaily)
         {
             btnBoosterManager.buttons[2].btn.interactable = true;
-            btnBoosterManager.buttons[2].lockImg.gameObject.SetActive(false);
+            btnBoosterManager.buttons[2].imgLock.gameObject.SetActive(false);
+            btnBoosters[2].imgNotice.SetActive(true);
         }
 
         ShowTextTutBooster();
@@ -145,5 +151,69 @@ public class SelectBoosterManager : MonoBehaviour
     }
 
 
+
+
+
+    public void UpdateNumBooster()
+    {
+        for (int i = 0; i < btnBoosters.Count; i++)
+        {
+            if (DataUseInGame.gameData.indexLevel >= 6 || DataUseInGame.gameData.isDaily)
+            {
+                if (btnBoosters[0].count > 0)
+                {
+                    btnBoosters[0].numBtn.gameObject.SetActive(true);
+                    btnBoosters[0].txtNumBtn.text = btnBoosters[0].count.ToString();
+                }
+                else
+                {
+                    btnBoosters[0].btnPlus.gameObject.SetActive(true);
+                    btnBoosters[0].btn.interactable = false;
+                }
+            }
+
+            if (DataUseInGame.gameData.indexLevel >= 7 || DataUseInGame.gameData.isDaily)
+            {
+                if (btnBoosters[1].count > 0)
+                {
+                    btnBoosters[1].numBtn.gameObject.SetActive(true);
+                    btnBoosters[1].txtNumBtn.text = btnBoosters[1].count.ToString();
+                }
+                else
+                {
+                    btnBoosters[1].btnPlus.gameObject.SetActive(true);
+                    btnBoosters[1].btn.interactable = false;
+                }
+            }
+
+            if (DataUseInGame.gameData.indexLevel >= 8 || DataUseInGame.gameData.isDaily)
+            {
+                if (btnBoosters[2].count > 0)
+                {
+                    btnBoosters[2].numBtn.gameObject.SetActive(true);
+                    btnBoosters[2].txtNumBtn.text = btnBoosters[2].count.ToString();
+                }
+                else
+                {
+                    btnBoosters[2].btnPlus.gameObject.SetActive(true);
+                    btnBoosters[2].btn.interactable = false;
+                }
+            }
+
+
+
+            //if (count > 0)
+            //{
+            //    numBtn.gameObject.SetActive(true);
+            //    txtNumBtn.text = count.ToString();
+            //}
+            //else
+            //{
+            //    btnPlus.gameObject.SetActive(true);
+            //    btn.interactable = false;
+            //}
+        }
+
+    }
 
 }

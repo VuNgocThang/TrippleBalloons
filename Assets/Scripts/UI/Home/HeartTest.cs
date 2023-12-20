@@ -50,7 +50,7 @@ public class HeartTest : MonoBehaviour
             DataUseInGame.instance.SaveData();
 
             countdownTimer = PlayerPrefs.GetFloat("CountdownTimer") - timeSub;
-            Debug.Log(countdownTimer + " timer Count Down");
+            //Debug.Log(countdownTimer + " timer Count Down");
             countdownTimer = Mathf.Max(countdownTimer, 0);
 
             if (DataUseInGame.gameData.heart >= DataUseInGame.gameData.maxHeart)

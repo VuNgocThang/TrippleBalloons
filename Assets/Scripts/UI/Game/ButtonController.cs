@@ -23,6 +23,12 @@ public class ButtonController : MonoBehaviour
     [SerializeField] GameObject lockShuffle;
     [SerializeField] GameObject lockFreeze;
 
+    [SerializeField] GameObject imgNoticeHint;
+    [SerializeField] GameObject imgNoticeUndo;
+    [SerializeField] GameObject imgNoticeTrippleUndo;
+    [SerializeField] GameObject imgNoticeShuffle;
+    [SerializeField] GameObject imgNoticeFreeze;
+
 
     public GameObject handHint;
     public Animation animHint;
@@ -59,26 +65,33 @@ public class ButtonController : MonoBehaviour
         if (DataUseInGame.gameData.indexLevel >= 1 || DataUseInGame.gameData.isDaily)
         {
             lockHint.SetActive(false);
+            imgNoticeHint.SetActive(true);
             btnHint.interactable = true;
         }
 
         if (DataUseInGame.gameData.indexLevel >= 2 || DataUseInGame.gameData.isDaily)
         {
             lockUndo.SetActive(false);
+            imgNoticeUndo.SetActive(true);
             btnUndo.interactable = true;
+
+
             lockTrippleUndo.SetActive(false);
+            imgNoticeTrippleUndo.SetActive(true);
             btnTrippleUndo.interactable = true;
         }
 
         if (DataUseInGame.gameData.indexLevel >= 3 || DataUseInGame.gameData.isDaily)
         {
             lockShuffle.SetActive(false);
+            imgNoticeShuffle.SetActive(true);
             btnShuffle.interactable = true;
         }
 
         if (DataUseInGame.gameData.indexLevel >= 4 || DataUseInGame.gameData.isDaily)
         {
             lockFreeze.SetActive(false);
+            imgNoticeFreeze.SetActive(true);
             btnFreeze.interactable = true;
         }
 

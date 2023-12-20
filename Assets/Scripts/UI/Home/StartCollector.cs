@@ -44,7 +44,6 @@ public class StartCollector : MonoBehaviour
     public void Init()
     {
         currentIndex = DataUseInGame.gameData.currentIndexStarCollector;
-        Debug.Log(currentIndex);
         star = DataUseInGame.gameData.star;
 
         for (int i = 0; i < listDataRw.Count; i++)
@@ -90,13 +89,13 @@ public class StartCollector : MonoBehaviour
                 DataUseInGame.gameData.currentIndexStarCollector = currentIndex;
                 DataUseInGame.instance.SaveData();
 
+                UpdateUnlockBtn();
                 listBtnSelector[a].idBought = 1;
 
                 SaveDataItemsJson(a);
                 PlayerPrefs.SetInt("CurrentIndex", currentIndex);
                 PlayerPrefs.Save();
 
-                UpdateUnlockBtn();
 
                 if (currentIndex >= listBtnSelector.Count) return;
 
@@ -119,6 +118,7 @@ public class StartCollector : MonoBehaviour
                 buttonSelector.imgBtnBuy.sprite = listSpriteBtn[0];
                 buttonSelector.lockObject.SetActive(false);
             }
+           
 
             //if (star < buttonSelector.cost)
             //{
@@ -149,7 +149,6 @@ public class StartCollector : MonoBehaviour
     {
         for (int i = 0; i < listBtnSelector.Count; i++)
         {
-            //int a = i;
             listBtnSelector[i].idBought = unlockReward.listUnlockReward[i].id;
             if (listBtnSelector[i].idBought == 1)
             {
@@ -189,51 +188,25 @@ public class StartCollector : MonoBehaviour
                 GameManager.Instance.AddGold(value);
                 break;
             case "star":
-                // do something;
                 break;
             case "hint":
-                int countHint;
-                if (PlayerPrefs.HasKey("NumHint"))
-                {
-                    countHint = PlayerPrefs.GetInt("NumHint");
-                }
-                else
-                {
-                    countHint = 0;
-                }
+                int countHint = DataUseInGame.gameData.numBoosterHint;
                 countHint++;
-                PlayerPrefs.SetInt("NumHint", countHint);
-                PlayerPrefs.Save();
+                DataUseInGame.gameData.numBoosterHint = countHint;
+                DataUseInGame.instance.SaveData();
                 break;
 
             case "timer":
-                int countTimer;
-                if (PlayerPrefs.HasKey("NumTimer"))
-                {
-                    countTimer = PlayerPrefs.GetInt("NumTimer");
-                }
-                else
-                {
-                    countTimer = 0;
-                }
+                int countTimer = DataUseInGame.gameData.numBoosterTimer;
                 countTimer++;
-                PlayerPrefs.SetInt("NumTimer", countTimer);
-                PlayerPrefs.Save();
+                DataUseInGame.gameData.numBoosterTimer = countTimer;
+                DataUseInGame.instance.SaveData();
                 break;
             case "lightning":
-                int countLightning;
-                if (PlayerPrefs.HasKey("NumLightning"))
-                {
-                    countLightning = PlayerPrefs.GetInt("NumLightning");
-                }
-                else
-                {
-                    countLightning = 0;
-                }
+                int countLightning = DataUseInGame.gameData.numBoosterLightning;
                 countLightning++;
-                PlayerPrefs.SetInt("NumLightning", countLightning);
-                PlayerPrefs.Save();
-                //do something;
+                DataUseInGame.gameData.numBoosterLightning = countLightning;
+                DataUseInGame.instance.SaveData();
                 break;
             default:
                 break;
