@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LogicGame : MonoBehaviour
 {
@@ -648,6 +649,9 @@ public class LogicGame : MonoBehaviour
             }
         }
     }
+
+    public RectTransform img;
+    public Transform endPosStar;
     void CheckEat()
     {
         Tweener tweener = null;
@@ -668,9 +672,8 @@ public class LogicGame : MonoBehaviour
                 listGOStored.Remove(g2);
                 listGOStored.Remove(g3);
 
-
-                Instantiate(particleTest);
-                particleTest.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
+                //Instantiate(particleTest);
+                //particleTest.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
 
                 AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.eat);
 
@@ -678,8 +681,13 @@ public class LogicGame : MonoBehaviour
                 g2.particleBoom.SetActive(true);
                 g3.particleBoom.SetActive(true);
 
+                img.gameObject.SetActive(true);
+                img.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
+
                 g1.Move(g2.transform.parent, 0.3f, () =>
                 {
+                    img.DOMove(endPosStar.position, 0.5f);
+
                     g1.gameObject.SetActive(false);
                     g2.gameObject.SetActive(false);
                     g3.gameObject.SetActive(false);
