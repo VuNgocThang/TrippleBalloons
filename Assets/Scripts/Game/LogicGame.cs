@@ -66,8 +66,6 @@ public class LogicGame : MonoBehaviour
         Instantiate();
 
     }
-   
-
     public void Instantiate()
     {
         checkWin = false;
@@ -105,7 +103,6 @@ public class LogicGame : MonoBehaviour
             InitAll();
         }
     }
-
     public void InitAll()
     {
         Application.targetFrameRate = 60;
@@ -159,7 +156,6 @@ public class LogicGame : MonoBehaviour
         }
         buttonController.InitButton();
     }
-
     private void InitBBForTut()
     {
         int count = 4;
@@ -186,7 +182,6 @@ public class LogicGame : MonoBehaviour
 
 
     }
-
     void InitBubbles()
     {
         if (DataUseInGame.gameData.isDaily)
@@ -403,8 +398,6 @@ public class LogicGame : MonoBehaviour
             UseBoosterLightning();
         }
     }
-    
-
     int indexHint = -1;
     void UseBoosterHint()
     {
@@ -525,13 +518,12 @@ public class LogicGame : MonoBehaviour
             OnClick();
         }
     }
-
     public void UpdateLine()
     {
         lineController.CreateLine(listBBShuffle);
     }
-
     //float timeCount;
+    public ParticleSystem particleEat;
     void OnClick()
     {
         if (Input.GetMouseButton(0))
@@ -562,7 +554,10 @@ public class LogicGame : MonoBehaviour
                     if (!bubble.click && indexLevel == 0 && !DataUseInGame.gameData.isDaily) return;
 
                     bubble.originalPos = bubble.transform.position;
-                    bubble.particleEatt.Play();
+                    //bubble.particleEatt.Play();
+
+                    StartCoroutine(CircleParticle(bubble));
+
                     AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.click);
                     if (indexLevel == 0 && !DataUseInGame.gameData.isDaily)
                     {
@@ -574,6 +569,16 @@ public class LogicGame : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator CircleParticle(Bubble bubble)
+    {
+        ParticleSystem obj = ObjectPool.Instance.GetPooledObject();
+        obj.gameObject.SetActive(true);
+        obj.transform.position = bubble.transform.position;
+        obj.Play();
+        yield return new WaitForSeconds(1.5f);
+        obj.gameObject.SetActive(false);
     }
     void Move(Bubble bubble)
     {
@@ -645,7 +650,6 @@ public class LogicGame : MonoBehaviour
             if (listGOStored[i].ID == listGOStored[i + 1].ID && listGOStored[i + 1].ID == listGOStored[i + 2].ID)
             {
                 canEat = true;
-                Debug.Log(canEat);
             }
         }
     }
