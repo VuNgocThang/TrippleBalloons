@@ -554,7 +554,6 @@ public class LogicGame : MonoBehaviour
                     if (!bubble.click && indexLevel == 0 && !DataUseInGame.gameData.isDaily) return;
 
                     bubble.originalPos = bubble.transform.position;
-                    //bubble.particleEatt.Play();
 
                     StartCoroutine(CircleParticle(bubble));
 
@@ -573,7 +572,7 @@ public class LogicGame : MonoBehaviour
 
     IEnumerator CircleParticle(Bubble bubble)
     {
-        ParticleSystem obj = ObjectPool.Instance.GetPooledObject();
+        ParticleSystem obj = ObjectPoolParticle.Instance.GetPooledObject();
         obj.gameObject.SetActive(true);
         obj.transform.position = bubble.transform.position;
         obj.Play();
@@ -654,7 +653,6 @@ public class LogicGame : MonoBehaviour
         }
     }
 
-    public RectTransform img;
     public Transform endPosStar;
     void CheckEat()
     {
@@ -676,21 +674,25 @@ public class LogicGame : MonoBehaviour
                 listGOStored.Remove(g2);
                 listGOStored.Remove(g3);
 
-                //Instantiate(particleTest);
-                //particleTest.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
-
                 AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.eat);
 
                 g1.particleBoom.SetActive(true);
                 g2.particleBoom.SetActive(true);
                 g3.particleBoom.SetActive(true);
 
-                img.gameObject.SetActive(true);
-                img.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
+                Image obj = ObjectPoolCoin.Instance.GetPooledObject();
+                obj.gameObject.SetActive(true);
+                obj.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
+
 
                 g1.Move(g2.transform.parent, 0.3f, () =>
                 {
-                    img.DOMove(endPosStar.position, 0.5f);
+                    obj.GetComponent<RectTransform>().DOMove(endPosStar.position, 0.5f)
+                        .SetEase(Ease.InOutCirc)
+                        .OnComplete(() =>
+                        {
+                            obj.gameObject.SetActive(false);
+                        });
 
                     g1.gameObject.SetActive(false);
                     g2.gameObject.SetActive(false);

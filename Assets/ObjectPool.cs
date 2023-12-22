@@ -1,13 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : MonoBehaviour
+public class ObjectPool<T> : MonoBehaviour where T : Component
 {
     public GameObject parent;
-    public static ObjectPool Instance;
-    public List<ParticleSystem> pooledObjects;
-    public ParticleSystem prefab;
+    public static ObjectPool<T> Instance;
+    public List<T> pooledObjects;
+    public T prefab;
     public int amountPrefab;
 
     void Awake()
@@ -17,8 +16,8 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
-        pooledObjects = new List<ParticleSystem>();
-        ParticleSystem tmp;
+        pooledObjects = new List<T>();
+        T tmp;
         for (int i = 0; i < amountPrefab; i++)
         {
             tmp = Instantiate(prefab, parent.transform);
@@ -27,7 +26,7 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    public ParticleSystem GetPooledObject()
+    public T GetPooledObject()
     {
         for (int i = 0; i < amountPrefab; i++)
         {
@@ -37,7 +36,7 @@ public class ObjectPool : MonoBehaviour
             }
         }
 
-        ParticleSystem tmp = Instantiate(prefab, parent.transform);
+        T tmp = Instantiate(prefab, parent.transform);
         tmp.gameObject.SetActive(false);
         pooledObjects.Add(tmp);
         return tmp;

@@ -74,7 +74,7 @@ public class GameData
 
         isHeartInfinity = false;
         timeHeartInfinity = 0;
-        timeStarCollector = 86400f;
+        timeStarCollector = 120f;
 
         currentIndexStarCollector = 0;
 
@@ -187,12 +187,13 @@ public class DataUseInGame : MonoBehaviour
 
         if (gameData.timeStarCollector <= 0)
         {
-            gameData.timeStarCollector = 86400f;
+            gameData.timeStarCollector = 120f;
             gameData.currentIndexStarCollector = 0;
 
             if (StartCollector.ins != null)
             {
                 StartCollector.ins.currentIndex = 0;
+                StartCollector.ins.ResetData();
                 StartCollector.ins.UpdateUnlockBtn();
             }
             Debug.Log("Reset time");
@@ -280,6 +281,8 @@ public class DataUseInGame : MonoBehaviour
         {
             float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString("LastTimerStarQuit"))).TotalSeconds;
 
+            //Debug.Log(timeSinceLastLoss + " timeSinceLastLoss");
+            //Debug.Log(PlayerPrefs.GetFloat("CountdownTimerStarCollector") + " CountdownTimerStarCollector");
             gameData.timeStarCollector = PlayerPrefs.GetFloat("CountdownTimerStarCollector") - timeSinceLastLoss;
 
             gameData.timeStarCollector = Mathf.Max(gameData.timeStarCollector, 0);

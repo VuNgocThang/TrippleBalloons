@@ -47,7 +47,7 @@ public class ComboSystem : MonoBehaviour
             comboTimer = 2f;
         }
         currentComboTimer = comboTimer;
-        //Debug.Log("Combo: " + comboCount);
+        //Debug.Log("Combo: " + comboCount);  
     }
 
     public void ResetCombo()

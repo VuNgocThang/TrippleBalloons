@@ -30,6 +30,7 @@ public class StartCollector : MonoBehaviour
         UnlockNewBtnSelector();
     }
 
+
     private void OnGUI()
     {
         float timerStarCollector = DataUseInGame.gameData.timeStarCollector;
@@ -114,27 +115,27 @@ public class StartCollector : MonoBehaviour
         {
             if (buttonSelector.id == currentIndex)
             {
-                //buttonSelector.btnBuy.interactable = true;
                 buttonSelector.imgBtnBuy.sprite = listSpriteBtn[0];
                 buttonSelector.lockObject.SetActive(false);
             }
-           
-
-            //if (star < buttonSelector.cost)
-            //{
-            //    buttonSelector.btnBuy.interactable = false;
-            //}
 
             if (buttonSelector.id > currentIndex)
             {
-                //buttonSelector.btnBuy.interactable = false;
                 buttonSelector.imgBtnBuy.sprite = listSpriteBtn[1];
 
                 buttonSelector.lockObject.SetActive(true);
             }
         }
     }
-
+    public void ResetData()
+    {
+        for (int i = 0; i < listBtnSelector.Count; i++)
+        {
+            unlockReward.listUnlockReward[i].id = 0;
+            listBtnSelector[i].idBought = 0;
+        }
+        SaveDataItemsJson();
+    }
     public void SaveDataItemsJson(int i)
     {
         unlockReward.listUnlockReward[i].id = listBtnSelector[i].idBought;

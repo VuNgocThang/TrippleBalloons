@@ -14,12 +14,16 @@ public class ButtonSelector : MonoBehaviour
     public TextMeshProUGUI txtCost;
     public TextMeshProUGUI txtValue;
     public Image icon;
-    public Button btnBuy;
-    public bool interac;
-    public GameObject lockObject;
     public Image imgButton;
     public Image imgBtnBuy;
+    public GameObject lockObject;
+    public Button btnBuy;
 
+    public bool interac;
+    private void Update()
+    {
+        interac = btnBuy.interactable;
+    }
     private void Awake()
     {
         imgButton = GetComponent<Image>();
