@@ -133,6 +133,7 @@ public class StartCollector : MonoBehaviour
         {
             unlockReward.listUnlockReward[i].id = 0;
             listBtnSelector[i].idBought = 0;
+            listBtnSelector[i].btnBuy.interactable = true;
         }
         SaveDataItemsJson();
     }
@@ -148,20 +149,30 @@ public class StartCollector : MonoBehaviour
     }
     public void LoadDataItemsJson()
     {
-        for (int i = 0; i < listBtnSelector.Count; i++)
+        if (DataUseInGame.gameData.isResetTimeStar)
         {
-            listBtnSelector[i].idBought = unlockReward.listUnlockReward[i].id;
-            if (listBtnSelector[i].idBought == 1)
+            DataUseInGame.gameData.currentIndexStarCollector = 0;
+            DataUseInGame.instance.SaveData();
+
+            currentIndex = DataUseInGame.gameData.currentIndexStarCollector;
+            ResetData();
+        }
+        else
+        {
+            for (int i = 0; i < listBtnSelector.Count; i++)
             {
-                listBtnSelector[i].btnBuy.interactable = false;
-                listBtnSelector[i].imgBtnBuy.sprite = listSpriteBtn[0];
-                listBtnSelector[i].lockObject.SetActive(false);
-            }
-            else
-            {
-                //listBtnSelector[i].btnBuy.interactable = true;
-                listBtnSelector[i].imgBtnBuy.sprite = listSpriteBtn[0];
-                listBtnSelector[i].lockObject.SetActive(true);
+                listBtnSelector[i].idBought = unlockReward.listUnlockReward[i].id;
+                if (listBtnSelector[i].idBought == 1)
+                {
+                    listBtnSelector[i].btnBuy.interactable = false;
+                    listBtnSelector[i].imgBtnBuy.sprite = listSpriteBtn[0];
+                    listBtnSelector[i].lockObject.SetActive(false);
+                }
+                else
+                {
+                    listBtnSelector[i].imgBtnBuy.sprite = listSpriteBtn[0];
+                    listBtnSelector[i].lockObject.SetActive(true);
+                }
             }
         }
     }

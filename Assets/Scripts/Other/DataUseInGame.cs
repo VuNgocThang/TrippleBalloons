@@ -24,6 +24,7 @@ public class GameData
     public int numBoosterTimer;
 
     public bool isHeartInfinity;
+    public bool isResetTimeStar;
     public float timeHeartInfinity;
     public float timeStarCollector;
 
@@ -73,8 +74,9 @@ public class GameData
         numBoosterHint = 99;
 
         isHeartInfinity = false;
+        isResetTimeStar = false;
         timeHeartInfinity = 0;
-        timeStarCollector = 120f;
+        timeStarCollector = 60f;
 
         currentIndexStarCollector = 0;
 
@@ -187,19 +189,24 @@ public class DataUseInGame : MonoBehaviour
 
         if (gameData.timeStarCollector <= 0)
         {
-            gameData.timeStarCollector = 120f;
-            gameData.currentIndexStarCollector = 0;
-
-            if (StartCollector.ins != null)
-            {
-                StartCollector.ins.currentIndex = 0;
-                StartCollector.ins.ResetData();
-                StartCollector.ins.UpdateUnlockBtn();
-            }
+            gameData.timeStarCollector = 60f;
+            ResetStarCollector();
             Debug.Log("Reset time");
         }
 
         SolveHeart();
+    }
+
+    private void ResetStarCollector()
+    {
+        gameData.currentIndexStarCollector = 0;
+
+        if (StartCollector.ins != null)
+        {
+            StartCollector.ins.currentIndex = 0;
+            StartCollector.ins.ResetData();
+            StartCollector.ins.UpdateUnlockBtn();
+        }
     }
 
     private void SolveHeart()
@@ -281,9 +288,19 @@ public class DataUseInGame : MonoBehaviour
         {
             float timeSinceLastLoss = (float)(DateTime.Now - DateTime.Parse(PlayerPrefs.GetString("LastTimerStarQuit"))).TotalSeconds;
 
-            //Debug.Log(timeSinceLastLoss + " timeSinceLastLoss");
-            //Debug.Log(PlayerPrefs.GetFloat("CountdownTimerStarCollector") + " CountdownTimerStarCollector");
-            gameData.timeStarCollector = PlayerPrefs.GetFloat("CountdownTimerStarCollector") - timeSinceLastLoss;
+            float timerCountdown = PlayerPrefs.GetFloat("CountdownTimerStarCollector");
+
+            if (timeSinceLastLoss > timerCountdown)
+            {
+                gameData.isResetTimeStar = true;
+                SaveData();
+                Debug.Log(gameData.isResetTimeStar);
+                gameData.timeStarCollector = 60f - ((timeSinceLastLoss - timerCountdown) % 60f);
+            }
+            else
+            {
+                gameData.timeStarCollector = timerCountdown - timeSinceLastLoss;
+            }
 
             gameData.timeStarCollector = Mathf.Max(gameData.timeStarCollector, 0);
 
