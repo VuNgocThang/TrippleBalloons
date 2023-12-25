@@ -732,9 +732,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2541b24b696ee0f4f8844a774aeb31f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eat: {fileID: 8300000, guid: 6f2ee8c82102610489554bc36ba4d3f0, type: 3}
+  eat: {fileID: 8300000, guid: 14477e192e36ed744898d4002d01a327, type: 3}
   pop: {fileID: 8300000, guid: f1f1ee5dc3a6ca94f96b3f948a1e8010, type: 3}
-  click: {fileID: 8300000, guid: 98f372e7fe7747b4189d5fbba7ee3d30, type: 3}
+  click: {fileID: 8300000, guid: b4d06addea156cd4c8e639fa4d6bff1d, type: 3}
   fail: {fileID: 8300000, guid: 1c613e859b45c484fb6b5f1ef437720e, type: 3}
   win: {fileID: 8300000, guid: 5ee41540d76b9534b875581c1694aa74, type: 3}
   clickMenu: {fileID: 8300000, guid: 9e99a5ad606601c478a53e916bc883f9, type: 3}
