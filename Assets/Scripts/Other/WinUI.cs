@@ -158,21 +158,6 @@ public class WinUI : MonoBehaviour
 
     IEnumerator CountStars()
     {
-        //int b = starAdd;
-        //int a = (int)(starAdd * 0.02 / 3f);
-        //while (b > 0)
-        //{
-        //    if (b <= a)
-        //    {
-        //        b = a;
-        //    }
-
-        //    currentScore += a;
-        //    b -= a;
-
-        //    txtStar.text = currentScore.ToString();
-        //    yield return new WaitForSeconds(0.02f);
-        //}
 
         yield return new WaitForSeconds(1.5f);
         txtStar.text = DataUseInGame.gameData.star.ToString();

@@ -663,7 +663,6 @@ public class LogicGame : MonoBehaviour
                 && listGOStored[i].ID == listGOStored[i + 1].ID && listGOStored[i + 1].ID == listGOStored[i + 2].ID)
             {
                 comboSystem.IncreaseCombo();
-                //canEat = true;
                 isHint = false;
 
                 count -= 1;
