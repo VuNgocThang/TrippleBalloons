@@ -28,7 +28,7 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerPrefs.GetInt("IsInGame") == 1 && DataUseInGame.gameData.indexLevel == 0 && !DataUseInGame.gameData.isDaily)
+        if (GameSave.IS_IN_GAME && DataUseInGame.gameData.indexLevel == 0 && !DataUseInGame.gameData.isDaily)
         {
             if (handClick != null)
             {
@@ -38,7 +38,7 @@ public class TutorialManager : MonoBehaviour
         }
 
 
-        if (PlayerPrefs.GetInt("IsInGame") == 1 && DataUseInGame.gameData.indexLevel == 5)
+        if (GameSave.IS_IN_GAME && DataUseInGame.gameData.indexLevel == 5)
         {
             ShowTutWrappedBB();
         }

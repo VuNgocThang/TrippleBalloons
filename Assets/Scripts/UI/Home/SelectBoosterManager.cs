@@ -30,8 +30,7 @@ public class SelectBoosterManager : MonoBehaviour
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
         if (DataUseInGame.gameData.heart > 0 || DataUseInGame.gameData.isHeartInfinity)
         {
-            PlayerPrefs.SetInt("IsInGame", 1);
-            PlayerPrefs.Save();
+            GameSave.IS_IN_GAME = true;
 
             AnimationPopup.instance.FadeWhileMoveUp(selectBoosterCG.gameObject, 0.5f);
             selectBoosterCG.DOFade(0f, 0.5f)
@@ -125,9 +124,9 @@ public class SelectBoosterManager : MonoBehaviour
     public void ShowTextTutBooster()
     {
         int indexLevel = DataUseInGame.gameData.indexLevel;
-        int isInGame = PlayerPrefs.GetInt("IsInGame");
+        bool isInGame = GameSave.IS_IN_GAME;
 
-        if (isInGame == 1)
+        if (isInGame)
         {
             if (indexLevel == 6)
             {
@@ -199,7 +198,6 @@ public class SelectBoosterManager : MonoBehaviour
                     btnBoosters[2].btn.interactable = false;
                 }
             }
-
 
 
             //if (count > 0)

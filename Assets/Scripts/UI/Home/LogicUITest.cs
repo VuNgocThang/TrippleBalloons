@@ -122,8 +122,7 @@ public class LogicUITest : MonoBehaviour
         {
             if (DataUseInGame.gameData.heart <= 0) return;
             LogicGame.instance.timer.stopTimer = false;
-            PlayerPrefs.SetInt("IsInGame", 1);
-            PlayerPrefs.Save();
+            GameSave.IS_IN_GAME = true;
             controller.UpdateStateIsInGame();
 
             if (!DataUseInGame.gameData.isDaily)
@@ -135,7 +134,7 @@ public class LogicUITest : MonoBehaviour
             DOTween.KillAll();
         }
 
-        if (PlayerPrefs.GetInt("IsInGame") == 1)
+        if (GameSave.IS_IN_GAME)
         {
             btnCloseSelectBooster.gameObject.SetActive(false);
         }
@@ -322,29 +321,7 @@ public class LogicUITest : MonoBehaviour
     {
         SetStateDefaultUseBooster();
 
-        PlayerPrefs.SetInt("IsInGame", 0);
-        PlayerPrefs.Save();
+        //GameSave.IS_IN_GAME = false;
     }
-
-
-    //bool isPaused = false;
-    //void OnApplicationFocus(bool hasFocus)
-    //{
-    //    isPaused = !hasFocus;
-    //    if (hasFocus)
-    //    {
-    //        PlayerPrefs.SetInt("IsInGame", 1);
-    //        PlayerPrefs.Save();
-    //    }
-    //    else
-    //    {
-    //        PlayerPrefs.SetInt("IsInGame", 0);
-    //        PlayerPrefs.Save();
-    //    }
-    //}
-    //void OnApplicationPause(bool pauseStatus)
-    //{
-    //    isPaused = pauseStatus;
-    //}
 
 }

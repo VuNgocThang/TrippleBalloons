@@ -98,7 +98,7 @@ public class LogicGame : MonoBehaviour
             controller.PanelInGame();
         }
 
-        if (PlayerPrefs.GetInt("IsInGame") == 1)
+        if (GameSave.IS_IN_GAME)
         {
             InitAll();
         }
@@ -543,7 +543,7 @@ public class LogicGame : MonoBehaviour
             {
                 isDrag = false;
                 if (checkLose || timer.stopTimer || !canClick || listGOStored.Count > 6) return;
-                if (PlayerPrefs.GetInt("IsInGame") != 1) return;
+                if (!GameSave.IS_IN_GAME) return;
 
                 RaycastHit raycastHit;
                 bool isHit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out raycastHit, 1000f, layerMask);

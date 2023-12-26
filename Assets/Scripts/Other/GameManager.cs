@@ -19,26 +19,13 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    private void Start()
+    
+  
+
+    private void Update()
     {
-        if (PlayerPrefs.HasKey("IsInGame"))
-        {
-            PlayerPrefs.GetInt("IsInGame");
-        }
-        else
-        {
-            PlayerPrefs.SetInt("IsInGame", 0);
-        }
+        Debug.Log(GameSave.IS_IN_GAME + " --- ISINGAME");
     }
-
-
-    private void OnApplicationQuit()
-    {
-        PlayerPrefs.SetInt("IsInGame", 0);
-        PlayerPrefs.Save();
-    }
-
-
     public void SubHeart()
     {
         int heart = DataUseInGame.gameData.heart;
@@ -110,35 +97,7 @@ public class GameManager : MonoBehaviour
         int numTimerBooster = DataUseInGame.gameData.numBoosterTimer;
         int numLightningBooster = DataUseInGame.gameData.numBoosterLightning;
 
-        //if (PlayerPrefs.HasKey("NumLightning"))
-        //{
-        //    numLightningBooster = PlayerPrefs.GetInt("NumLightning");
-        //}
-        //else
-        //{
-        //    numLightningBooster = 99;
-        //}
-
-        //if (PlayerPrefs.HasKey("NumHint"))
-        //{
-        //    numHintBooster = PlayerPrefs.GetInt("NumHint");
-
-        //}
-        //else
-        //{
-        //    numHintBooster = 99;
-        //}
-
-        //if (PlayerPrefs.HasKey("NumTimer"))
-        //{
-        //    numTimerBooster = PlayerPrefs.GetInt("NumTimer");
-
-        //}
-        //else
-        //{
-        //    numTimerBooster = 99;
-        //}
-
+       
 
         numHint += numItem;
         numUndo += numItem;
@@ -150,10 +109,7 @@ public class GameManager : MonoBehaviour
         numTimerBooster += numItem;
         numLightningBooster += numItem;
 
-        //PlayerPrefs.SetInt("NumHint", numHintBooster);
-        //PlayerPrefs.SetInt("NumTimer", numTimerBooster);
-        //PlayerPrefs.SetInt("NumLightning", numLightningBooster);
-        //PlayerPrefs.Save();
+        
 
         DataUseInGame.gameData.numHintItem = numHint;
         DataUseInGame.gameData.numUndoItem = numUndo;

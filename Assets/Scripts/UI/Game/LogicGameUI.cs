@@ -85,8 +85,7 @@ public class LogicGameUI : MonoBehaviour
         DataUseInGame.instance.SaveData();
 
         DOTween.KillAll();
-        PlayerPrefs.SetInt("IsInGame", 0);
-        PlayerPrefs.Save();
+        GameSave.IS_IN_GAME = false;
         SceneManager.LoadScene("SceneGame");
     }
     void OpenPanelPause()
@@ -158,35 +157,7 @@ public class LogicGameUI : MonoBehaviour
                 StartCoroutine(CanClickAgain());
             });
     }
-    //public void Retry()
-    //{
-    //    AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
-    //    GameManager.Instance.SubHeart();
-    //    btnRetry.interactable = false;
-    //    btnHome.interactable = false;
-    //    AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
-    //    panelPersidentCG.DOFade(0f, 0.5f);
-
-    //    StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
-    //}
-    //public void BackHomePersident()
-    //{
-    //    AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
-    //    GameManager.Instance.SubHeart();
-    //    btnRetry.interactable = false;
-    //    btnHome.interactable = false;
-    //    AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
-    //    panelPersidentCG.DOFade(0f, 0.5f)
-    //        .OnComplete(() =>
-    //        {
-    //            DataUseInGame.gameData.isDaily = false;
-    //            DataUseInGame.instance.SaveData();
-    //        });
-    //    PlayerPrefs.SetInt("IsInGame", 0);
-    //    PlayerPrefs.Save();
-    //    StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
-    //}
-
+    
     void OpenPanelRemoveAds()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
@@ -251,8 +222,7 @@ public class LogicGameUI : MonoBehaviour
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
         ChangeRenderMode();
-        PlayerPrefs.SetInt("IsInGame", 0);
-        PlayerPrefs.Save();
+        GameSave.IS_IN_GAME = false;
         SceneManager.LoadScene("SceneGame");
     }
 
@@ -331,8 +301,7 @@ public class LogicGameUI : MonoBehaviour
                     });
                     DataUseInGame.instance.SaveData();
 
-                    PlayerPrefs.SetInt("IsInGame", 0);
-                    PlayerPrefs.Save();
+                    GameSave.IS_IN_GAME = false;
                     SceneManager.LoadScene("SceneGame");
                 }
 

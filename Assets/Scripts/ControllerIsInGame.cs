@@ -17,7 +17,7 @@ public class ControllerIsInGame : MonoBehaviour
 
     public void UpdateStateIsInGame()
     {
-        if (PlayerPrefs.GetInt("IsInGame") == 1)
+        if (GameSave.IS_IN_GAME)
         {
             PanelInGame();
             StartCoroutine(logicUI.InitTimerSetting());

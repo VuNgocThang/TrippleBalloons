@@ -155,8 +155,7 @@ public class LoseManager : MonoBehaviour
         bg.SetActive(false);
         StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
         GameManager.Instance.SubHeart();
-        PlayerPrefs.SetInt("IsInGame", 1);
-        PlayerPrefs.Save();
+        GameSave.IS_IN_GAME = true;
     }
     public void BackHome()
     {
@@ -168,15 +167,11 @@ public class LoseManager : MonoBehaviour
 
         AnimationPopup.instance.FadeWhileMoveUp(panelPersidentCG.gameObject, 0.5f);
         panelPersidentCG.DOFade(0f, 0.5f);
-        PlayerPrefs.SetInt("IsInGame", 0);
-        PlayerPrefs.Save();
+        GameSave.IS_IN_GAME = false;
         DataUseInGame.gameData.isDaily = false;
         DataUseInGame.instance.SaveData();
         GameManager.Instance.SubHeart();
         StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
         bg.SetActive(false);
     }
-
-
-
 }
