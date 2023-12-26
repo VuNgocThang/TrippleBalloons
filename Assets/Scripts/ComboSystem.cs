@@ -12,14 +12,32 @@ public class ComboSystem : MonoBehaviour
     public Image imgFillCombo;
     public TextMeshProUGUI txtCombo;
     public GameObject progress;
+    public Color colorCombo3;
+    public Color colorCombo6;
+    public Color colorCombo9;
+    public Color colorCombo12;
+    public Color colorCombo15;
+    public Color colorComboOver;
+
 
     private void Start()
     {
-        comboTimer = defaultTimerCombo;
-        currentComboTimer = comboTimer;
+        InitializeCombo();
     }
 
     private void Update()
+    {
+        UpdateComboTimer();
+    }
+
+    private void InitializeCombo()
+    {
+        comboTimer = defaultTimerCombo;
+        currentComboTimer = comboTimer;
+        imgFillCombo.color = colorCombo3;
+    }
+
+    private void UpdateComboTimer()
     {
         if (comboCount > 0)
         {
@@ -31,30 +49,46 @@ public class ComboSystem : MonoBehaviour
                 ResetCombo();
             }
         }
-
     }
 
     public void IncreaseCombo()
     {
         comboCount++;
-        if (comboCount > 3)
-        {
-            comboTimer = 3f;
-        }
-
-        if(comboCount > 5)
-        {
-            comboTimer = 2f;
-        }
+        UpdateComboColor();
         currentComboTimer = comboTimer;
         //Debug.Log("Combo: " + comboCount);  
+    }
+
+    private void UpdateComboColor()
+    {
+        if (comboCount >= 3 && comboCount < 6)
+        {
+            imgFillCombo.color = colorCombo6;
+            comboTimer = 3f;
+        }
+        else if (comboCount >= 6 && comboCount < 9)
+        {
+            imgFillCombo.color = colorCombo9;
+            comboTimer = 2f;
+        }
+        else if (comboCount >= 9 && comboCount < 12)
+        {
+            imgFillCombo.color = colorCombo12;
+        }
+        else if (comboCount >= 12 && comboCount < 15)
+        {
+            imgFillCombo.color = colorCombo15;
+        }
+        else if (comboCount >= 15)
+        {
+            imgFillCombo.color = colorComboOver;
+        }
     }
 
     public void ResetCombo()
     {
         comboCount = 0;
-        comboTimer = defaultTimerCombo;
-        currentComboTimer = comboTimer;
+        InitializeCombo();
         //Debug.Log("Combo Reset!");
     }
 
