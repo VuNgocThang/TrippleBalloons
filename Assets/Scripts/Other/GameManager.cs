@@ -19,9 +19,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    
-  
-
     private void Update()
     {
         Debug.Log(GameSave.IS_IN_GAME + " --- ISINGAME");

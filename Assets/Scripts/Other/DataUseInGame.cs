@@ -76,7 +76,7 @@ public class GameData
         isHeartInfinity = false;
         isResetTimeStar = false;
         timeHeartInfinity = 0;
-        timeStarCollector = 60f;
+        timeStarCollector = 86400f;
 
         currentIndexStarCollector = 0;
 
@@ -160,6 +160,11 @@ public class DataUseInGame : MonoBehaviour
 
         gameData = JsonUtility.FromJson<GameData>(s);
 
+        if (gameData.indexLevel == 0)
+        {
+            GameSave.IS_IN_GAME = true;
+        }
+
         if (gameData.timeHeartInfinity <= 0)
         {
             gameData.timeHeartInfinity = 0;
@@ -189,7 +194,7 @@ public class DataUseInGame : MonoBehaviour
 
         if (gameData.timeStarCollector <= 0)
         {
-            gameData.timeStarCollector = 60f;
+            gameData.timeStarCollector = 86400f;
             ResetStarCollector();
             Debug.Log("Reset time");
         }
@@ -295,7 +300,7 @@ public class DataUseInGame : MonoBehaviour
                 gameData.isResetTimeStar = true;
                 SaveData();
                 Debug.Log(gameData.isResetTimeStar);
-                gameData.timeStarCollector = 60f - ((timeSinceLastLoss - timerCountdown) % 60f);
+                gameData.timeStarCollector = 86400f - ((timeSinceLastLoss - timerCountdown) % 86400f);
             }
             else
             {
