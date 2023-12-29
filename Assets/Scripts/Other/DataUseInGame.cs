@@ -160,11 +160,6 @@ public class DataUseInGame : MonoBehaviour
 
         gameData = JsonUtility.FromJson<GameData>(s);
 
-        if (gameData.indexLevel == 0)
-        {
-            GameSave.IS_IN_GAME = true;
-        }
-
         if (gameData.timeHeartInfinity <= 0)
         {
             gameData.timeHeartInfinity = 0;

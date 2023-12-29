@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(GameSave.IS_IN_GAME + " --- ISINGAME");
+        //Debug.Log(GameSave.IS_IN_GAME + " --- ISINGAME");
     }
     public void SubHeart()
     {

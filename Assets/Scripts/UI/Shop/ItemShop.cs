@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ItemShop : MonoBehaviour
 {
     public int coin;
-    public Button btnClaim;
+    public Button btnClaimItemShop;
 
     public TextMeshProUGUI txtName;
     public TextMeshProUGUI txtCoin;
@@ -22,7 +22,7 @@ public class ItemShop : MonoBehaviour
 
     private void Start()
     {
-        btnClaim.onClick.AddListener(ClaimItemShop);
+        btnClaimItemShop.onClick.AddListener(ClaimItemShop);
     }
 
     void ClaimItemShop()

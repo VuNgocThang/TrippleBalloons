@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &58551557694357614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 195093624381763711}
+  m_Layer: 3
+  m_Name: ObjectFrozen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &195093624381763711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58551557694357614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1515030787278154768}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2183587030377625258
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +66,7 @@ Transform:
   - {fileID: 3805944936873525323}
   - {fileID: 4844711752966695072}
   - {fileID: 7013304540255359837}
+  - {fileID: 195093624381763711}
   - {fileID: 3289350250619337334}
   - {fileID: 6940826176452586979}
   - {fileID: 6964755802761324149}
@@ -129,6 +160,7 @@ MonoBehaviour:
   particleBoom: {fileID: 8463052633291107253}
   particlePP: {fileID: 3552574036399960286}
   particleEatt: {fileID: 4173705881194629233}
+  frozenObject: {fileID: 58551557694357614}
 --- !u!54 &6042299365496451216
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -187,7 +219,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1515030787278154768}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4838130027996303422
 GameObject:
@@ -217,7 +249,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1515030787278154768}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &938265110907339460
 PrefabInstance:
@@ -228,7 +260,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7900065424776864945, guid: db4f6e871c1f2c94f98bbfe83aa19ef6, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7900065424776864945, guid: db4f6e871c1f2c94f98bbfe83aa19ef6, type: 3}
       propertyPath: m_LocalScale.x
@@ -616,14 +648,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1bbd637f9bbbd4bbfe9e2406f7e6bc, type: 3}
---- !u!1 &7646993414201690599 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b1bbd637f9bbbd4bbfe9e2406f7e6bc, type: 3}
-  m_PrefabInstance: {fileID: 7412637117562713270}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7013304540255359837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9b1bbd637f9bbbd4bbfe9e2406f7e6bc, type: 3}
+  m_PrefabInstance: {fileID: 7412637117562713270}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7646993414201690599 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9b1bbd637f9bbbd4bbfe9e2406f7e6bc, type: 3}
   m_PrefabInstance: {fileID: 7412637117562713270}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8027604063824259667
@@ -635,7 +667,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6070969029472550814, guid: ebdf13b71be16c54ab2df28a92c0c366, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6070969029472550814, guid: ebdf13b71be16c54ab2df28a92c0c366, type: 3}
       propertyPath: m_LocalScale.x
@@ -722,7 +754,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4938095755617958528, guid: ab7aaf73709d816419d2593d0e9ad172, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4938095755617958528, guid: ab7aaf73709d816419d2593d0e9ad172, type: 3}
       propertyPath: m_LocalScale.x
