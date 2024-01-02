@@ -117,6 +117,10 @@ public class LogicUITest : MonoBehaviour
             selectBooster.gameObject.SetActive(true);
             AnimationPopup.instance.DoTween_Button(selectBooster.selectBoosterCG.gameObject, 0, 200, 0.5f);
             selectBooster.selectBoosterCG.DOFade(1f, 0.5f);
+                //.OnComplete(() =>
+                //{
+                //    selectBooster.ShowTextTutBooster();
+                //});
         }
         else
         {

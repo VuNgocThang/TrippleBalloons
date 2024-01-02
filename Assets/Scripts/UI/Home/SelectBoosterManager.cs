@@ -2,10 +2,12 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class SelectBoosterManager : MonoBehaviour
 {
@@ -19,11 +21,19 @@ public class SelectBoosterManager : MonoBehaviour
     [SerializeField] GameObject textTutLight;
     [SerializeField] GameObject textTutTimer;
     [SerializeField] GameObject textTutHint;
+    [SerializeField] GameObject handClick;
 
+    public List<GameObject> listBtnAndBg;
+    public GameObject bgBlackFeed3;
 
     private void OnEnable()
     {
         StateBoosterIfReachLevel();
+    }
+
+    private void OnDisable()
+    {
+        handClick.SetActive(false);
     }
     public void StartGame()
     {
@@ -99,6 +109,7 @@ public class SelectBoosterManager : MonoBehaviour
 
         if (DataUseInGame.gameData.indexLevel >= 6 || DataUseInGame.gameData.isDaily)
         {
+
             btnBoosterManager.buttons[0].btn.interactable = true;
             btnBoosterManager.buttons[0].imgLock.gameObject.SetActive(false);
             btnBoosters[0].imgNotice.SetActive(true);
@@ -106,6 +117,7 @@ public class SelectBoosterManager : MonoBehaviour
         }
         if (DataUseInGame.gameData.indexLevel >= 7 || DataUseInGame.gameData.isDaily)
         {
+
             btnBoosterManager.buttons[1].btn.interactable = true;
             btnBoosterManager.buttons[1].imgLock.gameObject.SetActive(false);
             btnBoosters[1].imgNotice.SetActive(true);
@@ -120,7 +132,7 @@ public class SelectBoosterManager : MonoBehaviour
 
         ShowTextTutBooster();
     }
-
+   
     public void ShowTextTutBooster()
     {
         int indexLevel = DataUseInGame.gameData.indexLevel;
@@ -130,28 +142,54 @@ public class SelectBoosterManager : MonoBehaviour
         {
             if (indexLevel == 6)
             {
+                handClick.SetActive(true);
+                Vector3 pos = new Vector3(btnBoosterManager.buttons[0].transform.position.x,
+                    btnBoosterManager.buttons[0].transform.position.y - 200,
+                    btnBoosterManager.buttons[0].transform.position.z);
+                handClick.transform.position = pos;
+
+                var temp = listBtnAndBg[0];
+                temp.transform.SetSiblingIndex(4);
+                bgBlackFeed3.SetActive(true);
+
                 textTutLight.SetActive(true);
-                btnBoosterManager.buttons[0].isSelected = true;
-                btnBoosterManager.buttons[0].selected.SetActive(true);
+                //btnBoosterManager.buttons[0].isSelected = true;
+                //btnBoosterManager.buttons[0].selected.SetActive(true);
             }
             else if (indexLevel == 7)
             {
+                handClick.SetActive(true);
+                Vector3 pos = new Vector3(btnBoosterManager.buttons[1].transform.position.x,
+                   btnBoosterManager.buttons[1].transform.position.y - 200,
+                   btnBoosterManager.buttons[1].transform.position.z);
+                handClick.transform.position = pos;
+
+                var temp = listBtnAndBg[1];
+                temp.transform.SetSiblingIndex(4);
+                bgBlackFeed3.SetActive(true);
+
                 textTutTimer.SetActive(true);
-                btnBoosterManager.buttons[1].isSelected = true;
-                btnBoosterManager.buttons[1].selected.SetActive(true);
+                //btnBoosterManager.buttons[1].isSelected = true;
+                //btnBoosterManager.buttons[1].selected.SetActive(true);
             }
             else if (indexLevel == 8)
             {
+                handClick.SetActive(true);
+                Vector3 pos = new Vector3(btnBoosterManager.buttons[2].transform.position.x,
+                   btnBoosterManager.buttons[2].transform.position.y - 200,
+                   btnBoosterManager.buttons[2].transform.position.z);
+                handClick.transform.position = pos;
+
+                var temp = listBtnAndBg[2];
+                temp.transform.SetSiblingIndex(4);
+                bgBlackFeed3.SetActive(true);
+
                 textTutHint.SetActive(true);
-                btnBoosterManager.buttons[2].isSelected = true;
-                btnBoosterManager.buttons[2].selected.SetActive(true);
+                //btnBoosterManager.buttons[2].isSelected = true;
+                //btnBoosterManager.buttons[2].selected.SetActive(true);
             }
         }
     }
-
-
-
-
 
     public void UpdateNumBooster()
     {
@@ -199,17 +237,6 @@ public class SelectBoosterManager : MonoBehaviour
                 }
             }
 
-
-            //if (count > 0)
-            //{
-            //    numBtn.gameObject.SetActive(true);
-            //    txtNumBtn.text = count.ToString();
-            //}
-            //else
-            //{
-            //    btnPlus.gameObject.SetActive(true);
-            //    btn.interactable = false;
-            //}
         }
 
     }
