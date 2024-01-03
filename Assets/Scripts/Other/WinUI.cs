@@ -24,6 +24,7 @@ public class WinUI : MonoBehaviour
     public Quaternion[] initRos;
     public Transform endPosStar;
     int currentScore;
+    public GameObject vfxWin;
 
     public int starAdd;
 
@@ -34,7 +35,10 @@ public class WinUI : MonoBehaviour
         starAdd = star * MultiResult(hand.GetComponent<RectTransform>());
         txtPointMulti.text = starAdd.ToString();
     }
-
+    private void Update()
+    {
+        vfxWin.transform.Rotate(new Vector3(0, 0, 1) * 100f * Time.deltaTime);
+    }
 
     private void Start()
     {

@@ -295,7 +295,7 @@ public class LogicGameUI : MonoBehaviour
 
                     DataUseInGame.gameData.dailyData.Add(new DailyData()
                     {
-                        year = 2023,
+                        year = 2024,
                         month = DataUseInGame.gameData.month,
                         day = DataUseInGame.gameData.day,
                     });

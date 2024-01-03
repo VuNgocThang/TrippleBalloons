@@ -96,7 +96,7 @@ public class GameData
         maxRewardDaily = 28;
         isDaily = false;
         indexDailyLV = -1;
-        year = 2023;
+        year = 2024;
         dailyData = new List<DailyData>();
 
         isTutHintDone = false;

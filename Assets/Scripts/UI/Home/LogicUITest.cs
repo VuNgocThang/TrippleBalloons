@@ -44,6 +44,7 @@ public class LogicUITest : MonoBehaviour
     [SerializeField] GameObject panelHome;
     [SerializeField] Image imgHomeSelected;
     [SerializeField] GameObject topObject;
+    public GameObject blackHome;
 
     [Header("Daily")]
     [SerializeField] Button btnDaily;
@@ -166,6 +167,7 @@ public class LogicUITest : MonoBehaviour
         txtHome.gameObject.SetActive(false);
         imgHome.DOAnchorPosY(25, 0.3f, true);
         topObject.SetActive(false);
+        blackHome.SetActive(false);
 
         panelDaily.SetActive(false);
         imgDailySelected.sprite = spriteSelects[1];
@@ -202,6 +204,7 @@ public class LogicUITest : MonoBehaviour
         imgShopSelected.sprite = spriteSelects[1];
         txtShop.gameObject.SetActive(false);
         imgShop.DOAnchorPosY(0, 0.3f, true);
+        blackHome.SetActive(true);
 
         panelDaily.SetActive(false);
         imgDailySelected.sprite = spriteSelects[1];
@@ -235,6 +238,8 @@ public class LogicUITest : MonoBehaviour
         txtHome.gameObject.SetActive(false);
         imgHome.DOAnchorPosY(25, 0.3f, true);
         topObject.SetActive(true);
+        blackHome.SetActive(false);
+
 
         panelShop.SetActive(false);
         imgShopSelected.sprite = spriteSelects[1];

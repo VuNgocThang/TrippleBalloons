@@ -22,13 +22,13 @@ public class Bubble : MonoBehaviour
     public List<GameObject> objs = new List<GameObject>();
     public List<Material> mats = new List<Material>();
     public MeshCollider meshCollider;
+    public ParticleSystem particleEatt;
+    public Tweener tweenerMove;
+
     public Transform children;
     public Transform connectPoint;
     public GameObject particleBoom;
     public GameObject particlePP;
-    public ParticleSystem particleEatt;
-    public Tweener tweenerMove;
-
     public GameObject frozenObject;
     public int countFrozen;
     public bool CanMoving => !IsMoving && !IsDone;
@@ -47,7 +47,6 @@ public class Bubble : MonoBehaviour
             if (objs[i].activeSelf)
             {
                 objs[i].transform.localEulerAngles += new Vector3(0f, 1f * Time.deltaTime * 20f, 0f);
-
             }
         }
     }

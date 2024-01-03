@@ -155,7 +155,14 @@ public class LoseManager : MonoBehaviour
         bg.SetActive(false);
         StartCoroutine(LogicGame.instance.AnimBoomBB("SceneGame"));
         GameManager.Instance.SubHeart();
-        GameSave.IS_IN_GAME = true;
+        if (DataUseInGame.gameData.heart > 0)
+        {
+            GameSave.IS_IN_GAME = true;
+        }
+        else
+        {
+            GameSave.IS_IN_GAME = false;
+        }
     }
     public void BackHome()
     {

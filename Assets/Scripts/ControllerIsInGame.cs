@@ -45,6 +45,7 @@ public class ControllerIsInGame : MonoBehaviour
         bottomHome.SetActive(true);
         uiInGame.gameObject.SetActive(false);
         listPos.SetActive(false);
+        logicUI.blackHome.SetActive(true);
     }
 
     public void PanelInGame()
@@ -54,6 +55,8 @@ public class ControllerIsInGame : MonoBehaviour
         bottomHome.SetActive(false);
         uiInGame.gameObject.SetActive(true);
         listPos.SetActive(true);
+        logicUI.blackHome.SetActive(false);
+
     }
 
 

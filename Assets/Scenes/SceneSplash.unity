@@ -735,8 +735,8 @@ MonoBehaviour:
   eat: {fileID: 8300000, guid: 14477e192e36ed744898d4002d01a327, type: 3}
   pop: {fileID: 8300000, guid: f1f1ee5dc3a6ca94f96b3f948a1e8010, type: 3}
   click: {fileID: 8300000, guid: 98f372e7fe7747b4189d5fbba7ee3d30, type: 3}
-  fail: {fileID: 8300000, guid: 142ec80ef1d8c7e4b94813fb67796a1f, type: 3}
-  win: {fileID: 8300000, guid: 5d15943c415a0e24da8aa921df528652, type: 3}
+  fail: {fileID: 8300000, guid: f11da332c53ea2d46b2dbb5a46538bb3, type: 3}
+  win: {fileID: 8300000, guid: 59770c887e8464544803717f58c1ebfc, type: 3}
   clickMenu: {fileID: 8300000, guid: 9e99a5ad606601c478a53e916bc883f9, type: 3}
   coinCollection: {fileID: 8300000, guid: 1c23ff3de9e378e43a3683e2ddd86c12, type: 3}
   aus: {fileID: 2127035539}

@@ -54,6 +54,8 @@ public class BodyManager : MonoBehaviour
         {
             for (int i = 0; i < DataUseInGame.gameData.dailyData.Count; i++)
             {
+                Debug.Log(dateTime.Year + " --- " + dateTime.Month  +" ---" + buttonsManager[j].index);
+                Debug.Log(DataUseInGame.gameData.dailyData[i].year + " ... " + DataUseInGame.gameData.dailyData[i].month + " ... " + DataUseInGame.gameData.dailyData[i].day);
                 if (dateTime.Year == DataUseInGame.gameData.dailyData[i].year
                     && dateTime.Month == DataUseInGame.gameData.dailyData[i].month
                     && buttonsManager[j].index == DataUseInGame.gameData.dailyData[i].day)
@@ -84,6 +86,7 @@ public class BodyManager : MonoBehaviour
                     DataUseInGame.gameData.year = dateTime.Year;
                     DataUseInGame.gameData.month = dateTime.Month;
                     DataUseInGame.gameData.day = button.index;
+                    //Debug.Log(dateTime.Year + " ------ " + DataUseInGame.gameData.year);
                     DataUseInGame.instance.SaveData();
 
                     dailyManager.StateBtnPlay();

@@ -362,7 +362,7 @@ public class LogicGame : MonoBehaviour
             }
         }
 
-        Debug.Log(numCountParentOrChild);
+        //Debug.Log(numCountParentOrChild);
         foreach (Bubble bubble in listBB)
         {
             if (!bubble.isChild)
@@ -627,7 +627,6 @@ public class LogicGame : MonoBehaviour
         }
 
     }
-
     IEnumerator CircleParticle(Bubble bubble)
     {
         ParticleSystem obj = ObjectPoolParticle.Instance.GetPooledObject();
@@ -767,35 +766,35 @@ public class LogicGame : MonoBehaviour
                 g2.particleBoom.SetActive(true);
                 g3.particleBoom.SetActive(true);
 
-                GameObject obj3d = Instantiate(testObj);
-                obj3d.transform.SetParent(g2.transform.parent);
-                obj3d.transform.localScale = new Vector3(1, 1, 1);
-                obj3d.transform.localPosition = Vector3.zero;
-                obj3d.transform.localEulerAngles = Vector3.zero;
+                //GameObject obj3d = Instantiate(testObj);
+                //obj3d.transform.SetParent(g2.transform.parent);
+                //obj3d.transform.localScale = new Vector3(1, 1, 1);
+                //obj3d.transform.localPosition = Vector3.zero;
+                //obj3d.transform.localEulerAngles = Vector3.zero;
 
-                Image obj = ObjectPoolCoin.Instance.GetPooledObject();
-                obj.gameObject.SetActive(true);
-                obj.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
+                //Image obj = ObjectPoolCoin.Instance.GetPooledObject();
+                //obj.gameObject.SetActive(true);
+                //obj.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
 
 
                 g1.Move(g2.transform.parent, 0.3f, () =>
                 {
-                    obj.GetComponent<RectTransform>().DOMove(endPosStar.position, 0.5f)
-                        .SetEase(Ease.InOutCirc)
-                        .OnComplete(() =>
-                        {
-                            obj.gameObject.SetActive(false);
-                        });
+                    //obj.GetComponent<RectTransform>().DOMove(endPosStar.position, 0.5f)
+                    //    .SetEase(Ease.InOutCirc)
+                    //    .OnComplete(() =>
+                    //    {
+                    //        obj.gameObject.SetActive(false);
+                    //    });
 
-                    obj3d.transform.DOLocalMove(new Vector3(0f, 2f, -0.2f), 0.5f)
-                        .OnComplete(() =>
-                        {
-                            obj3d.transform.DORotate(new Vector3(0, 90, 0), 0.5f)
-                            .OnComplete(() =>
-                            {
-                                obj3d.SetActive(false);
-                            });
-                        });
+                    //obj3d.transform.DOLocalMove(new Vector3(0f, 2f, -0.2f), 0.5f)
+                    //    .OnComplete(() =>
+                    //    {
+                    //        obj3d.transform.DORotate(new Vector3(0, 90, 0), 0.5f)
+                    //        .OnComplete(() =>
+                    //        {
+                    //            obj3d.SetActive(false);
+                    //        });
+                    //    });
 
 
                     g1.gameObject.SetActive(false);
@@ -1135,7 +1134,8 @@ public class LogicGame : MonoBehaviour
                 bubble.meshCollider.enabled = true;
             });
         bubble.transform.SetParent(level.transform);
-        bubble.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+        //bubble.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+        bubble.transform.DOScale(bubble.originalScale, 0.3f);
 
         listBB.Add(bubble);
         listBBShuffle.Add(bubble);
@@ -1196,7 +1196,8 @@ public class LogicGame : MonoBehaviour
                     bubble.meshCollider.enabled = true;
                 });
             bubble.transform.SetParent(level.transform);
-            bubble.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+            //bubble.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+            bubble.transform.DOScale(bubble.originalScale, 0.3f);
             listBB.Add(bubble);
             listBBShuffle.Add(bubble);
             listGOStored.Remove(bubble);
@@ -1236,7 +1237,8 @@ public class LogicGame : MonoBehaviour
                     bubble.meshCollider.enabled = true;
                 });
             bubble.transform.SetParent(level.transform);
-            bubble.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+            //bubble.transform.DOScale(new Vector3(1f, 1f, 1f), 0.3f);
+            bubble.transform.DOScale(bubble.originalScale, 0.3f);
             listBB.Add(bubble);
             listBBShuffle.Add(bubble);
             listGOStored.Remove(bubble);

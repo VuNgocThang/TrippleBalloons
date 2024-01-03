@@ -32,6 +32,8 @@ public class SelectBoosterManager : MonoBehaviour
     {
         handClick.SetActive(false);
     }
+
+    
     public void StartGame()
     {
         AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
@@ -139,12 +141,12 @@ public class SelectBoosterManager : MonoBehaviour
         {
             if (indexLevel == 6)
             {
-                handClick.SetActive(true);
-                Vector3 pos = new Vector3(btnBoosterManager.buttons[0].transform.position.x,
-                    btnBoosterManager.buttons[0].transform.position.y - 200,
-                    btnBoosterManager.buttons[0].transform.position.z);
-                handClick.transform.position = pos;
-
+                //handClick.SetActive(true);
+                //Vector3 pos = new Vector3(btnBoosterManager.buttons[0].transform.position.x,
+                //    btnBoosterManager.buttons[0].transform.position.y - 0,
+                //    btnBoosterManager.buttons[0].transform.position.z);
+                //handClick.transform.position = pos;
+                StartCoroutine(ActiveHandClick(0));
                 var temp = listBtnAndBg[0];
                 temp.transform.SetSiblingIndex(4);
                 bgBlackFeed3.SetActive(true);
@@ -153,11 +155,12 @@ public class SelectBoosterManager : MonoBehaviour
             }
             else if (indexLevel == 7)
             {
-                handClick.SetActive(true);
-                Vector3 pos = new Vector3(btnBoosterManager.buttons[1].transform.position.x,
-                   btnBoosterManager.buttons[1].transform.position.y - 200,
-                   btnBoosterManager.buttons[1].transform.position.z);
-                handClick.transform.position = pos;
+                //handClick.SetActive(true);
+                //Vector3 pos = new Vector3(btnBoosterManager.buttons[1].transform.position.x,
+                //   btnBoosterManager.buttons[1].transform.position.y - 0,
+                //   btnBoosterManager.buttons[1].transform.position.z);
+                //handClick.transform.position = pos;
+                StartCoroutine(ActiveHandClick(1));
 
                 var temp = listBtnAndBg[1];
                 temp.transform.SetSiblingIndex(4);
@@ -167,11 +170,12 @@ public class SelectBoosterManager : MonoBehaviour
             }
             else if (indexLevel == 8)
             {
-                handClick.SetActive(true);
-                Vector3 pos = new Vector3(btnBoosterManager.buttons[2].transform.position.x,
-                   btnBoosterManager.buttons[2].transform.position.y - 200,
-                   btnBoosterManager.buttons[2].transform.position.z);
-                handClick.transform.position = pos;
+                //handClick.SetActive(true);
+                //Vector3 pos = new Vector3(btnBoosterManager.buttons[2].transform.position.x,
+                //   btnBoosterManager.buttons[2].transform.position.y - 0,
+                //   btnBoosterManager.buttons[2].transform.position.z);
+                //handClick.transform.position = pos;
+                StartCoroutine(ActiveHandClick(2));
 
                 var temp = listBtnAndBg[2];
                 temp.transform.SetSiblingIndex(4);
@@ -182,6 +186,15 @@ public class SelectBoosterManager : MonoBehaviour
         }
     }
 
+    IEnumerator ActiveHandClick(int index)
+    {
+        yield return new WaitForSeconds(0.5f);
+        handClick.SetActive(true);
+        Vector3 pos = new Vector3(btnBoosterManager.buttons[index].transform.position.x,
+                  btnBoosterManager.buttons[index].transform.position.y - 0,
+                  btnBoosterManager.buttons[index].transform.position.z);
+        handClick.transform.position = pos;
+    }
     public void UpdateNumBooster()
     {
         for (int i = 0; i < btnBoosters.Count; i++)

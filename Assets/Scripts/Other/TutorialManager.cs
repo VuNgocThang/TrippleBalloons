@@ -149,7 +149,7 @@ public class TutorialManager : MonoBehaviour
                 txtWrappedBB.transform.position = Camera.main.WorldToScreenPoint(pos) + new Vector3(0, 250f, 0);
             }
 
-            StartCoroutine(MoveHand());
+               StartCoroutine(MoveHand());
         }
     }
 
@@ -169,10 +169,8 @@ public class TutorialManager : MonoBehaviour
     public void HideHandWrapped()
     {
         imgBlackTut.SetActive(false);
-
         handClick.gameObject.SetActive(false);
         txtWrappedBB.gameObject.SetActive(false);
-        shader.SetActive(false);
         DataUseInGame.gameData.isTutWrappedDone = true;
         DataUseInGame.instance.SaveData();
     }
