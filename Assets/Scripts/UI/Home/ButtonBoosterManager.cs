@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class ButtonBoosterManager : MonoBehaviour
 {
     public List<ButtonBooster> buttons = new List<ButtonBooster>();
+    public SelectBoosterManager selectBoosterManager;
     private void Start()
     {
         Init();
@@ -32,17 +33,12 @@ public class ButtonBoosterManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        IncreaseTest();
-    }
-
     public void OnClick(ButtonBooster buttonBooster, GameObject selectedObj, bool isSelected)
     {
         buttonBooster.btn.onClick.AddListener(() =>
         {
             AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.clickMenu);
-
+            selectBoosterManager.handClick.SetActive(false);
             if (!selectedObj.activeSelf)
             {
                 selectedObj.SetActive(true);
@@ -72,33 +68,6 @@ public class ButtonBoosterManager : MonoBehaviour
         }
     }
 
-    void IncreaseTest()
-    {
-        if (Input.GetKeyUp(KeyCode.V))
-        {
-            buttons[0].count++;
-            PlayerPrefs.SetInt("NumLightning", buttons[0].count);
-            PlayerPrefs.Save();
-            Init();
-        }
-
-        if (Input.GetKeyUp(KeyCode.B))
-        {
-            buttons[1].count++;
-            PlayerPrefs.SetInt("NumTimer", buttons[1].count);
-            PlayerPrefs.Save();
-            Init();
-        }
-
-        if (Input.GetKeyUp(KeyCode.N))
-        {
-            buttons[2].count++;
-            PlayerPrefs.SetInt("NumHint", buttons[2].count);
-            PlayerPrefs.Save();
-            Init();
-        }
-    }
-
-
+   
 
 }

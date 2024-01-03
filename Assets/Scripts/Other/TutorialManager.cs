@@ -144,12 +144,10 @@ public class TutorialManager : MonoBehaviour
             if (LogicGame.instance.listBBShuffle.Count > 0)
             {
                 Vector3 pos = LogicGame.instance.listBBShuffle[0].transform.position;
-                //imgBlackTut.SetActive(true);
+                imgBlackTut.SetActive(true);
+                imgBlackTut.transform.position = Camera.main.WorldToScreenPoint(pos);
                 txtWrappedBB.transform.position = Camera.main.WorldToScreenPoint(pos) + new Vector3(0, 250f, 0);
-                shader.SetActive(true);
-                shader.transform.position = new Vector3(pos.x, pos.y, -9f);
             }
-
 
             StartCoroutine(MoveHand());
         }

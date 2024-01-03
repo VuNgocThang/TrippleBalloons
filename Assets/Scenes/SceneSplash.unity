@@ -738,6 +738,7 @@ MonoBehaviour:
   fail: {fileID: 8300000, guid: 142ec80ef1d8c7e4b94813fb67796a1f, type: 3}
   win: {fileID: 8300000, guid: 5d15943c415a0e24da8aa921df528652, type: 3}
   clickMenu: {fileID: 8300000, guid: 9e99a5ad606601c478a53e916bc883f9, type: 3}
+  coinCollection: {fileID: 8300000, guid: 1c23ff3de9e378e43a3683e2ddd86c12, type: 3}
   aus: {fileID: 2127035539}
   backGroundMusic: {fileID: 2127035538}
 --- !u!82 &2127035538

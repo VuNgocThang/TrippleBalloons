@@ -2,12 +2,9 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class SelectBoosterManager : MonoBehaviour
 {
@@ -21,7 +18,7 @@ public class SelectBoosterManager : MonoBehaviour
     [SerializeField] GameObject textTutLight;
     [SerializeField] GameObject textTutTimer;
     [SerializeField] GameObject textTutHint;
-    [SerializeField] GameObject handClick;
+    public GameObject handClick;
 
     public List<GameObject> listBtnAndBg;
     public GameObject bgBlackFeed3;
@@ -153,8 +150,6 @@ public class SelectBoosterManager : MonoBehaviour
                 bgBlackFeed3.SetActive(true);
 
                 textTutLight.SetActive(true);
-                //btnBoosterManager.buttons[0].isSelected = true;
-                //btnBoosterManager.buttons[0].selected.SetActive(true);
             }
             else if (indexLevel == 7)
             {
@@ -169,8 +164,6 @@ public class SelectBoosterManager : MonoBehaviour
                 bgBlackFeed3.SetActive(true);
 
                 textTutTimer.SetActive(true);
-                //btnBoosterManager.buttons[1].isSelected = true;
-                //btnBoosterManager.buttons[1].selected.SetActive(true);
             }
             else if (indexLevel == 8)
             {
@@ -185,8 +178,6 @@ public class SelectBoosterManager : MonoBehaviour
                 bgBlackFeed3.SetActive(true);
 
                 textTutHint.SetActive(true);
-                //btnBoosterManager.buttons[2].isSelected = true;
-                //btnBoosterManager.buttons[2].selected.SetActive(true);
             }
         }
     }

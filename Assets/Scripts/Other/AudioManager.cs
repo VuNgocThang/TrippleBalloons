@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-    public AudioClip eat, pop, click, fail, win, clickMenu;
+    public AudioClip eat, pop, click, fail, win, clickMenu, coinCollection;
     public AudioSource aus;
     public AudioSource backGroundMusic;
     private void Awake()

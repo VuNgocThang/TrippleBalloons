@@ -136,6 +136,10 @@ public class WinUI : MonoBehaviour
             {
                 pileOfStars[i].GetComponent<RectTransform>()
                     .DOMove(endPosStar.position, 0.5f)
+                    .OnStart(() =>
+                    {
+                        AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.coinCollection);
+                    })
                     .SetDelay(delay + 0.2f)
                     .SetEase(Ease.OutBack);
                     
