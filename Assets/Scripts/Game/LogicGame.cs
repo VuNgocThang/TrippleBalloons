@@ -386,8 +386,6 @@ public class LogicGame : MonoBehaviour
         //        Debug.Log(listBB[i].name);
         //    }
         //}
-
-
     }
 
     //public List<int> indexBBQuestions = new List<int>();
