@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,37 +13,30 @@ public class ComboSystem : MonoBehaviour
     public Image imgFillCombo;
     public TextMeshProUGUI txtCombo;
     public GameObject progress;
-    public Color colorCombo3;
-    public Color colorCombo6;
-    public Color colorCombo9;
-    public Color colorCombo12;
-    public Color colorCombo15;
-    public Color colorComboOver;
-
+    public List<Sprite> listSpriteColor;
 
     private void Start()
     {
         InitializeCombo();
     }
-
     private void Update()
     {
         UpdateComboTimer();
+        
     }
-
     private void InitializeCombo()
     {
         comboTimer = defaultTimerCombo;
         currentComboTimer = comboTimer;
-        imgFillCombo.color = colorCombo3;
+        imgFillCombo.sprite = listSpriteColor[0];
     }
-
     private void UpdateComboTimer()
     {
         if (comboCount > 0)
         {
             currentComboTimer -= Time.deltaTime;
             imgFillCombo.fillAmount = currentComboTimer / comboTimer;
+            Debug.Log(imgFillCombo.fillAmount);
 
             if (currentComboTimer <= 0f)
             {
@@ -50,58 +44,60 @@ public class ComboSystem : MonoBehaviour
             }
         }
     }
-
     public void IncreaseCombo()
     {
         comboCount++;
         UpdateComboColor();
         currentComboTimer = comboTimer;
-        //Debug.Log("Combo: " + comboCount);  
+        Debug.Log("Combo: " + comboCount);  
     }
-
     private void UpdateComboColor()
     {
         if (comboCount >= 3 && comboCount < 6)
         {
-            imgFillCombo.color = colorCombo6;
+            imgFillCombo.sprite = listSpriteColor[1];
             comboTimer = 3f;
         }
         else if (comboCount >= 6 && comboCount < 9)
         {
-            imgFillCombo.color = colorCombo9;
+            imgFillCombo.sprite = listSpriteColor[2];
             comboTimer = 2f;
         }
         else if (comboCount >= 9 && comboCount < 12)
         {
-            imgFillCombo.color = colorCombo12;
+            imgFillCombo.sprite = listSpriteColor[3];
         }
         else if (comboCount >= 12 && comboCount < 15)
         {
-            imgFillCombo.color = colorCombo15;
+            imgFillCombo.sprite = listSpriteColor[4];
         }
         else if (comboCount >= 15)
         {
-            imgFillCombo.color = colorComboOver;
+            imgFillCombo.sprite = listSpriteColor[5];
         }
     }
-
     public void ResetCombo()
     {
         comboCount = 0;
         InitializeCombo();
         //Debug.Log("Combo Reset!");
     }
-
     private void OnGUI()
     {
         if (comboCount > 0)
         {
             progress.SetActive(true);
             txtCombo.text = $"Combo x {comboCount}";
+
+            Material newMaterial = new Material(txtCombo.fontSharedMaterial);
+            txtCombo.fontSharedMaterial = newMaterial; 
+
+            newMaterial.EnableKeyword("GLOW_ON"); 
         }
         else
         {
             progress.SetActive(false);
         }
+
     }
 }
