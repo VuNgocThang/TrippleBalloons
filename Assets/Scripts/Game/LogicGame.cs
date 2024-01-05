@@ -770,19 +770,19 @@ public class LogicGame : MonoBehaviour
                 //obj3d.transform.localPosition = Vector3.zero;
                 //obj3d.transform.localEulerAngles = Vector3.zero;
 
-                //Image obj = ObjectPoolCoin.Instance.GetPooledObject();
-                //obj.gameObject.SetActive(true);
-                //obj.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
+                Image obj = ObjectPoolCoin.Instance.GetPooledObject();
+                obj.gameObject.SetActive(true);
+                obj.transform.position = Camera.main.WorldToScreenPoint(g2.transform.position);
 
 
                 g1.Move(g2.transform.parent, 0.3f, () =>
                 {
-                    //obj.GetComponent<RectTransform>().DOMove(endPosStar.position, 0.5f)
-                    //    .SetEase(Ease.InOutCirc)
-                    //    .OnComplete(() =>
-                    //    {
-                    //        obj.gameObject.SetActive(false);
-                    //    });
+                    obj.GetComponent<RectTransform>().DOMove(endPosStar.position, 0.5f)
+                        .SetEase(Ease.InOutCirc)
+                        .OnComplete(() =>
+                        {
+                            obj.gameObject.SetActive(false);
+                        });
 
                     //obj3d.transform.DOLocalMove(new Vector3(0f, 2f, -0.2f), 0.5f)
                     //    .OnComplete(() =>
@@ -1286,7 +1286,7 @@ public class LogicGame : MonoBehaviour
     IEnumerator StopFreeze()
     {
         isFreezeing = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         timer.isFreeze = false;
         isFreezeing = false;
     }
