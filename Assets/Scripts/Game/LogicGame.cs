@@ -764,11 +764,6 @@ public class LogicGame : MonoBehaviour
                 g2.particleBoom.SetActive(true);
                 g3.particleBoom.SetActive(true);
 
-                //GameObject obj3d = Instantiate(testObj);
-                //obj3d.transform.SetParent(g2.transform.parent);
-                //obj3d.transform.localScale = new Vector3(1, 1, 1);
-                //obj3d.transform.localPosition = Vector3.zero;
-                //obj3d.transform.localEulerAngles = Vector3.zero;
 
                 Image obj = ObjectPoolCoin.Instance.GetPooledObject();
                 obj.gameObject.SetActive(true);
