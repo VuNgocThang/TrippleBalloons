@@ -36,7 +36,6 @@ public class ComboSystem : MonoBehaviour
         {
             currentComboTimer -= Time.deltaTime;
             imgFillCombo.fillAmount = currentComboTimer / comboTimer;
-            Debug.Log(imgFillCombo.fillAmount);
 
             if (currentComboTimer <= 0f)
             {

@@ -17,6 +17,7 @@ public class Bubble : MonoBehaviour
     public bool canMoveHT;
     public bool IsMoving;
     public bool IsDone;
+    public bool isFrozen;
 
     public Rigidbody rb;
     public List<GameObject> objs = new List<GameObject>();
@@ -30,7 +31,7 @@ public class Bubble : MonoBehaviour
     public GameObject particleBoom;
     public GameObject particlePP;
     public GameObject frozenObject;
-    public int countFrozen;
+    public List<GameObject> layerFrozen;
     public bool CanMoving => !IsMoving && !IsDone;
 
 

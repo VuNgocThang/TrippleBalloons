@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class LogicGame : MonoBehaviour
 {
@@ -86,6 +87,7 @@ public class LogicGame : MonoBehaviour
                 level = Instantiate(listLevel[indexLevelText], transform);
             }
             level.gameObject.SetActive(false);
+            listBBFrozens.Clear();
 
             indexLevel = DataUseInGame.gameData.indexDailyLV;
             level = Instantiate(listLevelDaily[indexLevel], transform);
@@ -219,7 +221,7 @@ public class LogicGame : MonoBehaviour
         int countParent = 0;
         int numCountParent;
         int numCountParentOrChild = 0;
-       
+
 
         for (int i = 0; i < level.bubbles.Count; i++)
         {
@@ -362,7 +364,6 @@ public class LogicGame : MonoBehaviour
             }
         }
 
-        //Debug.Log(numCountParentOrChild);
         foreach (Bubble bubble in listBB)
         {
             if (!bubble.isChild)
@@ -415,11 +416,20 @@ public class LogicGame : MonoBehaviour
 
     void CreateBBFrozen()
     {
-        for (int i = 0; i < countFrozenBB; i++)
-        {
-            listBB[i].countFrozen = 3;
+        int c = countFrozenBB;
 
+        while (c > 0)
+        {
+            int index = Random.Range(0, listBBShuffle.Count);
+
+            if (listBBShuffle[index].hasChildren) continue;
+
+            listBBShuffle[index].frozenObject.SetActive(true);
+            listBBShuffle[index].isFrozen = true;
+            listBBFrozens.Add(listBBShuffle[index]);
+            c--;
         }
+
     }
     public void UseBooster()
     {
@@ -462,7 +472,7 @@ public class LogicGame : MonoBehaviour
                 for (int j = i + 1; j < listBBShuffle.Count; j++)
                 {
                     if (listBBShuffle[i].ID == listBBShuffle[indexHint].ID && listBBShuffle[j].ID == listBBShuffle[indexHint].ID
-                        && i != indexHint && j != indexHint 
+                        && i != indexHint && j != indexHint
                         && !listBBShuffle[i].hasChildren && !listBBShuffle[j].hasChildren && !listBBShuffle[indexHint].hasChildren)
                     {
 
@@ -607,7 +617,7 @@ public class LogicGame : MonoBehaviour
                     Bubble bubble = raycastHit.collider.GetComponent<Bubble>();
 
                     if (!bubble.click && indexLevel == 0 && !DataUseInGame.gameData.isDaily) return;
-                    //if (bubble.countFrozen > 0) return;
+                    if (bubble.isFrozen) return;
 
                     bubble.originalPos = bubble.transform.position;
 
@@ -666,10 +676,10 @@ public class LogicGame : MonoBehaviour
         }
         listGOStored = tempB;
 
-        if (bubble.countFrozen == 999)
-        {
-            bubble.countFrozen = 0;
-        }
+        //if (bubble.countFrozen == 999)
+        //{
+        //    bubble.countFrozen = 0;
+        //}
 
         CanEat();
 
@@ -714,6 +724,7 @@ public class LogicGame : MonoBehaviour
     public Transform endPosStar;
     int currentIndexFrozen = 0;
     public GameObject testObj;
+    public int indexLayerFrozen = 0;
     void CheckEat()
     {
         Tweener tweener = null;
@@ -724,10 +735,7 @@ public class LogicGame : MonoBehaviour
             {
                 comboSystem.IncreaseCombo();
                 isHint = false;
-                //if (listBBFrozens.Count > 0)
-                //{
-                //    listBBFrozens[0].countFrozen--;
-                //}
+                SolveFrozenBB();
 
                 //for (int m = 0; m < listBBFrozens.Count; m++)
                 //{
@@ -828,6 +836,39 @@ public class LogicGame : MonoBehaviour
             CheckLose();
         }
     }
+
+    private void SolveFrozenBB()
+    {
+        if (listBBFrozens.Count <= 0) return;
+
+        if (indexLayerFrozen < 3)
+        {
+            listBBFrozens[0].layerFrozen[indexLayerFrozen].SetActive(false);
+        }
+
+        bool allInactive = true;
+        foreach (var layer in listBBFrozens[0].layerFrozen)
+        {
+            if (layer.activeSelf)
+            {
+                allInactive = false;
+                break;
+            }
+        }
+
+        if (allInactive)
+        {
+            Debug.Log("set active thành false.");
+            indexLayerFrozen = 0;
+            listBBFrozens[0].isFrozen = false;
+            listBBFrozens.RemoveAt(0);
+        }
+        else
+        {
+            indexLayerFrozen++;
+        }
+    }
+
     void CheckDone()
     {
         canEat = false;
