@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UI.Extensions;
 
 public class Timer : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class Timer : MonoBehaviour
     public GameObject usingBoosterTimer;
     public GameObject usingBoosterLightning;
     public CanvasGroup usingBoosterCG;
+
+    public ParticleSystem particleTimer;
 
 
     public void Init()

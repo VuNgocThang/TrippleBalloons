@@ -57,8 +57,10 @@ public class LogicGame : MonoBehaviour
     public bool isUseBooster;
 
     public List<Bubble> listBBFrozens;
+    public List<Bubble> listBBQuestions;
     public int countFrozenBB = 3;
-    //public int countQuestionBB = 3;
+    public int countQuestionBB = 3;
+    public ParticleSystem particleShuffle;
 
     private void Awake()
     {
@@ -373,7 +375,7 @@ public class LogicGame : MonoBehaviour
         }
 
         CreateBBFrozen();
-        //InitBubbleQuestion();
+        InitBubbleQuestion();
 
         //for (int i = 0; i < listBB.Count; i++)
         //{
@@ -389,31 +391,35 @@ public class LogicGame : MonoBehaviour
         //}
     }
 
-    //public List<int> indexBBQuestions = new List<int>();
-    //void InitBubbleQuestion()
-    //{
-    //    while (countQuestionBB > 0)
-    //    {
-    //        int indexBBQuestion;
-    //        indexBBQuestion = UnityEngine.Random.Range(0, listBB.Count);
-    //        Debug.Log(indexBBQuestion + " demo");
-    //        if (listBB[indexBBQuestion].hasChildren || listBB[indexBBQuestion].isChild)
-    //        {
-    //            continue;
-    //        }
-    //        else
-    //        {
-    //            if (!indexBBQuestions.Contains(indexBBQuestion))
-    //            {
-    //                Debug.Log(indexBBQuestion + " canUse");
-    //                indexBBQuestions.Add(indexBBQuestion);
-    //                listBB[indexBBQuestion].countFrozen = 999;
-    //                countQuestionBB--;
-    //            }
-    //        }
-    //    }
-    //}
+    public List<int> indexBBQuestions = new List<int>();
+    void InitBubbleQuestion()
+    {
+        int c = countQuestionBB;
+        while (c > 0)
+        {
+            int indexBBQuestion;
+            indexBBQuestion = Random.Range(0, listBB.Count);
+            Debug.Log(indexBBQuestion + " demo");
+            if (listBB[indexBBQuestion].hasChildren || listBB[indexBBQuestion].isChild)
+            {
+                continue;
+            }
+            else
+            {
+                if (!indexBBQuestions.Contains(indexBBQuestion) && !listIndexBBFrozen.Contains(indexBBQuestion))
+                {
+                    Debug.Log(indexBBQuestion + " canUse");
+                    indexBBQuestions.Add(indexBBQuestion);
+                    listBBShuffle[indexBBQuestion].questionObject.SetActive(true);
+                    listBBShuffle[indexBBQuestion].InActive();
+                    listBBQuestions.Add(listBBShuffle[indexBBQuestion]);
+                    c--;
+                }
+            }
+        }
+    }
 
+    public List<int> listIndexBBFrozen = new List<int>();
     void CreateBBFrozen()
     {
         int c = countFrozenBB;
@@ -424,10 +430,14 @@ public class LogicGame : MonoBehaviour
 
             if (listBBShuffle[index].hasChildren) continue;
 
-            listBBShuffle[index].frozenObject.SetActive(true);
-            listBBShuffle[index].isFrozen = true;
-            listBBFrozens.Add(listBBShuffle[index]);
-            c--;
+            if (!listIndexBBFrozen.Contains(index))
+            {
+                listIndexBBFrozen.Add(index);
+                listBBShuffle[index].frozenObject.SetActive(true);
+                listBBShuffle[index].isFrozen = true;
+                listBBFrozens.Add(listBBShuffle[index]);
+                c--;
+            }
         }
 
     }
@@ -481,9 +491,25 @@ public class LogicGame : MonoBehaviour
                         var g3 = listBBShuffle[indexHint];
 
                         g1.transform.DOScale(new Vector3(1.8f, 1.8f, 1.8f), 0.5f)
+                            .OnStart(() =>
+                            {
+                                g1.particleHint.Play();
+                            })
                             .SetEase(Ease.Flash);
-                        g2.transform.DOScale(new Vector3(1.8f, 1.8f, 1.8f), 0.5f).SetEase(Ease.Flash);
-                        g3.transform.DOScale(new Vector3(1.8f, 1.8f, 1.8f), 0.5f).SetEase(Ease.Flash);
+
+                        g2.transform.DOScale(new Vector3(1.8f, 1.8f, 1.8f), 0.5f)
+                            .OnStart(() =>
+                            {
+                                g2.particleHint.Play();
+                            })
+                            .SetEase(Ease.Flash);
+
+                        g3.transform.DOScale(new Vector3(1.8f, 1.8f, 1.8f), 0.5f)
+                            .OnStart(() =>
+                            {
+                                g3.particleHint.Play();
+                            })
+                            .SetEase(Ease.Flash);
 
                         foundPair = true;
                         return;
@@ -494,8 +520,16 @@ public class LogicGame : MonoBehaviour
     }
     void UseBoosterTimer()
     {
+        StartCoroutine(AnimTimerBuff());
+    }
+
+    IEnumerator AnimTimerBuff()
+    {
+        yield return new WaitForSeconds(0.5f);
+        timer.particleTimer.Play();
         timer.timeLeft += 30f;
     }
+
     void UseBoosterLightning()
     {
         bool foundPair = false;
@@ -566,6 +600,8 @@ public class LogicGame : MonoBehaviour
     }
     IEnumerator AnimBBBooster(Bubble bb)
     {
+        bb.particleLightning.Play();
+        yield return new WaitForSeconds(0.2f);
         bb.particleBoom.SetActive(true);
         yield return new WaitForSeconds(0.005f);
         foreach (var obj in bb.objs)
@@ -676,12 +712,8 @@ public class LogicGame : MonoBehaviour
         }
         listGOStored = tempB;
 
-        //if (bubble.countFrozen == 999)
-        //{
-        //    bubble.countFrozen = 0;
-        //}
-
         CanEat();
+        SolveBBQuestion(bubble);
 
         for (int i = 0; i < listGOStored.Count; ++i)
         {
@@ -692,6 +724,15 @@ public class LogicGame : MonoBehaviour
         }
 
 
+    }
+    void SolveBBQuestion(Bubble bubble)
+    {
+        if (bubble.questionObject.activeSelf)
+        {
+            Debug.Log(bubble.ID);
+            bubble.questionObject.SetActive(false);
+            bubble.Init(bubble.ID);
+        }
     }
     private void SolveChildOfBB(Bubble bubble)
     {
@@ -737,27 +778,6 @@ public class LogicGame : MonoBehaviour
                 isHint = false;
                 SolveFrozenBB();
 
-                //for (int m = 0; m < listBBFrozens.Count; m++)
-                //{
-                //    if (listBBFrozens[m].countFrozen <= 0)
-                //    {
-                //        listBBFrozens.RemoveAt(m);
-                //    }
-                //}
-
-                //if (listBB[currentIndexFrozen].countFrozen > 0)
-                //{
-                //    listBB[currentIndexFrozen].countFrozen--;
-                //}
-                //else
-                //{
-                //    if (currentIndexFrozen < countFrozenBB)
-                //    {
-                //        Debug.Log("plus currentIndexFrozen");
-                //        currentIndexFrozen++;
-                //    }
-                //}
-
                 count -= 1;
                 var g1 = listGOStored[i];
                 var g2 = listGOStored[i + 1];
@@ -786,17 +806,6 @@ public class LogicGame : MonoBehaviour
                         {
                             obj.gameObject.SetActive(false);
                         });
-
-                    //obj3d.transform.DOLocalMove(new Vector3(0f, 2f, -0.2f), 0.5f)
-                    //    .OnComplete(() =>
-                    //    {
-                    //        obj3d.transform.DORotate(new Vector3(0, 90, 0), 0.5f)
-                    //        .OnComplete(() =>
-                    //        {
-                    //            obj3d.SetActive(false);
-                    //        });
-                    //    });
-
 
                     g1.gameObject.SetActive(false);
                     g2.gameObject.SetActive(false);
@@ -840,6 +849,7 @@ public class LogicGame : MonoBehaviour
     private void SolveFrozenBB()
     {
         if (listBBFrozens.Count <= 0) return;
+
 
         if (indexLayerFrozen < 3)
         {
@@ -1007,12 +1017,14 @@ public class LogicGame : MonoBehaviour
             if (canShuffle)
             {
                 Physics.autoSimulation = false;
-                listBBShuffle[currentIndex].transform.DOMove(listNewPosShuffle[currentIndex], 1f)
+                listBBShuffle[currentIndex].transform.DOMove(listNewPosShuffle[currentIndex], 0.7f)
                     .OnStart(() =>
                     {
                         canShuffle = false;
                         canClick = false;
                         isShuffleing = true;
+                        particleShuffle.Play();
+
                     })
 
                     .OnComplete(() =>
@@ -1022,6 +1034,7 @@ public class LogicGame : MonoBehaviour
                         canClick = true;
                         isShuffleing = false;
                         useByBtn = false;
+
                     });
             }
         }
@@ -1322,7 +1335,10 @@ public class LogicGame : MonoBehaviour
     IEnumerator StopFreeze()
     {
         isFreezeing = true;
+        logicUI.frozenTimer.gameObject.SetActive(true);
+        logicUI.frozenTimer.DOFade(0.2f, 10f).From(0.8f);
         yield return new WaitForSeconds(10f);
+        logicUI.frozenTimer.gameObject.SetActive(false);
         timer.isFreeze = false;
         isFreezeing = false;
     }
