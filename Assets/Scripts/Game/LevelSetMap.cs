@@ -6,4 +6,6 @@ public class LevelSetMap : MonoBehaviour
 {
     public List<Bubble> bubbles = new List<Bubble>();
     public int maxEach;
+    public int countOfBBQuestion;
+    public int countOfBBFrozen;
 }

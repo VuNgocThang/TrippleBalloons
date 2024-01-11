@@ -106,6 +106,8 @@ MonoBehaviour:
   - {fileID: 4145406729175851731}
   - {fileID: 2283464685913641692}
   maxEach: 3
+  countOfBBQuestion: 0
+  countOfBBFrozen: 0
 --- !u!114 &4196584972869656558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creator: {fileID: 0}
-  speed: 0.2
+  speed: 0.15
 --- !u!1001 &3181336682706826935
 PrefabInstance:
   m_ObjectHideFlags: 0

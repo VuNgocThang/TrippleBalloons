@@ -14,6 +14,7 @@ public class LogicGift : MonoBehaviour
     {
         distacne += speed * Time.deltaTime;
         transform.position = creator.path.GetPointAtDistance(distacne);
+        transform.rotation = creator.path.GetRotationAtDistance(distacne) ;
         LogicGame.instance.UpdateLine();
         if (IsObjectOutOfEyes() && !checkOut)
         {

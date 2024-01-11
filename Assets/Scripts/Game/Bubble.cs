@@ -24,6 +24,9 @@ public class Bubble : MonoBehaviour
     public List<Material> mats = new List<Material>();
     public MeshCollider meshCollider;
     public ParticleSystem particleEatt;
+    public ParticleSystem particleHint;
+    public ParticleSystem particleFrozenBB;
+    public ParticleSystem particleLightning;
     public Tweener tweenerMove;
 
     public Transform children;
@@ -32,6 +35,8 @@ public class Bubble : MonoBehaviour
     public GameObject particlePP;
     public GameObject frozenObject;
     public List<GameObject> layerFrozen;
+    public GameObject questionObject;
+
     public bool CanMoving => !IsMoving && !IsDone;
 
 
@@ -71,6 +76,13 @@ public class Bubble : MonoBehaviour
             SelectMaterial(0);
         }
         objs[i].GetComponent<MeshRenderer>().material.SetFloat("_Index", index + 1);
+    }
+    public void InActive()
+    {
+        for (int i = 0; i < objs.Count; ++i)
+        {
+            objs[i].SetActive(false);
+        }
     }
     public int SetIndexObjs(int i)
     {

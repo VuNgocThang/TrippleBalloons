@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class LogicGameUI : MonoBehaviour
 {
     [SerializeField] Timer timer;
+    public Image frozenTimer;
+    public ParticleSystem buffTimer;
+    public ParticleSystem buffFrozen;
 
     [Header("Pause")]
     [SerializeField] Button btnHome;

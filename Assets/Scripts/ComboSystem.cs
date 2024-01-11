@@ -13,6 +13,7 @@ public class ComboSystem : MonoBehaviour
     public Image imgFillCombo;
     public TextMeshProUGUI txtCombo;
     public GameObject progress;
+    public GameObject comboBaseObj;
     public List<Sprite> listSpriteColor;
 
     private void Start()
@@ -85,6 +86,7 @@ public class ComboSystem : MonoBehaviour
     {
         if (comboCount > 0)
         {
+            comboBaseObj.SetActive(true);
             progress.SetActive(true);
             txtCombo.text = $"Combo x {comboCount}";
 
@@ -95,6 +97,7 @@ public class ComboSystem : MonoBehaviour
         }
         else
         {
+            comboBaseObj.SetActive(false);
             progress.SetActive(false);
         }
 

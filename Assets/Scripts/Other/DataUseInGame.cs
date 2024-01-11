@@ -63,7 +63,7 @@ public class GameData
         maxHeart = 5;
         star = 0;
         gold = 0;
-        numHintItem = 99;
+        numHintItem = 9999;
         numShuffleItem = 99;
         numUndoItem = 99;
         numTrippleUndoItem = 99;

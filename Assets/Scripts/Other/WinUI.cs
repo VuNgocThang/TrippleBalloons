@@ -30,7 +30,8 @@ public class WinUI : MonoBehaviour
 
     private void OnGUI()
     {
-        int star = 100 + (DataUseInGame.gameData.indexLevel + 1) * 20 + Mathf.RoundToInt(LogicGame.instance.timer.timeLeft) * 2;
+        //int star = 100 + (DataUseInGame.gameData.indexLevel + 1) * 20 + Mathf.RoundToInt(LogicGame.instance.timer.timeLeft) * 2;
+        int star = LogicGame.instance.starWinGame + Mathf.RoundToInt(LogicGame.instance.timer.timeLeft) * 2;
         txtPoint.text = star.ToString();
         starAdd = star * MultiResult(hand.GetComponent<RectTransform>());
         txtPointMulti.text = starAdd.ToString();
