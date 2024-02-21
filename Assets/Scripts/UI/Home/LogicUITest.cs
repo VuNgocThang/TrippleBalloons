@@ -274,8 +274,8 @@ public class LogicUITest : MonoBehaviour
             LogicGame.instance.timer.Init();
             LogicGame.instance.isUseBooster = true;
             LogicGame.instance.timer.stopTimer = true;
-            AnimationPopup.instance.FadeWhileMoveUp(LogicGame.instance.timer.usingBoosterCG.gameObject, 1f);
-            usingBoosterCG.DOFade(0f, 1f)
+            //AnimationPopup.instance.FadeWhileMoveUp(LogicGame.instance.timer.usingBoosterCG.gameObject, 1f);
+            usingBoosterCG.DOFade(1f, 2f)
                 .OnComplete(() =>
                 {
                     usingBooster.SetActive(false);

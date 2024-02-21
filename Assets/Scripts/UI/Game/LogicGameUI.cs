@@ -244,9 +244,9 @@ public class LogicGameUI : MonoBehaviour
         timer.stopTimer = false;
         LogicGame.instance.canClick = true;
     }
-    List<int> listIndexNewTiles = new List<int>()
+    public List<int> listIndexNewTiles = new List<int>()
     {
-        4,9,14,19,24,29
+        4,9,14,19,24,29,34,39,44,49,54,59
     };
     IEnumerator LoadSceneHome()
     {

@@ -134,7 +134,7 @@ MonoBehaviour:
   - {fileID: 5179447774375976628}
   maxEach: 6
   countOfBBQuestion: 0
-  countOfBBFrozen: 3
+  countOfBBFrozen: 6
 --- !u!114 &1193266455774577251
 MonoBehaviour:
   m_ObjectHideFlags: 0

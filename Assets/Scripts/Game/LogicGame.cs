@@ -468,39 +468,47 @@ public class LogicGame : MonoBehaviour
         bool foundPair = false;
         do
         {
-            indexHint = UnityEngine.Random.Range(0, listBBShuffle.Count);
+            indexHint = Random.Range(0, listBBShuffle.Count);
             for (int i = 0; i < listBBShuffle.Count; i++)
             {
                 for (int j = i + 1; j < listBBShuffle.Count; j++)
                 {
-                    if (listBBShuffle[i].ID == listBBShuffle[indexHint].ID && listBBShuffle[j].ID == listBBShuffle[indexHint].ID
+                    var hintID = listBBShuffle[indexHint].ID;
+                    var hintHasChildren = listBBShuffle[indexHint].hasChildren;
+                    var hintInFrozenList = listIndexBBFrozen.Contains(indexHint);
+                    var hintInQuestionList = indexBBQuestions.Contains(indexHint);
+
+                    if (listBBShuffle[i].ID == hintID && listBBShuffle[j].ID == hintID
                         && i != indexHint && j != indexHint
-                        && !listBBShuffle[i].hasChildren && !listBBShuffle[j].hasChildren && !listBBShuffle[indexHint].hasChildren)
+                        && !hintHasChildren && !listBBShuffle[i].hasChildren && !listBBShuffle[j].hasChildren
+                        && !hintInFrozenList && !listIndexBBFrozen.Contains(i) && !listIndexBBFrozen.Contains(j)
+                        && !hintInQuestionList && !indexBBQuestions.Contains(i) && !indexBBQuestions.Contains(j))
                     {
 
                         var g1 = listBBShuffle[i];
                         var g2 = listBBShuffle[j];
                         var g3 = listBBShuffle[indexHint];
 
-                        g1.transform.DOScale(new Vector3(1.8f, 1.8f, 1.8f), 0.5f)
-                            //.OnStart(() =>
-                            //{
-                            //    g1.particleHint.Play();
-                            //})
+                        float offset = 1.5f;
+                        g1.transform.DOScale(new Vector3(offset, offset, offset), 0.5f)
+                            .OnStart(() =>
+                            {
+                                g1.particleHint.Play();
+                            })
                             .SetEase(Ease.Flash);
 
-                        g2.transform.DOScale(new Vector3(1.8f, 1.8f, 1.8f), 0.5f)
-                            //.OnStart(() =>
-                            //{
-                            //    g2.particleHint.Play();
-                            //})
+                        g2.transform.DOScale(new Vector3(offset, offset, offset), 0.5f)
+                            .OnStart(() =>
+                            {
+                                g2.particleHint.Play();
+                            })
                             .SetEase(Ease.Flash);
 
-                        g3.transform.DOScale(new Vector3(1.8f, 1.8f, 1.8f), 0.5f)
-                            //.OnStart(() =>
-                            //{
-                            //    g3.particleHint.Play();
-                            //})
+                        g3.transform.DOScale(new Vector3(offset, offset, offset), 0.5f)
+                            .OnStart(() =>
+                            {
+                                g3.particleHint.Play();
+                            })
                             .SetEase(Ease.Flash);
 
                         foundPair = true;
@@ -932,7 +940,43 @@ public class LogicGame : MonoBehaviour
             listBBQuestions[i].Init(listBBQuestions[i].ID);
         }
 
-        for (int i = 0; i < listBB.Count; ++i)
+        if (listBB.Count < 10)
+        {
+            for (int i = 0; i < listBB.Count; ++i)
+            {
+                StartCoroutine(AnimBB(listBB[i]));
+                SolveChildOfBB(listBB[i]);
+                AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
+                listBBShuffle.Remove(listBB[i]);
+            }
+        }
+        else
+        {
+            StartCoroutine(Test());
+        }
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene(str);
+        DOTween.KillAll();
+    }
+    IEnumerator Test()
+    {
+        for (int i = 0; i < Mathf.RoundToInt(listBB.Count / 3); i++)
+        {
+            StartCoroutine(AnimBB(listBB[i]));
+            SolveChildOfBB(listBB[i]);
+            AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
+            listBBShuffle.Remove(listBB[i]);
+        }
+        yield return new WaitForSeconds(0.5f);
+        for (int i = Mathf.RoundToInt(listBB.Count / 3); i < Mathf.RoundToInt(listBB.Count * 2 / 3); i++)
+        {
+            StartCoroutine(AnimBB(listBB[i]));
+            SolveChildOfBB(listBB[i]);
+            AudioManager.instance.UpdateSoundAndMusic(AudioManager.instance.aus, AudioManager.instance.pop);
+            listBBShuffle.Remove(listBB[i]);
+        }
+        yield return new WaitForSeconds(0.5f);
+        for (int i = Mathf.RoundToInt(listBB.Count * 2 / 3); i < listBB.Count; i++)
         {
             StartCoroutine(AnimBB(listBB[i]));
             SolveChildOfBB(listBB[i]);
@@ -940,9 +984,6 @@ public class LogicGame : MonoBehaviour
             listBBShuffle.Remove(listBB[i]);
         }
 
-        yield return new WaitForSeconds(4f);
-        SceneManager.LoadScene(str);
-        DOTween.KillAll();
     }
     IEnumerator AnimBB(Bubble bb)
     {

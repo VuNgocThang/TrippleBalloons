@@ -13754,7 +13754,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6627567152700515473}
-  - component: {fileID: 6627567152700515472}
+  - component: {fileID: 4534538063314431465}
+  - component: {fileID: -5324306547133224201}
   m_Layer: 0
   m_Name: Level_32
   m_TagString: Untagged
@@ -13824,7 +13825,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6627567152700515472
+--- !u!114 &4534538063314431465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -13833,23 +13834,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 6627567152700515474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c8539f7b75c814fa4a66ee10ee4162, type: 3}
+  m_Script: {fileID: 11500000, guid: cca06877b6af2e24a8576ca0e97127ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 7037611600876384336, guid: fcd7da3e32e774f43bbda2f5093d2555, type: 3}
-  radiuss:
-  - 1
-  - 1.5
-  - 2
-  - 2
-  - 1
-  ys:
-  - 0
-  - 1
-  - 1
-  - 1
-  - 1
-  numbers: 070000000a0000000c0000000b00000008000000
+  bubbles: []
+  maxEach: 0
+  countOfBBQuestion: 0
+  countOfBBFrozen: 0
+--- !u!114 &-5324306547133224201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6627567152700515474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96cd6504c1c3a7d4684136329d074aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  From: []
+  To: []
 --- !u!1 &6636570298390035210
 GameObject:
   m_ObjectHideFlags: 0
