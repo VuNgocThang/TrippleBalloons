@@ -250,7 +250,8 @@ public class LogicGameUI : MonoBehaviour
     };
     IEnumerator LoadSceneHome()
     {
-        yield return new WaitForSeconds(3f);
+        //yield return new WaitForSeconds(3f);
+        yield return null;
         AnimationPopup.instance.FadeWhileMoveUp(winUICG.gameObject, 0.5f);
         winUICG.DOFade(0f, 0.5f)
             .OnComplete(() =>
